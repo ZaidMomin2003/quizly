@@ -2,208 +2,108 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Sparkles, Timer, BarChart3, Bookmark } from "lucide-react";
+import { User, Search, BarChart, Calendar, Mail, FileText } from "lucide-react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Progress } from "../ui/progress";
-import { cn } from "@/lib/utils";
-
+import Image from "next/image";
 
 const features = [
     {
-        icon: <Sparkles className="h-8 w-8 text-primary" />,
-        title: "AI Quiz Generation",
-        description: "Instantly generate custom quizzes on any topic, at any difficulty level. Never run out of practice material again. Our AI adapts to your learning style.",
-        demo: <QuizDemo />
+        icon: <User className="h-6 w-6 text-primary" />,
+        title: "User Information",
+        description: "Lorem ipsum dolor sit amet elit sed consectetur adipiscing.",
     },
     {
-        icon: <Timer className="h-8 w-8 text-primary" />,
-        title: "Pomodoro Focus Timer",
-        description: "Integrate the proven Pomodoro technique into your study sessions to enhance focus, manage your time effectively, and prevent mental burnout.",
-        demo: <PomodoroDemo />
+        icon: <Search className="h-6 w-6 text-primary" />,
+        title: "Deal tracking",
+        description: "Ut enim ad minim veniam, quis nostrud exercitation.",
     },
     {
-        icon: <BarChart3 className="h-8 w-8 text-primary" />,
-        title: "Performance Analytics",
-        description: "Track your progress with detailed, easy-to-understand analytics. Pinpoint your weak areas with precision and receive recommendations to turn them into strengths.",
-        demo: <AnalyticsDemo />
+        icon: <BarChart className="h-6 w-6 text-primary" />,
+        title: "Pipeline management",
+        description: "Duis aute irure dolor in reprehenderit in voluptate.",
     },
      {
-        icon: <Bookmark className="h-8 w-8 text-primary" />,
-        title: "Bookmark Questions",
-        description: "Save challenging or important questions for later review. Build a personalized library of key concepts to ensure you have them mastered for exam day.",
-        demo: <BookmarkDemo />
+        icon: <FileText className="h-6 w-6 text-primary" />,
+        title: "Reporting dashboard",
+        description: "Ut enim ad minim veniam, quis nostrud exercitation amet.",
+    },
+     {
+        icon: <Calendar className="h-6 w-6 text-primary" />,
+        title: "Meeting scheduling",
+        description: "Duis aute irure dolor in amet reprehenderit in voluptate.",
+    },
+     {
+        icon: <Mail className="h-6 w-6 text-primary" />,
+        title: "Email tracking",
+        description: "Lorem ipsum dolor sit amet elit consectetur adipiscing.",
     },
 ]
 
 export function Features() {
   return (
+    <>
     <section id="features" className="w-full py-12 lg:py-24">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="space-y-2">
-            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-semibold">
-              Key Features
-            </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-              AI Tool That Delivers Real Results
+              Powerful features to help you close sales faster.
             </h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Our proven methods help you climb the ranks faster than ever, with no technical skills required.
-            </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <GlassCard className="lg:col-span-2">
-                <QuizDemo />
-            </GlassCard>
-            <GlassCard>
-                <PomodoroDemo />
-            </GlassCard>
-            <GlassCard>
-                <AnalyticsDemo />
-            </GlassCard>
-             <GlassCard className="lg:col-span-2">
-                <BookmarkDemo />
-            </GlassCard>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+                 <div key={index} className="flex items-start gap-4">
+                    <div>{feature.icon}</div>
+                    <div className="space-y-1">
+                        <h3 className="font-semibold text-lg">{feature.title}</h3>
+                        <p className="text-muted-foreground">{feature.description}</p>
+                    </div>
+                 </div>
+            ))}
         </div>
-
-        <div className="mt-16 text-center">
-             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm font-semibold">
-              Proven Results
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline mt-2">
-              You Can Trust
-            </h2>
-            <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-4">
-                From startups to industry leaders, we've helped students achieve remarkable results in record time.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8">
-                <GlassCard>
-                    <div className="p-6">
-                        <p className="text-4xl font-bold text-primary">95%</p>
-                        <p className="text-muted-foreground mt-2">Average Score Improvement</p>
-                    </div>
-                </GlassCard>
-                <GlassCard>
-                     <div className="p-6">
-                        <p className="text-4xl font-bold text-primary">50K+</p>
-                        <p className="text-muted-foreground mt-2">Questions Answered</p>
-                    </div>
-                </GlassCard>
-                <GlassCard>
-                     <div className="p-6">
-                        <p className="text-4xl font-bold text-primary">10K+</p>
-                        <p className="text-muted-foreground mt-2">Active Students</p>
-                    </div>
-                </GlassCard>
-            </div>
+         <div className="mt-12 text-center">
+            <Button>Get Started</Button>
+            <Button variant="link" className="text-foreground">Browse all features</Button>
         </div>
       </div>
     </section>
+
+    <section className="w-full py-12 lg:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="space-y-4">
+                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
+                        Manage all your prospects in one place.
+                    </h2>
+                    <p className="text-muted-foreground md:text-lg">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                    </p>
+                    <p className="text-muted-foreground md:text-lg">
+                        Et ac adipiscing quis enim mi turpis etiam faucibus. Faucibus condimentum amet placerat duis.
+                    </p>
+                </div>
+                 <div className="grid grid-cols-2 gap-4">
+                    <Image
+                        src="https://placehold.co/400x500.png"
+                        alt="Prospect Card"
+                        width={400}
+                        height={500}
+                        className="rounded-lg shadow-lg border border-white/10"
+                        data-ai-hint="contact card"
+                    />
+                     <Image
+                        src="https://placehold.co/400x500.png"
+                        alt="Analytics graphs"
+                        width={400}
+                        height={500}
+                        className="rounded-lg shadow-lg border border-white/10"
+                        data-ai-hint="analytics graphs"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+    </>
   );
-}
-
-function GlassCard({ children, className }: { children: React.ReactNode, className?: string }) {
-    return (
-        <div className={cn(
-            "rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-lg shadow-lg",
-            "bg-clip-padding backdrop-filter",
-            className
-        )}>
-            {children}
-        </div>
-    )
-}
-
-
-function QuizDemo() {
-    return (
-        <div className="w-full p-6 space-y-4 flex flex-col lg:flex-row gap-8 items-center">
-            <div className="flex-1">
-                <h4 className="font-semibold text-xl flex items-center gap-2 font-headline"><Sparkles className="h-5 w-5 text-yellow-400" />Create a Quiz</h4>
-                <p className="text-muted-foreground mt-2">Generate a quiz on any topic in seconds. The more specific, the better.</p>
-            </div>
-            <div className="flex-1 w-full">
-                <div className="space-y-2">
-                    <Label htmlFor="topic">Topic</Label>
-                    <Input id="topic" defaultValue="Thermodynamics" />
-                </div>
-                <div className="space-y-2 mt-4">
-                    <Label htmlFor="questions">Number of Questions</Label>
-                    <Input id="questions" type="number" defaultValue={5} />
-                </div>
-                <Button className="w-full mt-4">Generate Quiz</Button>
-            </div>
-        </div>
-    )
-}
-
-function PomodoroDemo() {
-    return (
-        <div className="text-center space-y-4 p-4">
-            <h4 className="font-semibold text-lg font-headline">Pomodoro Timer</h4>
-            <div className="relative w-36 h-36 mx-auto">
-                <svg className="w-full h-full" viewBox="0 0 100 100">
-                    <circle className="text-muted/20" strokeWidth="7" cx="50" cy="50" r="45" fill="transparent"></circle>
-                    <circle
-                        className="text-primary"
-                        strokeWidth="7"
-                        strokeDasharray="283"
-                        strokeDashoffset={283 - (20*60) / (25 * 60) * 283}
-                        cx="50"
-                        cy="50"
-                        r="45"
-                        fill="transparent"
-                        transform="rotate(-90 50 50)"
-                    ></circle>
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <h2 className="text-4xl font-bold font-mono">20:00</h2>
-                    <p className="text-muted-foreground uppercase tracking-widest text-xs">WORK</p>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-
-function AnalyticsDemo() {
-    return (
-        <div className="w-full space-y-4 p-4">
-            <h4 className="font-semibold text-lg font-headline">Subject Mastery</h4>
-            <div className="space-y-4 pt-2">
-                 <div className="space-y-2">
-                    <div className="flex justify-between text-sm font-medium"><span>Physics</span><span>85%</span></div>
-                    <Progress value={85} indicatorClassName="bg-blue-500" />
-                 </div>
-                 <div className="space-y-2">
-                    <div className="flex justify-between text-sm font-medium"><span>Chemistry</span><span>62%</span></div>
-                    <Progress value={62} indicatorClassName="bg-red-500" />
-                 </div>
-                 <div className="space-y-2">
-                    <div className="flex justify-between text-sm font-medium"><span>Biology</span><span>95%</span></div>
-                    <Progress value={95} indicatorClassName="bg-green-500" />
-                 </div>
-            </div>
-        </div>
-    )
-}
-
-function BookmarkDemo() {
-    return (
-         <div className="w-full p-6 space-y-4 flex flex-col items-center text-center">
-            <h4 className="font-semibold text-xl flex items-center gap-2 font-headline"><Bookmark className="h-5 w-5 text-yellow-400" />Bookmark Questions</h4>
-            <p className="text-muted-foreground mt-2 max-w-md">Never forget a tricky question again. Save important questions with a single click and review them anytime.</p>
-            <div className="w-full max-w-sm p-4 border border-dashed border-white/20 rounded-lg mt-4">
-                <p className="font-semibold text-left">Which law of thermodynamics states that energy cannot be created or destroyed?</p>
-                <div className="flex justify-end mt-4">
-                    <Button variant="outline" size="icon">
-                        <Bookmark className="h-5 w-5 text-primary" />
-                    </Button>
-                </div>
-            </div>
-        </div>
-    )
 }

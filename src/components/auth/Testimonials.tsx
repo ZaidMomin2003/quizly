@@ -8,7 +8,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 
 const testimonials = [
@@ -34,7 +33,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <div className="relative h-full flex flex-col items-center justify-center p-12">
+    <div className="h-full flex flex-col items-center justify-center p-12 bg-muted">
       <Carousel
         opts={{
           align: "start",
