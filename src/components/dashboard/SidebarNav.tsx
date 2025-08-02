@@ -27,7 +27,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
-  { href: '/quizzes', label: 'Quizzes', icon: FileQuestion },
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
