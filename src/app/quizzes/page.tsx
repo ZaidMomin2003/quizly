@@ -156,7 +156,7 @@ export default function QuizzesPage() {
             <CardContent>
               {error && (
                 <Alert variant="destructive" className="mb-6">
-                  <AlertTitle>Error</AlertTitle>
+                  <AlertTitle>Error Generating Quiz</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}

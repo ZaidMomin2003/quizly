@@ -34,8 +34,9 @@ export async function createQuiz(input: GenerateQuizInput): Promise<Quiz> {
     try {
         const quiz = await generateQuiz(input);
         return quiz;
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error creating quiz:', error);
-        throw new Error('Failed to generate the quiz.');
+        // Pass the more specific error message to the client
+        throw new Error(error.message || 'Failed to generate the quiz.');
     }
 }
