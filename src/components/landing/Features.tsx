@@ -64,6 +64,9 @@ export function Features() {
             <GlassCard>
                 <AnalyticsDemo />
             </GlassCard>
+             <GlassCard className="lg:col-span-2">
+                <BookmarkDemo />
+            </GlassCard>
         </div>
 
         <div className="mt-16 text-center">
@@ -183,6 +186,23 @@ function AnalyticsDemo() {
                     <div className="flex justify-between text-sm font-medium"><span>Biology</span><span>95%</span></div>
                     <Progress value={95} indicatorClassName="bg-green-500" />
                  </div>
+            </div>
+        </div>
+    )
+}
+
+function BookmarkDemo() {
+    return (
+         <div className="w-full p-6 space-y-4 flex flex-col items-center text-center">
+            <h4 className="font-semibold text-xl flex items-center gap-2 font-headline"><Bookmark className="h-5 w-5 text-yellow-400" />Bookmark Questions</h4>
+            <p className="text-muted-foreground mt-2 max-w-md">Never forget a tricky question again. Save important questions with a single click and review them anytime.</p>
+            <div className="w-full max-w-sm p-4 border border-dashed border-white/20 rounded-lg mt-4">
+                <p className="font-semibold text-left">Which law of thermodynamics states that energy cannot be created or destroyed?</p>
+                <div className="flex justify-end mt-4">
+                    <Button variant="outline" size="icon">
+                        <Bookmark className="h-5 w-5 text-primary" />
+                    </Button>
+                </div>
             </div>
         </div>
     )
