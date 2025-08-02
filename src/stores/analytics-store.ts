@@ -54,7 +54,7 @@ export const useAnalyticsStore = create<AnalyticsState>()(
 
       logQuiz: (quiz) => {
         const today = format(new Date(), 'yyyy-MM-dd');
-        const questionsSolved = quiz.questions.length;
+        const questionsSolvedCount = quiz.questions.length;
 
         set((state) => {
           const newStats = JSON.parse(JSON.stringify(state.stats));
@@ -69,9 +69,8 @@ export const useAnalyticsStore = create<AnalyticsState>()(
               newStats.subjects[subject as Subject] = { ...initialSubjectStats };
           }
           
-          newStats.subjects[subject as Subject].solved += 1;
-          
           quiz.questions.forEach(q => {
+              newStats.subjects[subject as Subject].solved += 1; // Increment for each question
               newStats.subjects[subject as Subject].attempted += 1;
               if (q.isCorrect) {
                 newStats.subjects[subject as Subject].correct += 1;
@@ -92,7 +91,7 @@ export const useAnalyticsStore = create<AnalyticsState>()(
             stats: newStats,
             weeklyProgress: {
                 ...state.weeklyProgress,
-                [today]: (state.weeklyProgress[today] || 0) + questionsSolved,
+                [today]: (state.weeklyProgress[today] || 0) + questionsSolvedCount,
             },
             weakConcepts: newWeakConcepts,
             activities: [newActivity, ...state.activities].slice(0, 50),
