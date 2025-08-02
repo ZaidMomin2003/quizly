@@ -1,13 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, Crown, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const PAYMENT_FREQUENCIES: ('monthly' | 'yearly')[] = ['monthly', 'yearly'];
 
 const TIERS = [
     {
@@ -74,7 +72,7 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
   return (
     <motion.div
         className={cn(
-            'relative flex flex-col gap-6 overflow-hidden rounded-2xl border p-6 shadow-sm',
+            'relative flex flex-col gap-6 rounded-2xl border p-6 shadow-sm',
             'bg-card text-card-foreground',
             isPopular && 'border-2 border-primary shadow-lg',
         )}
