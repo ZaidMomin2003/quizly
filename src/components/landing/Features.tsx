@@ -39,14 +39,14 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="w-full py-12 lg:py-24 bg-muted">
+    <section id="features" className="w-full py-12 lg:py-24 bg-muted/50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
           <div className="space-y-2">
-            <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm">
+            <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm font-semibold">
               Key Features
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
               Everything You Need to Succeed
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -59,7 +59,7 @@ export function Features() {
                 <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className={cn("space-y-4", index % 2 === 1 && "lg:order-2")}>
                         <div className="p-3 bg-primary/10 rounded-full w-fit">{feature.icon}</div>
-                        <h3 className="text-2xl font-bold">{feature.title}</h3>
+                        <h3 className="text-2xl font-bold font-headline">{feature.title}</h3>
                         <p className="text-muted-foreground text-lg">{feature.description}</p>
                     </div>
                     <div className={cn("flex items-center justify-center", index % 2 === 1 && "lg:order-1")}>
@@ -75,7 +75,7 @@ export function Features() {
 
 function BrowserMockup({ children }: { children: React.ReactNode }) {
     return (
-        <div className="border bg-background/50 rounded-xl shadow-2xl w-full max-w-lg">
+        <div className="border bg-background/50 rounded-xl shadow-2xl w-full max-w-lg shadow-primary/10">
             <div className="p-2 border-b flex items-center gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
@@ -92,7 +92,7 @@ function BrowserMockup({ children }: { children: React.ReactNode }) {
 function QuizDemo() {
     return (
         <div className="w-full space-y-4">
-            <h4 className="font-semibold text-lg flex items-center gap-2"><Sparkles className="h-5 w-5 text-yellow-400" />Create a Quiz</h4>
+            <h4 className="font-semibold text-lg flex items-center gap-2 font-headline"><Sparkles className="h-5 w-5 text-yellow-400" />Create a Quiz</h4>
             <div className="space-y-2">
                 <Label htmlFor="topic">Topic</Label>
                 <Input id="topic" defaultValue="Thermodynamics" />
@@ -125,11 +125,11 @@ function PomodoroDemo() {
                     ></circle>
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <h2 className="text-4xl font-bold">20:00</h2>
+                    <h2 className="text-4xl font-bold font-mono">20:00</h2>
                     <p className="text-muted-foreground uppercase tracking-widest text-xs">WORK</p>
                 </div>
             </div>
-            <p className="font-semibold text-lg">Solving Kinematics Problems</p>
+            <p className="font-semibold text-lg font-headline">Solving Kinematics Problems</p>
             <div className="flex gap-4 justify-center">
                 <Button>Pause</Button>
                 <Button variant="outline">Reset</Button>
@@ -142,7 +142,7 @@ function PomodoroDemo() {
 function AnalyticsDemo() {
     return (
         <div className="w-full space-y-4">
-            <h4 className="font-semibold text-lg">Subject Mastery</h4>
+            <h4 className="font-semibold text-lg font-headline">Subject Mastery</h4>
             <p className="text-sm text-muted-foreground">Your accuracy by subject</p>
             <div className="space-y-4 pt-2">
                  <div className="space-y-2">
@@ -165,7 +165,7 @@ function AnalyticsDemo() {
 function BookmarkDemo() {
     return (
         <div className="w-full space-y-3">
-             <h4 className="font-semibold text-lg mb-4">Bookmarked Questions</h4>
+             <h4 className="font-semibold text-lg mb-4 font-headline">Bookmarked Questions</h4>
             <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                 <p className="text-sm font-medium truncate pr-4">What is the powerhouse of the cell?</p>
                 <Bookmark className="h-5 w-5 text-primary fill-primary" />

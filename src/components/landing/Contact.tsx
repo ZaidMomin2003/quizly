@@ -11,10 +11,10 @@ export function Contact() {
         <section id="contact" className="w-full py-12 lg:py-24">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center mb-12">
-                    <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mb-2">
+                    <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mb-2 font-semibold">
                         Contact Us
                     </div>
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
                         Get in Touch
                     </h2>
                     <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-xl/relaxed">

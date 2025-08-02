@@ -11,14 +11,35 @@ import { FAQ } from '@/components/landing/FAQ';
 import { Pricing } from '@/components/landing/Pricing';
 import { Contact } from '@/components/landing/Contact';
 import { Footer } from '@/components/landing/Footer';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
+  const { theme, systemTheme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState('');
+
+  useEffect(() => {
+    setCurrentTheme(theme === 'system' ? systemTheme ?? 'dark' : theme ?? 'dark');
+  }, [theme, systemTheme]);
+
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className={`flex flex-col min-h-screen bg-background text-foreground font-body ${currentTheme === 'dark' ? 'dark-theme-bg' : 'light-theme-bg'}`}>
+       <style jsx global>{`
+        .dark-theme-bg {
+            background-color: #09090b;
+            background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
+            background-size: 2rem 2rem;
+        }
+        .light-theme-bg {
+            background-color: #ffffff;
+            background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
+            background-size: 2rem 2rem;
+        }
+      `}</style>
       <header className="px-4 lg:px-6 h-14 flex items-center sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
         <Link href="#" className="flex items-center justify-center">
           <Bot className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold">QuizlyAI</span>
+          <span className="ml-2 text-lg font-semibold font-headline">QuizlyAI</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
           <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4">Features</Link>
@@ -27,7 +48,6 @@ export default function LandingPage() {
           <Button variant="ghost" asChild>
             <Link href="/login">
               Login
-              <LogIn className="ml-2 h-4 w-4" />
             </Link>
           </Button>
           <Button asChild>
@@ -40,7 +60,7 @@ export default function LandingPage() {
         <Features />
         <section id="testimonials" className="py-12 lg:py-24">
             <div className="container mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-8">Loved by Students Everywhere</h2>
+                <h2 className="text-3xl font-bold text-center mb-8 font-headline">Loved by Students Everywhere</h2>
                 <Testimonials />
             </div>
         </section>

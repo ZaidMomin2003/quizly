@@ -2,8 +2,6 @@
 'use client';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-
 
 const faqItems = [
     {
@@ -34,13 +32,13 @@ const faqItems = [
 
 export function FAQ() {
     return (
-        <section id="faq" className="w-full py-12 lg:py-24 bg-muted">
+        <section id="faq" className="w-full py-12 lg:py-24 bg-muted/50">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center mb-12">
-                    <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm mb-2">
+                    <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm mb-2 font-semibold">
                         FAQ
                     </div>
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
                         Frequently Asked Questions
                     </h2>
                     <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-xl/relaxed">
@@ -51,7 +49,7 @@ export function FAQ() {
                     <Accordion type="single" collapsible className="w-full">
                         {faqItems.map((item, index) => (
                              <AccordionItem value={`item-${index}`} key={index}>
-                                <AccordionTrigger className="text-lg font-semibold text-left">{item.question}</AccordionTrigger>
+                                <AccordionTrigger className="text-lg font-semibold text-left font-headline">{item.question}</AccordionTrigger>
                                 <AccordionContent className="text-base text-muted-foreground">
                                     {item.answer}
                                 </AccordionContent>

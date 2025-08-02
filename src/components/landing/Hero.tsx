@@ -12,10 +12,10 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-10 lg:grid-cols-1 items-center justify-items-center">
           <div className="space-y-4 text-center">
-            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+            <div className="inline-block rounded-lg bg-primary/10 text-primary px-3 py-1 text-sm font-semibold">
               AI-Powered Learning
             </div>
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none font-headline">
               Supercharge Your Exam Prep
             </h1>
             <p className="max-w-[700px] text-muted-foreground md:text-xl mx-auto">
@@ -34,7 +34,7 @@ export function Hero() {
             </div>
           </div>
           <div className="w-full max-w-4xl mx-auto">
-            <div className="rounded-xl shadow-2xl border border-border/20 overflow-hidden">
+            <div className="rounded-xl shadow-2xl border border-border/20 overflow-hidden shadow-primary/10">
                 <Image
                     src="https://placehold.co/1200x800.png"
                     alt="Hero Image"
