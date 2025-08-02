@@ -2,9 +2,9 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   SidebarContent,
   SidebarFooter,
@@ -37,6 +37,12 @@ const menuItems = [
 
 export function SidebarNav() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // In a real app, you would clear the user's session here.
+    router.push('/login');
+  };
 
   return (
     <>
@@ -91,10 +97,19 @@ export function SidebarNav() {
                 <DropdownMenuContent align="end" className='w-56 mb-2'>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <UserCircle className='mr-2' />
+                        Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Settings className='mr-2' />
+                        Settings
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-500 focus:text-red-500 focus:bg-red-500/10">
+                        <LogOut className='mr-2' />
+                        Logout
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <ThemeToggle />
