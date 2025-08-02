@@ -78,11 +78,12 @@ export default function QuizzesPage() {
         title: "Quiz Generated!",
         description: "Your quiz is ready. Good luck!",
       });
-    } catch (e) {
-      setError('Failed to generate quiz. Please try again later.');
+    } catch (e: any) {
+      const errorMessage = e.message || 'An unknown error occurred.';
+      setError(errorMessage);
       toast({
-        title: "Error",
-        description: "There was an error generating your quiz.",
+        title: "Error Generating Quiz",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
