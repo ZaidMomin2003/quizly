@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -28,7 +29,6 @@ export function Highlight({
 export interface TestimonialCardProps {
   name: string;
   role: string;
-  img?: string;
   description: React.ReactNode;
   className?: string;
   [key: string]: any;
@@ -37,7 +37,6 @@ export interface TestimonialCardProps {
 export function TestimonialCard({
   description,
   name,
-  img,
   role,
   className,
   ...props
@@ -45,7 +44,7 @@ export function TestimonialCard({
   return (
     <div
       className={cn(
-        'mb-4 flex w-full cursor-pointer break-inside-avoid flex-col items-center justify-between gap-6 rounded-xl p-4',
+        'mb-4 flex w-full cursor-pointer break-inside-avoid flex-col items-center justify-between gap-6 rounded-xl p-4 max-w-sm flex-shrink-0',
         'border-border bg-card/50 border shadow-sm',
         'transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md',
         className,
@@ -64,15 +63,6 @@ export function TestimonialCard({
       </div>
 
       <div className="flex w-full items-center justify-start gap-5 select-none">
-        <img
-          width={40}
-          height={40}
-          src={img || ''}
-          alt={name}
-          className="size-10 rounded-full ring-1 ring-primary/20 ring-offset-2"
-          data-ai-hint="avatar"
-        />
-
         <div>
           <p className="text-foreground font-medium">{name}</p>
           <p className="text-muted-foreground text-xs font-normal">{role}</p>
@@ -85,7 +75,6 @@ const testimonials = [
   {
     name: 'Anjali Sharma',
     role: 'NEET Aspirant',
-    img: 'https://i.pravatar.cc/150?img=1',
     description: (
       <p>
         QuizlyAI has completely transformed my NEET preparation.
@@ -99,7 +88,6 @@ const testimonials = [
   {
     name: 'Rohan Gupta',
     role: 'JEE Aspirant',
-    img: 'https://i.pravatar.cc/150?img=2',
     description: (
       <p>
         As a JEE aspirant, time is everything. This platform's quick quiz feature
@@ -113,7 +101,6 @@ const testimonials = [
   {
     name: 'Priya Singh',
     role: 'Medical Student',
-    img: 'https://i.pravatar.cc/150?img=3',
     description: (
       <p>
         The Pomodoro timer integrated into the dashboard is pure genius.
@@ -127,7 +114,6 @@ const testimonials = [
   {
     name: 'Sameer Verma',
     role: 'NEET Aspirant',
-    img: 'https://i.pravatar.cc/150?img=4',
     description: (
       <p>
         The detailed analytics are incredibly insightful.
@@ -141,7 +127,6 @@ const testimonials = [
   {
     name: 'Aditya Kumar',
     role: 'JEE Advanced Aspirant',
-    img: 'https://i.pravatar.cc/150?img=5',
     description: (
       <p>
         The quality of questions is on par with the actual exams.
@@ -155,7 +140,6 @@ const testimonials = [
   {
     name: 'Neha Reddy',
     role: 'AIIMS Aspirant',
-    img: 'https://i.pravatar.cc/150?img=6',
     description: (
       <p>
         I love the bookmarking feature!
@@ -173,7 +157,7 @@ const secondRow = testimonials.slice(3, 6);
 
 export function Testimonials() {
   return (
-    <section className="relative container mx-auto py-10">
+    <section className="relative container mx-auto py-10 overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-20 -left-20 z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute -right-20 bottom-20 z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
@@ -196,20 +180,20 @@ export function Testimonials() {
         </h3>
       </motion.div>
 
-      <div className="relative mt-6 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg">
+      <div className="relative mt-6 flex h-full w-full flex-col items-center justify-center gap-4 rounded-lg">
         <Marquee pauseOnHover className="[--duration:20s]">
           {firstRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
+            <TestimonialCard key={testimonial.name} {...testimonial} />
           ))}
         </Marquee>
         <Marquee pauseOnHover reverse className="[--duration:20s]">
           {secondRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
+            <TestimonialCard key={testimonial.name} {...testimonial} />
           ))}
         </Marquee>
          <Marquee pauseOnHover className="[--duration:30s] hidden md:flex">
           {firstRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
+            <TestimonialCard key={testimonial.name} {...testimonial} />
           ))}
         </Marquee>
         <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r"></div>
