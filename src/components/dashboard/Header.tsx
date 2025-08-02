@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Bell } from 'lucide-react';
 import { SidebarTrigger } from '../ui/sidebar';
+import { ThemeToggle } from './ThemeToggle';
 
 export function Header() {
   return (
@@ -19,6 +20,7 @@ export function Header() {
         <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
       </div>
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         <Button variant="ghost" size="icon" className="rounded-full">
           <Bell className="h-5 w-5" />
           <span className="sr-only">Notifications</span>
