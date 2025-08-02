@@ -2,17 +2,9 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useEffect, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Defs, linearGradient, stop, Line, ComposedChart } from 'recharts';
-
-const chartData = [
-  { day: 'MON', questions: 10 },
-  { day: 'TUE', questions: 15 },
-  { day: 'WED', questions: 8 },
-  { day: 'THU', questions: 22 },
-  { day: 'FRI', questions: 18 },
-  { day: 'SAT', questions: 25 },
-  { day: 'SUN', questions: 30 },
-];
 
 const chartConfig = {
   questions: {
@@ -22,6 +14,29 @@ const chartConfig = {
 }
 
 export function WeeklyProgressChart() {
+  const { getWeeklyChartData } = useAnalyticsStore();
+  const [chartData, setChartData] = useState<{day: string, questions: number}[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setChartData(getWeeklyChartData());
+  }, [getWeeklyChartData]);
+
+  if (!isClient) {
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Weekly Progress</CardTitle>
+                <CardDescription>Number of questions solved per day this week.</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[300px] w-full flex items-center justify-center">
+                <p>Loading chart...</p>
+            </CardContent>
+        </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>

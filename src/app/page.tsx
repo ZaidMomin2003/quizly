@@ -1,36 +1,47 @@
+
+'use client';
+
 import { Header } from '@/components/dashboard/Header';
 import { QuickQuiz } from '@/components/dashboard/QuickQuiz';
 import { SubjectStatsCard } from '@/components/dashboard/SubjectStatsCard';
 import { WeeklyProgressChart } from '@/components/dashboard/WeeklyProgressChart';
 import { WeakConcepts } from '@/components/dashboard/WeakConcepts';
+import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useEffect, useState } from 'react';
 
 export default function HomePage() {
-  // Mock data - in a real app, this would come from a database
-  const stats = [
+  const { stats } = useAnalyticsStore();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const displayStats = [
     {
       subject: 'Physics',
-      solved: 125,
+      solved: isClient ? stats.subjects.Physics.solved : 0,
       iconName: 'atom' as const,
       color: 'text-blue-400',
       bgColor: 'bg-blue-400/10',
     },
     {
       subject: 'Chemistry',
-      solved: 88,
+      solved: isClient ? stats.subjects.Chemistry.solved : 0,
       iconName: 'flask-conical' as const,
       color: 'text-green-400',
       bgColor: 'bg-green-400/10',
     },
     {
       subject: 'Biology',
-      solved: 210,
+      solved: isClient ? stats.subjects.Biology.solved : 0,
       iconName: 'dna' as const,
       color: 'text-purple-400',
       bgColor: 'bg-purple-400/10',
     },
      {
       subject: 'Pomodoro Sessions',
-      solved: 12,
+      solved: isClient ? stats.pomodoroSessions : 0,
       iconName: 'timer' as const,
       color: 'text-orange-400',
       bgColor: 'bg-orange-400/10',
@@ -46,7 +57,7 @@ export default function HomePage() {
             <p className="text-muted-foreground">A quick overview of your progress.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat) => (
+          {displayStats.map((stat) => (
             <SubjectStatsCard
               key={stat.subject}
               subject={stat.subject}

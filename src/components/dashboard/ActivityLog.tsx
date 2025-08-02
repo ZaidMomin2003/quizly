@@ -13,37 +13,46 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { History, Search } from 'lucide-react';
-
-// Mock data, in a real app this would come from an API
-const allActivities = [
-  { date: 'Today', subject: 'Physics', title: 'Quiz: Kinematics', type: 'quiz' },
-  { date: 'Today', subject: 'Chemistry', title: 'Pomodoro: Organic Chem', type: 'pomodoro' },
-  { date: 'Yesterday', subject: 'Biology', title: 'Quiz: Cell Biology', type: 'quiz' },
-  { date: 'Yesterday', subject: 'Physics', title: 'Quiz: Thermodynamics', type: 'quiz' },
-  { date: '2 days ago', subject: 'Chemistry', title: 'Quiz: Chemical Bonding', type: 'quiz' },
-];
+import { useAnalyticsStore, Activity } from '@/stores/analytics-store';
+import { useRouter } from 'next/navigation';
 
 export function ActivityLog() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredActivities, setFilteredActivities] = useState(allActivities);
+  const [isClient, setIsClient] = useState(false);
+  const { activities } = useAnalyticsStore();
+  const router = useRouter();
 
   useEffect(() => {
-    const results = allActivities.filter(activity =>
-      activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      activity.subject.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredActivities(results);
-  }, [searchTerm]);
+    setIsClient(true);
+  }, []);
+
+  const handleRetake = (title: string) => {
+    const topics = title.replace('Quiz: ', '');
+    sessionStorage.setItem('quickQuizData', JSON.stringify({
+        topics: topics,
+        numberOfQuestions: 5,
+        difficulty: 'medium',
+    }));
+    router.push('/quizzes');
+  }
+
+  const filteredActivities = isClient ? activities.filter(activity =>
+    activity.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    activity.subject.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
   
   const groupedActivities = filteredActivities.reduce((acc, activity) => {
-    const { date } = activity;
+    const date = new Date(activity.date).toDateString();
     if (!acc[date]) {
       acc[date] = [];
     }
     acc[date].push(activity);
     return acc;
-  }, {} as Record<string, typeof allActivities>);
+  }, {} as Record<string, Activity[]>);
 
+  // Get today's and yesterday's date strings for comparison
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 864e5).toDateString();
 
   return (
     <DropdownMenu>
@@ -66,25 +75,35 @@ export function ActivityLog() {
         </div>
         
         <div className='max-h-96 overflow-y-auto'>
-            {Object.entries(groupedActivities).map(([date, activities]) => (
-                <div key={date}>
-                    <DropdownMenuSeparator />
-                    <p className='text-sm font-semibold text-muted-foreground px-2 py-2'>{date}</p>
-                    <ul className="space-y-1">
-                    {activities.map((activity, index) => (
-                        <li key={index} className="flex items-center justify-between p-2 rounded-md hover:bg-accent">
-                            <div className="flex flex-col">
-                                <span className="font-medium text-sm">{activity.title}</span>
-                                <Badge variant="outline" className='w-fit mt-1'>{activity.subject}</Badge>
-                            </div>
-                            {activity.type === 'quiz' && (
-                                <Button variant="ghost" size="sm">Retake</Button>
-                            )}
-                        </li>
-                    ))}
-                    </ul>
+            {Object.keys(groupedActivities).length > 0 ? Object.entries(groupedActivities).map(([date, activities]) => {
+                let displayDate = date;
+                if (date === today) displayDate = 'Today';
+                if (date === yesterday) displayDate = 'Yesterday';
+
+                return (
+                    <div key={date}>
+                        <DropdownMenuSeparator />
+                        <p className='text-sm font-semibold text-muted-foreground px-2 py-2'>{displayDate}</p>
+                        <ul className="space-y-1">
+                        {activities.map((activity, index) => (
+                            <li key={index} className="flex items-center justify-between p-2 rounded-md hover:bg-accent">
+                                <div className="flex flex-col">
+                                    <span className="font-medium text-sm">{activity.title}</span>
+                                    <Badge variant="outline" className='w-fit mt-1'>{activity.subject}</Badge>
+                                </div>
+                                {activity.type === 'quiz' && (
+                                    <Button variant="ghost" size="sm" onClick={() => handleRetake(activity.title)}>Retake</Button>
+                                )}
+                            </li>
+                        ))}
+                        </ul>
+                    </div>
+                )
+            }) : (
+                <div className='text-center py-8 text-muted-foreground'>
+                    <p>No activities yet.</p>
                 </div>
-            ))}
+            )}
         </div>
 
       </DropdownMenuContent>

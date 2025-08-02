@@ -1,21 +1,16 @@
 
+'use client';
+
 import { Header } from '@/components/dashboard/Header';
 import { UserStats } from '@/components/leaderboard/UserStats';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Trophy, Star } from 'lucide-react';
+import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useEffect, useState } from 'react';
 
 // Mock data
-const currentUser = {
-  rank: 21,
-  stats: [
-    { subject: 'Physics', attempted: 125, correct: 98 },
-    { subject: 'Chemistry', attempted: 88, correct: 75 },
-    { subject: 'Biology', attempted: 210, correct: 195 },
-  ],
-};
-
 const topUsers = Array.from({ length: 20 }, (_, i) => ({
   rank: i + 1,
   name: `User ${Math.floor(Math.random() * 1000)}`,
@@ -25,6 +20,14 @@ const topUsers = Array.from({ length: 20 }, (_, i) => ({
 
 
 export default function LeaderboardPage() {
+  const { stats } = useAnalyticsStore();
+  const [isClient, setIsClient] = useState(false);
+  const [rank, setRank] = useState(21); // Keep mock rank for now
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="flex flex-col h-screen bg-background">
       <Header />
@@ -46,12 +49,12 @@ export default function LeaderboardPage() {
                   <CardTitle>Your Rank</CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-2">
-                    <div className="text-7xl font-bold text-primary">{currentUser.rank}</div>
+                    <div className="text-7xl font-bold text-primary">{isClient ? rank : '...'}</div>
                     <p className="text-muted-foreground">Keep pushing to climb higher!</p>
                 </CardContent>
               </Card>
 
-              <UserStats stats={currentUser.stats} />
+              <UserStats />
             </div>
 
             {/* Right Column */}

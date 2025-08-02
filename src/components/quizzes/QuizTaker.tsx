@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import { ChevronsLeft, ChevronsRight, Check, X, Repeat } from 'lucide-react';
 import { QuizResults } from './QuizResults';
 import { cn } from '@/lib/utils';
 import { Header } from '../dashboard/Header';
+import { useAnalyticsStore } from '@/stores/analytics-store';
 
 interface QuizTakerProps {
   quiz: Quiz;
@@ -27,6 +29,7 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [isFinished, setIsFinished] = useState(false);
+  const { logQuiz } = useAnalyticsStore();
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
@@ -51,24 +54,20 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   };
 
   const handleSubmit = () => {
-    setIsFinished(true);
-    // In a real app, you would save the results to a database here
-    // and update the global state for analytics. For now, we'll
-    // manage it in the component.
-    const newRecentQuiz = {
-        id: Math.random(),
-        name: quiz.topics.join(', '),
-        subject: 'Mixed',
-        score: calculateScore()
-    }
+    const results = quiz.questions.map((q, i) => ({
+        topic: quiz.topics[0] || 'General', // simplistic mapping
+        isCorrect: selectedAnswers[i] === q.answer,
+    }));
 
-    // This is a temporary solution to update recent quizzes.
-    // In a real app, use a proper state management solution.
-    if(typeof window !== 'undefined') {
-        const existingQuizzes = JSON.parse(localStorage.getItem('recentQuizzes') || '[]');
-        const updatedQuizzes = [newRecentQuiz, ...existingQuizzes].slice(0, 4);
-        localStorage.setItem('recentQuizzes', JSON.stringify(updatedQuizzes));
-    }
+    const subjectMatch = quiz.topics[0]?.match(/Physics|Chemistry|Biology/);
+    const subject = subjectMatch ? subjectMatch[0] as 'Physics' | 'Chemistry' | 'Biology' : 'Mixed';
+
+    logQuiz({
+        topics: quiz.topics,
+        questions: results,
+        subject: subject,
+    });
+    setIsFinished(true);
   };
 
   const calculateScore = () => {

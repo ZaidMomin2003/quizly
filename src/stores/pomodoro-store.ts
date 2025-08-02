@@ -1,6 +1,7 @@
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { useAnalyticsStore } from './analytics-store';
 
 const WORK_MINUTES = 25 * 60;
 const BREAK_MINUTES = 5 * 60;
@@ -48,7 +49,7 @@ export const usePomodoroStore = create<PomodoroState>()(
         }),
 
       tick: () => {
-        const { timeLeft, mode, currentSession, sessions, isActive } = get();
+        const { timeLeft, mode, currentSession, sessions, isActive, task } = get();
 
         if (!isActive) return;
 
@@ -65,6 +66,9 @@ export const usePomodoroStore = create<PomodoroState>()(
               });
             } else {
               // All sessions are complete
+              if (task) {
+                useAnalyticsStore.getState().logPomodoro(task);
+              }
               get().resetTimer();
             }
           } else if (mode === 'break') {

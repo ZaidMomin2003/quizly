@@ -4,18 +4,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Activity } from 'lucide-react';
+import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useEffect, useState } from 'react';
 
-interface Stat {
-    subject: string;
-    attempted: number;
-    correct: number;
-}
+export function UserStats() {
+    const { stats } = useAnalyticsStore();
+    const [isClient, setIsClient] = useState(false);
 
-interface UserStatsProps {
-    stats: Stat[];
-}
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
-export function UserStats({ stats }: UserStatsProps) {
+    const displayStats = isClient ? [
+        { subject: 'Physics', attempted: stats.subjects.Physics.attempted, correct: stats.subjects.Physics.correct },
+        { subject: 'Chemistry', attempted: stats.subjects.Chemistry.attempted, correct: stats.subjects.Chemistry.correct },
+        { subject: 'Biology', attempted: stats.subjects.Biology.attempted, correct: stats.subjects.Biology.correct },
+    ] : [];
+
     return (
         <Card>
             <CardHeader>
@@ -25,23 +30,29 @@ export function UserStats({ stats }: UserStatsProps) {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <ul className="space-y-6">
-                    {stats.map(stat => {
-                        const accuracy = stat.attempted > 0 ? (stat.correct / stat.attempted) * 100 : 0;
-                        return (
-                            <li key={stat.subject}>
-                                <div className="flex justify-between items-center mb-1">
-                                    <p className="font-semibold">{stat.subject}</p>
-                                    <p className="text-sm text-muted-foreground">{stat.correct} / {stat.attempted}</p>
-                                </div>
-                                <Progress value={accuracy} indicatorClassName={
-                                    accuracy > 75 ? 'bg-green-500' : accuracy > 50 ? 'bg-yellow-500' : 'bg-red-500'
-                                } />
-                                <p className='text-xs text-right mt-1 text-muted-foreground'>{Math.round(accuracy)}% accuracy</p>
-                            </li>
-                        );
-                    })}
-                </ul>
+                {isClient && displayStats.length > 0 ? (
+                    <ul className="space-y-6">
+                        {displayStats.map(stat => {
+                            const accuracy = stat.attempted > 0 ? (stat.correct / stat.attempted) * 100 : 0;
+                            return (
+                                <li key={stat.subject}>
+                                    <div className="flex justify-between items-center mb-1">
+                                        <p className="font-semibold">{stat.subject}</p>
+                                        <p className="text-sm text-muted-foreground">{stat.correct} / {stat.attempted}</p>
+                                    </div>
+                                    <Progress value={accuracy} indicatorClassName={
+                                        accuracy > 75 ? 'bg-green-500' : accuracy > 50 ? 'bg-yellow-500' : 'bg-red-500'
+                                    } />
+                                    <p className='text-xs text-right mt-1 text-muted-foreground'>{Math.round(accuracy)}% accuracy</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                        <p>No stats yet. Take a quiz to see your progress!</p>
+                    </div>
+                )}
             </CardContent>
         </Card>
     );
