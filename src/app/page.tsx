@@ -28,6 +28,13 @@ export default function HomePage() {
       color: 'text-purple-400',
       bgColor: 'bg-purple-400/10',
     },
+     {
+      subject: 'Pomodoro Sessions',
+      solved: 12,
+      iconName: 'timer' as const,
+      color: 'text-orange-400',
+      bgColor: 'bg-orange-400/10',
+    },
   ];
 
   return (
@@ -38,7 +45,7 @@ export default function HomePage() {
             <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
             <p className="text-muted-foreground">A quick overview of your progress.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat) => (
             <SubjectStatsCard
               key={stat.subject}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Atom, Dna, FlaskConical, type LucideIcon, type LucideProps } from 'lucide-react';
+import { Atom, Dna, FlaskConical, Timer, type LucideIcon, type LucideProps } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
@@ -9,6 +9,7 @@ const icons = {
   atom: Atom,
   'flask-conical': FlaskConical,
   dna: Dna,
+  timer: Timer,
 };
 
 type IconName = keyof typeof icons;
@@ -34,7 +35,7 @@ export function SubjectStatsCard({ subject, solved, iconName, color, bgColor }: 
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{solved}</div>
-        <p className="text-xs text-muted-foreground">Questions Solved</p>
+        <p className="text-xs text-muted-foreground">Completed</p>
       </CardContent>
     </Card>
   );
