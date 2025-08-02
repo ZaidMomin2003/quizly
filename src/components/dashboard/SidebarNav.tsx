@@ -23,14 +23,13 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { ActivityLog } from './ActivityLog';
 
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
-  { href: '#', label: 'Leaderboard', icon: Trophy },
+  { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
 ];
 
 export function SidebarNav() {
