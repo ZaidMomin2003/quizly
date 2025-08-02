@@ -3,36 +3,36 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Sparkles, Timer, BarChart3, Bookmark } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Progress } from "../ui/progress";
+import { cn } from "@/lib/utils";
 
 
 const features = [
     {
         icon: <Sparkles className="h-8 w-8 text-primary" />,
         title: "AI Quiz Generation",
-        description: "Instantly generate custom quizzes on any topic, at any difficulty level. Never run out of practice material.",
+        description: "Instantly generate custom quizzes on any topic, at any difficulty level. Never run out of practice material again. Our AI adapts to your learning style.",
         demo: <QuizDemo />
     },
     {
         icon: <Timer className="h-8 w-8 text-primary" />,
         title: "Pomodoro Focus Timer",
-        description: "Integrate the proven Pomodoro technique into your study sessions to enhance focus and prevent burnout.",
+        description: "Integrate the proven Pomodoro technique into your study sessions to enhance focus, manage your time effectively, and prevent mental burnout.",
         demo: <PomodoroDemo />
     },
     {
         icon: <BarChart3 className="h-8 w-8 text-primary" />,
         title: "Performance Analytics",
-        description: "Track your progress with detailed analytics. Identify your weak areas and turn them into strengths.",
+        description: "Track your progress with detailed, easy-to-understand analytics. Pinpoint your weak areas with precision and receive recommendations to turn them into strengths.",
         demo: <AnalyticsDemo />
     },
      {
         icon: <Bookmark className="h-8 w-8 text-primary" />,
         title: "Bookmark Questions",
-        description: "Save challenging questions for later review. Build a personalized library of important concepts to master.",
+        description: "Save challenging or important questions for later review. Build a personalized library of key concepts to ensure you have them mastered for exam day.",
         demo: <BookmarkDemo />
     },
 ]
@@ -41,7 +41,7 @@ export function Features() {
   return (
     <section id="features" className="w-full py-12 lg:py-24 bg-muted">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
           <div className="space-y-2">
             <div className="inline-block rounded-lg bg-background px-3 py-1 text-sm">
               Key Features
@@ -54,20 +54,18 @@ export function Features() {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:max-w-none lg:grid-cols-2 mt-12">
+        <div className="space-y-16">
             {features.map((feature, index) => (
-                <Card key={index} className="h-full flex flex-col">
-                    <CardHeader className="flex flex-row items-start gap-4">
-                        <div className="p-3 bg-primary/10 rounded-full">{feature.icon}</div>
-                        <div className="flex-1">
-                            <CardTitle>{feature.title}</CardTitle>
-                            <CardDescription>{feature.description}</CardDescription>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="flex-1 flex items-center justify-center p-6 bg-background rounded-b-lg">
-                        {feature.demo}
-                    </CardContent>
-                </Card>
+                <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className={cn("space-y-4", index % 2 === 1 && "lg:order-2")}>
+                        <div className="p-3 bg-primary/10 rounded-full w-fit">{feature.icon}</div>
+                        <h3 className="text-2xl font-bold">{feature.title}</h3>
+                        <p className="text-muted-foreground text-lg">{feature.description}</p>
+                    </div>
+                    <div className={cn("flex items-center justify-center", index % 2 === 1 && "lg:order-1")}>
+                        <BrowserMockup>{feature.demo}</BrowserMockup>
+                    </div>
+                </div>
             ))}
         </div>
       </div>
@@ -75,25 +73,36 @@ export function Features() {
   );
 }
 
+function BrowserMockup({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="border bg-background/50 rounded-xl shadow-2xl w-full max-w-lg">
+            <div className="p-2 border-b flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400"></div>
+            </div>
+            <div className="p-6 bg-background rounded-b-xl">
+                {children}
+            </div>
+        </div>
+    )
+}
+
 
 function QuizDemo() {
     return (
-        <Card className="w-full max-w-sm shadow-md">
-            <CardHeader>
-                <CardTitle className="text-xl flex items-center gap-2"><Sparkles className="h-5 w-5 text-yellow-400" />Create a Quiz</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="space-y-1">
-                    <Label htmlFor="topic">Topic</Label>
-                    <Input id="topic" defaultValue="Thermodynamics" />
-                </div>
-                 <div className="space-y-1">
-                    <Label htmlFor="questions">Number of Questions</Label>
-                    <Input id="questions" type="number" defaultValue={5} />
-                </div>
-                <Button className="w-full">Generate Quiz</Button>
-            </CardContent>
-        </Card>
+        <div className="w-full space-y-4">
+            <h4 className="font-semibold text-lg flex items-center gap-2"><Sparkles className="h-5 w-5 text-yellow-400" />Create a Quiz</h4>
+            <div className="space-y-2">
+                <Label htmlFor="topic">Topic</Label>
+                <Input id="topic" defaultValue="Thermodynamics" />
+            </div>
+             <div className="space-y-2">
+                <Label htmlFor="questions">Number of Questions</Label>
+                <Input id="questions" type="number" defaultValue={5} />
+            </div>
+            <Button className="w-full">Generate Quiz</Button>
+        </div>
     )
 }
 
@@ -132,12 +141,10 @@ function PomodoroDemo() {
 
 function AnalyticsDemo() {
     return (
-        <Card className="w-full max-w-sm shadow-md">
-            <CardHeader>
-                <CardTitle>Subject Mastery</CardTitle>
-                <CardDescription>Your accuracy by subject</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        <div className="w-full space-y-4">
+            <h4 className="font-semibold text-lg">Subject Mastery</h4>
+            <p className="text-sm text-muted-foreground">Your accuracy by subject</p>
+            <div className="space-y-4 pt-2">
                  <div className="space-y-2">
                     <div className="flex justify-between text-sm font-medium"><span>Physics</span><span>85%</span></div>
                     <Progress value={85} indicatorClassName="bg-blue-500" />
@@ -150,14 +157,15 @@ function AnalyticsDemo() {
                     <div className="flex justify-between text-sm font-medium"><span>Biology</span><span>95%</span></div>
                     <Progress value={95} indicatorClassName="bg-green-500" />
                  </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }
 
 function BookmarkDemo() {
     return (
-        <div className="w-full max-w-sm space-y-3">
+        <div className="w-full space-y-3">
+             <h4 className="font-semibold text-lg mb-4">Bookmarked Questions</h4>
             <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
                 <p className="text-sm font-medium truncate pr-4">What is the powerhouse of the cell?</p>
                 <Bookmark className="h-5 w-5 text-primary fill-primary" />
@@ -173,4 +181,3 @@ function BookmarkDemo() {
         </div>
     )
 }
-
