@@ -61,16 +61,11 @@ export const useAnalyticsStore = create<AnalyticsState>()(
           const newWeakConcepts = { ...state.weakConcepts };
           
           let subject: Subject | string = quiz.subject;
-          if (Array.isArray(quiz.topics) && quiz.topics.length > 1) {
-              subject = 'Mixed';
-          }
-          
           if (!newStats.subjects[subject as Subject]) {
               newStats.subjects[subject as Subject] = { ...initialSubjectStats };
           }
           
           quiz.questions.forEach(q => {
-              newStats.subjects[subject as Subject].solved += 1; // Increment for each question
               newStats.subjects[subject as Subject].attempted += 1;
               if (q.isCorrect) {
                 newStats.subjects[subject as Subject].correct += 1;
