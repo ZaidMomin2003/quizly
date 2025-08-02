@@ -62,18 +62,19 @@ const TIERS = [
         ],
         buttonText: "Choose Plan",
         isPopular: false,
+        highlighted: true,
     }
 ];
 
 
-const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
-  const { name, price, originalPrice, description, features, buttonText, isPopular } = tier;
+const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] & { highlighted?: boolean } }) => {
+  const { name, price, originalPrice, description, features, buttonText, isPopular, highlighted } = tier;
 
   return (
     <motion.div
         className={cn(
             'relative flex flex-col gap-6 rounded-2xl border p-6 shadow-sm',
-            'bg-card text-card-foreground',
+            highlighted ? 'bg-foreground text-background' : 'bg-card text-card-foreground',
             isPopular && 'border-2 border-primary shadow-lg',
         )}
         initial={{ y: 20, opacity: 0 }}
@@ -90,7 +91,7 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
 
       <div className="text-center">
         <h2 className="text-2xl font-semibold font-headline">{name}</h2>
-        <p className="text-muted-foreground mt-1">{description}</p>
+        <p className={cn("mt-1", highlighted ? 'text-background/80' : 'text-muted-foreground' )}>{description}</p>
       </div>
 
 
@@ -98,7 +99,7 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
          <div className="flex items-baseline justify-center gap-2">
             <span className="text-4xl font-bold">{price}</span>
             {originalPrice && (
-                <span className="text-muted-foreground line-through">{originalPrice}</span>
+                <span className={cn("line-through", highlighted ? 'text-background/70' : 'text-muted-foreground' )}>{originalPrice}</span>
             )}
         </div>
       </div>
@@ -108,9 +109,9 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
           {features.map((feature, index) => (
             <li
               key={index}
-              className='flex items-center gap-3 text-muted-foreground'
+              className={cn('flex items-center gap-3', highlighted ? 'text-background/80' : 'text-muted-foreground')}
             >
-              <CheckCircle2 size={16} className="text-green-500" />
+              <CheckCircle2 size={16} className={cn(highlighted ? 'text-background/80' : 'text-green-500')} />
               {feature}
             </li>
           ))}
@@ -120,7 +121,7 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] }) => {
       <Button
         className='w-full'
         size="lg"
-        variant={isPopular ? 'default' : 'outline'}
+        variant={isPopular ? 'default' : highlighted ? 'secondary' : 'outline'}
       >
         <Zap className="mr-2" />
         {buttonText}
