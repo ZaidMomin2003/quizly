@@ -42,9 +42,11 @@ export function Hero() {
             </p>
             <div className="mt-8 flex flex-col gap-4 min-[400px]:flex-row justify-center">
                 <Button asChild size="lg">
-                  <Link href="/signup" className="group relative overflow-hidden shadow-lg shadow-primary/20 inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 text-sm font-medium text-white backdrop-blur-3xl">
+                  <Link href="/signup" className="group relative overflow-hidden shadow-lg shadow-primary/20">
                     <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                    <span className="z-10">Get Started For Free</span>
+                    <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-background px-8 text-sm font-medium text-white backdrop-blur-3xl">
+                      <span className="z-10">Get Started For Free</span>
+                    </div>
                   </Link>
                 </Button>
                  <Button asChild variant="outline" size="lg">
