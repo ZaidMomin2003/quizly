@@ -59,7 +59,7 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
                         You completed the quiz on: {quiz.topics.join(', ')}
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-6 items-center">
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                     <div className='flex flex-col items-center justify-center text-center'>
                         <div className="text-5xl sm:text-6xl font-bold text-primary">{score}%</div>
                         <div className="text-muted-foreground mt-2">
