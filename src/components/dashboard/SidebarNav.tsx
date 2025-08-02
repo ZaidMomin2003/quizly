@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Tags } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -24,6 +24,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { cn } from '@/lib/utils';
 
 
 const menuItems = [
@@ -31,7 +32,6 @@ const menuItems = [
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
-  { href: '/pricing', label: 'Pricing', icon: Tags },
 ];
 
 export function SidebarNav() {
@@ -61,6 +61,14 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter className="p-2 border-t mt-auto">
         <PomodoroTimer />
+        <div className={cn("mb-2 group-data-[collapsible=icon]:hidden")}>
+             <Button asChild className="w-full justify-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:from-yellow-600 hover:to-orange-600">
+                <Link href="/pricing">
+                    <Crown className="mr-2 h-4 w-4" />
+                    <span>Upgrade Now</span>
+                </Link>
+            </Button>
+        </div>
         <div className="flex items-center justify-between p-2 group-data-[collapsible=icon]:hidden">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
