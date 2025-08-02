@@ -1,5 +1,4 @@
 import { Header } from '@/components/dashboard/Header';
-import { QuickQuizForm } from '@/components/dashboard/QuickQuizForm';
 import { SubjectStatsCard } from '@/components/dashboard/SubjectStatsCard';
 
 export default function HomePage() {
@@ -48,7 +47,6 @@ export default function HomePage() {
             />
           ))}
         </div>
-        <QuickQuizForm />
       </main>
     </div>
   );
