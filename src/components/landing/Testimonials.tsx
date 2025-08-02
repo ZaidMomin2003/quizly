@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -168,9 +167,8 @@ const testimonials = [
   },
 ];
 
-const firstRow = testimonials.slice(0, 2);
-const secondRow = testimonials.slice(2, 4);
-const thirdRow = testimonials.slice(4, 6);
+const firstRow = testimonials.slice(0, 3);
+const secondRow = testimonials.slice(3, 6);
 
 export function Testimonials() {
   return (
@@ -197,7 +195,7 @@ export function Testimonials() {
         </h3>
       </motion.div>
 
-      <div className="relative mt-6 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg md:flex-row">
+      <div className="relative mt-6 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg">
         <Marquee pauseOnHover className="[--duration:20s]">
           {firstRow.map((testimonial) => (
             <TestimonialCard key={testimonial.name} {...testimonial} />
@@ -208,8 +206,8 @@ export function Testimonials() {
             <TestimonialCard key={testimonial.name} {...testimonial} />
           ))}
         </Marquee>
-        <Marquee pauseOnHover className="[--duration:20s] md:[--duration:30s]">
-          {thirdRow.map((testimonial) => (
+         <Marquee pauseOnHover className="[--duration:30s] hidden md:flex">
+          {firstRow.map((testimonial) => (
             <TestimonialCard key={testimonial.name} {...testimonial} />
           ))}
         </Marquee>
