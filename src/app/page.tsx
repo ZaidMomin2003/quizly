@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -6,6 +5,7 @@ import { Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Hero } from '@/components/landing/Hero';
 import { Features } from '@/components/landing/Features';
+import { Testimonials } from '@/components/landing/Testimonials';
 
 export default function LandingPage() {
   return (
@@ -39,6 +39,7 @@ export default function LandingPage() {
       <main className="flex-1">
         <Hero />
         <Features />
+        <Testimonials />
       </main>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -89,6 +88,14 @@ export default {
             height: '0',
           },
         },
+        'marquee-horizontal': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-vertical': {
+            from: { transform: 'translateY(0)' },
+            to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+        },
         blob: {
             "0%": {
                 transform: "translate(0px, 0px) scale(1)",
@@ -107,6 +114,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'marquee-horizontal': 'marquee-horizontal var(--duration, 30s) linear infinite',
+        'marquee-vertical': 'marquee-vertical var(--duration, 30s) linear infinite',
         'blob': 'blob 7s infinite',
       },
     },
