@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/sidebar';
 import { PomodoroTimer } from '../pomodoro/PomodoroTimer';
 import { ThemeToggle } from './ThemeToggle';
-import { ActivityLog } from './ActivityLog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,11 +23,13 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Separator } from '../ui/separator';
+import { ActivityLog } from './ActivityLog';
+
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
+  { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '#', label: 'Leaderboard', icon: Trophy },
 ];
 
