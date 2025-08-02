@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -25,7 +26,7 @@ export function WeakConcepts() {
         numberOfQuestions: 5,
         difficulty: 'medium',
     }));
-    router.push('/quizzes');
+    router.push('/dashboard/quizzes');
   }
 
   return (

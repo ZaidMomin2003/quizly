@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -46,7 +47,7 @@ export function ActivityLog() {
         numberOfQuestions: activity.quiz?.questions.length || 5, // Use original number of questions
         difficulty: activity.quiz?.difficulty || 'medium',
     }));
-    router.push('/quizzes');
+    router.push('/dashboard/quizzes');
     setSelectedActivity(null);
   }
 
@@ -56,7 +57,7 @@ export function ActivityLog() {
             quiz: activity.quiz,
             results: activity.results,
         }));
-        router.push('/quizzes/results');
+        router.push('/dashboard/quizzes/results');
     } else {
         toast({
             title: "Results not available",

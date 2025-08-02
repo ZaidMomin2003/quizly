@@ -49,7 +49,7 @@ export function QuickQuiz() {
     // We are just navigating. The actual quiz generation will be triggered
     // on the quizzes page. This is a simple way to reuse the quiz taking UI.
     // A better implementation could involve a global state manager.
-    router.push('/quizzes');
+    router.push('/dashboard/quizzes');
   };
 
   return (

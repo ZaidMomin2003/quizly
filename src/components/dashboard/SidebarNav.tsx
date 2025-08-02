@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown } from 'lucide-react';
@@ -28,10 +29,10 @@ import { cn } from '@/lib/utils';
 
 
 const menuItems = [
-  { href: '/', label: 'Dashboard', icon: Home },
-  { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
-  { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
-  { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+  { href: '/dashboard', label: 'Dashboard', icon: Home },
+  { href: '/dashboard/pomodoro', label: 'Pomodoro', icon: Timer },
+  { href: '/dashboard/bookmarks', label: 'Bookmarks', icon: Bookmark },
+  { href: '/dashboard/leaderboard', label: 'Leaderboard', icon: Trophy },
 ];
 
 export function SidebarNav() {
@@ -63,7 +64,7 @@ export function SidebarNav() {
         <PomodoroTimer />
         <div className={cn("mb-2 group-data-[collapsible=icon]:hidden")}>
              <Button asChild className="w-full justify-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:from-yellow-600 hover:to-orange-600">
-                <Link href="/pricing">
+                <Link href="/dashboard/pricing">
                     <Crown className="mr-2 h-4 w-4" />
                     <span>Upgrade Now</span>
                 </Link>

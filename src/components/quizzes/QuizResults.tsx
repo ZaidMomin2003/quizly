@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import type { Quiz } from '@/ai/schemas/quiz';
@@ -71,7 +72,7 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
                                 Take Another Quiz
                             </Button>
                              <Button variant="outline" asChild className="w-full sm:w-auto">
-                                <Link href="/">Back to Dashboard</Link>
+                                <Link href="/dashboard">Back to Dashboard</Link>
                             </Button>
                         </div>
                     </div>
