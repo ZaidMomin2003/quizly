@@ -13,7 +13,7 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, Wand2, Lightbulb, AlertCircle } from 'lucide-react';
+import { Loader2, Wand2, Lightbulb, AlertCircle, Sparkles } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export function AiRecommendationCard() {
@@ -39,19 +39,19 @@ export function AiRecommendationCard() {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-primary/5 to-transparent">
+    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background/50">
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 rounded-full">
-            <Wand2 className="h-6 w-6 text-primary" />
-          </div>
-          <div>
-            <CardTitle>AI Quiz Recommendations</CardTitle>
-            <CardDescription>
-              Let our AI suggest what you should practice next based on your
-              performance.
-            </CardDescription>
-          </div>
+            <div className="p-2 bg-primary/10 rounded-lg">
+                <Sparkles className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+                <CardTitle className="text-xl">Welcome back, Student!</CardTitle>
+                <CardDescription>
+                Let our AI suggest what you should practice next based on your
+                performance.
+                </CardDescription>
+            </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -62,10 +62,30 @@ export function AiRecommendationCard() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
+
+        {!isLoading && !recommendation && (
+            <div className='flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg'>
+                <p className='text-muted-foreground mb-4'>Click the button below to get your personalized quiz recommendations.</p>
+                <Button
+                    onClick={handleGetRecommendation}
+                    disabled={isLoading}
+                    >
+                    <Wand2 className="mr-2 h-4 w-4" />
+                    Get AI Recommendation
+                </Button>
+            </div>
+        )}
+
+        {isLoading && (
+            <div className='flex items-center justify-center p-8'>
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        )}
+
         {recommendation && (
-          <div className="space-y-4 rounded-lg border bg-background/50 p-4 shadow-inner">
+          <div className="space-y-4 rounded-lg border bg-background/50 p-4">
             <div>
-              <h4 className="font-semibold text-lg">Recommended Quizzes</h4>
+              <h4 className="font-semibold text-lg tracking-tight">Recommended Quizzes</h4>
               <p className="text-muted-foreground">
                 {recommendation.recommendedQuizzes}
               </p>
@@ -73,8 +93,8 @@ export function AiRecommendationCard() {
             <Separator />
             <div>
               <div className="flex items-center gap-2">
-                <Lightbulb className="h-5 w-5 text-amber-500" />
-                <h4 className="font-semibold text-lg">Reasoning</h4>
+                <Lightbulb className="h-5 w-5 text-yellow-400" />
+                <h4 className="font-semibold text-lg tracking-tight">Reasoning</h4>
               </div>
               <p className="text-muted-foreground italic">
                 "{recommendation.reasoning}"
@@ -83,20 +103,6 @@ export function AiRecommendationCard() {
           </div>
         )}
       </CardContent>
-      <CardFooter>
-        <Button
-          onClick={handleGetRecommendation}
-          disabled={isLoading}
-          className="w-full sm:w-auto"
-        >
-          {isLoading ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <Wand2 className="mr-2 h-4 w-4" />
-          )}
-          {isLoading ? 'Generating...' : 'Get AI Recommendation'}
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

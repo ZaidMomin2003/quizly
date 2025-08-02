@@ -10,34 +10,34 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recha
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 
 const chartData = [
-  { month: 'January', score: 78 },
-  { month: 'February', score: 82 },
-  { month: 'March', score: 75 },
-  { month: 'April', score: 88 },
+  { month: 'Jan', score: 78 },
+  { month: 'Feb', score: 82 },
+  { month: 'Mar', score: 75 },
+  { month: 'Apr', score: 88 },
   { month: 'May', score: 90 },
-  { month: 'June', score: 85 },
+  { month: 'Jun', score: 85 },
 ];
 
 const chartConfig = {
   score: {
     label: 'Avg. Score',
-    color: 'hsl(var(--primary))',
+    color: 'hsl(var(--chart-1))',
   },
 } satisfies ChartConfig;
 
 export function PerformanceAnalyticsCard() {
   return (
-    <Card className="h-full">
+    <Card className="h-full flex flex-col">
       <CardHeader>
         <CardTitle>Performance Analytics</CardTitle>
         <CardDescription>Your average monthly quiz scores.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[250px] w-full">
+      <CardContent className="flex-1">
+        <ChartContainer config={chartConfig} className="h-full w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 20, right: 20, left: -10, bottom: 0 }}
+              margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
             >
               <XAxis
                 dataKey="month"
@@ -57,7 +57,7 @@ export function PerformanceAnalyticsCard() {
                 cursor={false}
                 content={<ChartTooltipContent indicator="dot" />}
               />
-              <Bar dataKey="score" fill="var(--color-score)" radius={4} />
+              <Bar dataKey="score" fill="var(--color-score)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

@@ -12,26 +12,26 @@ export function QuickStartCard() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Start a New Practice Session</CardTitle>
+        <CardTitle>Quick Start</CardTitle>
         <CardDescription>
-          Choose a subject or start a mixed quiz.
+          Choose a subject to practice.
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4 sm:grid-cols-2">
-        <Button size="lg" className="w-full">
-          <PlayCircle />
+      <CardContent className="grid gap-4">
+        <Button size="lg" className="w-full justify-start">
+          <PlayCircle className="mr-4" />
           Start Mixed Quiz
         </Button>
-        <Button size="lg" variant="secondary" className="w-full">
-          <FlaskConical />
+        <Button size="lg" variant="secondary" className="w-full justify-start">
+          <FlaskConical className="mr-4" />
           Chemistry
         </Button>
-        <Button size="lg" variant="secondary" className="w-full">
-          <Atom />
+        <Button size="lg" variant="secondary" className="w-full justify-start">
+          <Atom className="mr-4" />
           Physics
         </Button>
-        <Button size="lg" variant="secondary" className="w-full">
-          <BrainCircuit />
+        <Button size="lg" variant="secondary" className="w-full justify-start">
+          <BrainCircuit className="mr-4" />
           Biology
         </Button>
       </CardContent>

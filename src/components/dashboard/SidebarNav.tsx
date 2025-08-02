@@ -11,7 +11,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { cn } from '@/lib/utils';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
@@ -43,9 +42,9 @@ export function SidebarNav() {
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.label}>
                 <Link href={item.href} className="w-full">
-                    <SidebarMenuButton isActive={pathname === item.href}>
+                    <SidebarMenuButton isActive={pathname === item.href} tooltip={item.label}>
                         <item.icon />
-                        {item.label}
+                        <span>{item.label}</span>
                     </SidebarMenuButton>
                 </Link>
             </SidebarMenuItem>
@@ -57,9 +56,9 @@ export function SidebarNav() {
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.label}>
                 <Link href={item.href} className="w-full">
-                    <SidebarMenuButton isActive={pathname === item.href}>
+                    <SidebarMenuButton isActive={pathname === item.href} tooltip={item.label}>
                         <item.icon />
-                        {item.label}
+                        <span>{item.label}</span>
                     </SidebarMenuButton>
                 </Link>
             </SidebarMenuItem>
