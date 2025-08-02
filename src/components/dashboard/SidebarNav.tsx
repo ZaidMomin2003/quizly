@@ -14,7 +14,6 @@ import {
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
-  { href: '/quizzes', label: 'Quizzes', icon: ListChecks },
   { href: '#', label: 'Test Series', icon: ListChecks },
   { href: '#', label: 'Pomodoro', icon: Timer },
   { href: '#', label: 'Leaderboard', icon: Trophy },
