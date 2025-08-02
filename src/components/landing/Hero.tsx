@@ -1,14 +1,18 @@
+
 'use client';
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function Hero() {
   return (
     <section
       className="relative w-full overflow-hidden bg-background pt-32 pb-10 font-light text-foreground antialiased md:pt-20 md:pb-16"
+      style={{
+        background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%)',
+      }}
     >
       <div
         className="absolute top-0 right-0 h-1/2 w-1/2"
@@ -75,9 +79,8 @@ export function Hero() {
           </div>
           <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-lg shadow-[0_0_50px_hsl(var(--primary)/0.2)]">
             <img
-              src="https://placehold.co/1200x675.png"
+              src="/dashboard.jpg"
               alt="QuizlyAI Dashboard"
-              data-ai-hint="dashboard"
               width={1920}
               height={1080}
               className="h-auto w-full rounded-lg border border-white/10"
