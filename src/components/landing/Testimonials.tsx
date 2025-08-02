@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -169,7 +170,8 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="relative container py-10">
+    <section className="relative container mx-auto py-10">
+      {/* Decorative elements */}
       <div className="absolute top-20 -left-20 z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute -right-20 bottom-20 z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
 
