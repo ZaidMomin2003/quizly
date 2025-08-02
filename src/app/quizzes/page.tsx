@@ -71,39 +71,39 @@ export default function QuizzesPage() {
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                   <div>
-                    {fields.map((field, index) => (
-                      <FormField
-                        control={form.control}
-                        key={field.id}
-                        name={`topics.${index}.value`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className={index !== 0 ? 'sr-only' : ''}>
-                              Topics
-                            </FormLabel>
-                            <FormDescription className={index !== 0 ? 'sr-only' : ''}>
-                              Add one or more topics for your quiz.
-                            </FormDescription>
-                            <div className="flex items-center gap-2">
-                              <FormControl>
-                                <Input {...field} placeholder="e.g., Quantum Physics" />
-                              </FormControl>
-                              {fields.length > 1 && (
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  size="icon"
-                                  onClick={() => remove(index)}
-                                >
-                                  <Trash className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    ))}
+                    <FormLabel>Topics</FormLabel>
+                    <FormDescription>
+                      Add one or more topics for your quiz.
+                    </FormDescription>
+                    <div className="space-y-2 mt-2">
+                        {fields.map((field, index) => (
+                          <FormField
+                            control={form.control}
+                            key={field.id}
+                            name={`topics.${index}.value`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <div className="flex items-center gap-2">
+                                  <FormControl>
+                                    <Input {...field} placeholder="e.g., Quantum Physics" />
+                                  </FormControl>
+                                  {fields.length > 1 && (
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="icon"
+                                      onClick={() => remove(index)}
+                                    >
+                                      <Trash className="h-4 w-4" />
+                                    </Button>
+                                  )}
+                                </div>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        ))}
+                    </div>
                     <Button
                       type="button"
                       variant="outline"
@@ -116,48 +116,51 @@ export default function QuizzesPage() {
                     </Button>
                   </div>
 
-                  <FormField
-                    control={form.control}
-                    name="difficulty"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Difficulty</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select a difficulty" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="easy">Easy</SelectItem>
-                            <SelectItem value="medium">Medium</SelectItem>
-                            <SelectItem value="hard">Hard</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormDescription>
-                          Choose the difficulty level for the quiz questions.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <FormField
+                      control={form.control}
+                      name="difficulty"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Difficulty</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a difficulty" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="easy">Easy</SelectItem>
+                              <SelectItem value="medium">Medium</SelectItem>
+                              <SelectItem value="hard">Hard</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormDescription>
+                            Choose the difficulty level for the quiz questions.
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                  <FormField
-                    control={form.control}
-                    name="numberOfQuestions"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Number of Questions</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          How many questions should the quiz have? (1-50)
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                    <FormField
+                      control={form.control}
+                      name="numberOfQuestions"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Number of Questions</FormLabel>
+                          <FormControl>
+                            <Input type="number" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            How many questions should the quiz have? (1-50)
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
 
                   <Button type="submit">Generate Quiz</Button>
                 </form>
