@@ -1,9 +1,11 @@
 
+
 'use client';
 
 import Link from 'next/link';
 import { Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Hero } from '@/components/landing/Hero';
 
 export default function LandingPage() {
   return (
@@ -35,7 +37,7 @@ export default function LandingPage() {
         </nav>
       </header>
       <main className="flex-1">
-        {/* The landing page content has been cleared for a redesign. */}
+        <Hero />
       </main>
     </div>
   );
