@@ -1,28 +1,51 @@
 import { Header } from '@/components/dashboard/Header';
-import { QuickStartCard } from '@/components/dashboard/QuickStartCard';
-import { SubjectProgressCard } from '@/components/dashboard/SubjectProgressCard';
-import { PerformanceAnalyticsCard } from '@/components/dashboard/PerformanceAnalyticsCard';
-import { RecentActivityCard } from '@/components/dashboard/RecentActivityCard';
-import { AiRecommendationCard } from '@/components/dashboard/AiRecommendationCard';
+import { SubjectStatsCard } from '@/components/dashboard/SubjectStatsCard';
 
 export default function HomePage() {
+  // Mock data - in a real app, this would come from a database
+  const stats = [
+    {
+      subject: 'Physics',
+      solved: 125,
+      iconName: 'atom' as const,
+      color: 'text-blue-400',
+      bgColor: 'bg-blue-400/10',
+    },
+    {
+      subject: 'Chemistry',
+      solved: 88,
+      iconName: 'flask-conical' as const,
+      color: 'text-green-400',
+      bgColor: 'bg-green-400/10',
+    },
+    {
+      subject: 'Biology',
+      solved: 210,
+      iconName: 'dna' as const,
+      color: 'text-purple-400',
+      bgColor: 'bg-purple-400/10',
+    },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Header />
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 lg:col-span-8 space-y-6">
-            <AiRecommendationCard />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <PerformanceAnalyticsCard />
-                <SubjectProgressCard />
-            </div>
-          </div>
-
-          <div className="col-span-12 lg:col-span-4 space-y-6">
-            <QuickStartCard />
-            <RecentActivityCard />
-          </div>
+        <div className="mb-8">
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <p className="text-muted-foreground">A quick overview of your progress.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stats.map((stat) => (
+            <SubjectStatsCard
+              key={stat.subject}
+              subject={stat.subject}
+              solved={stat.solved}
+              iconName={stat.iconName}
+              color={stat.color}
+              bgColor={stat.bgColor}
+            />
+          ))}
         </div>
       </main>
     </div>
