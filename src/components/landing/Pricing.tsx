@@ -66,6 +66,10 @@ const TIERS = [
     }
 ];
 
+const PopularBackground = () => (
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(var(--primary)/0.1),rgba(255,255,255,0))]" />
+);
+
 
 const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] & { highlighted?: boolean } }) => {
   const { name, price, originalPrice, description, features, buttonText, isPopular, highlighted } = tier;
@@ -82,6 +86,7 @@ const PricingCard = ({ tier }: { tier: (typeof TIERS)[number] & { highlighted?: 
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
     >
+      {isPopular && <PopularBackground />}
       {isPopular && (
           <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1">
               <Crown className="mr-2 h-4 w-4" />
