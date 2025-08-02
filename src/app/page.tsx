@@ -4,8 +4,17 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Bot, LogIn } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function LandingPage() {
+  const router = useRouter();
+  
+  // For now, redirect to the dashboard. Later, this will be a proper landing page.
+  useEffect(() => {
+    router.push('/dashboard');
+  }, [router]);
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -32,9 +41,8 @@ export default function LandingPage() {
               Welcome to QuizlyAI
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-              The future of AI-powered learning.
+              Redirecting to your dashboard...
             </p>
-            {/* Content will be added later */}
           </div>
         </div>
       </main>
