@@ -78,7 +78,7 @@ export function Pricing() {
                         Pricing
                     </div>
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-                        Find a plan that's right for you
+                        Flexible Pricing for Every Student
                     </h2>
                     <p className="mt-4 max-w-xl mx-auto text-muted-foreground md:text-xl/relaxed">
                         Flexible pricing for every student. Cancel anytime.
@@ -87,7 +87,10 @@ export function Pricing() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {allPlans.map((plan, index) => (
-                        <Card key={index} className={cn('flex flex-col bg-background/50', plan.isPopular ? 'border-primary border-2 shadow-lg relative shadow-primary/20' : 'border-border/50')}>
+                        <Card key={index} className={cn(
+                            'flex flex-col bg-white/5 border-white/10 backdrop-blur-lg shadow-lg',
+                            plan.isPopular ? 'border-primary/50 border-2 relative shadow-primary/20' : ''
+                        )}>
                             {plan.isPopular && (
                                 <Badge className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1">
                                     <Crown className="mr-2 h-4 w-4" />

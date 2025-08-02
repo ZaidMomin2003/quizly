@@ -6,7 +6,7 @@ import { Bot } from "lucide-react";
 
 export function Footer() {
     return (
-        <footer className="w-full py-6 px-4 md:px-6 border-t bg-background/95 backdrop-blur-sm">
+        <footer className="w-full py-6 px-4 md:px-6 border-t border-white/10 bg-background/80 backdrop-blur-sm">
             <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                     <Bot className="h-6 w-6 text-primary" />

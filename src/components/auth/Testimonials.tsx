@@ -34,7 +34,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <div className="relative h-full flex flex-col items-center justify-center bg-muted p-12">
+    <div className="relative h-full flex flex-col items-center justify-center p-12">
       <Carousel
         opts={{
           align: "start",

@@ -11,32 +11,27 @@ import { FAQ } from '@/components/landing/FAQ';
 import { Pricing } from '@/components/landing/Pricing';
 import { Contact } from '@/components/landing/Contact';
 import { Footer } from '@/components/landing/Footer';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
-  const { theme, systemTheme } = useTheme();
-  const [currentTheme, setCurrentTheme] = useState('');
-
-  useEffect(() => {
-    setCurrentTheme(theme === 'system' ? systemTheme ?? 'dark' : theme ?? 'dark');
-  }, [theme, systemTheme]);
-
   return (
-    <div className={`flex flex-col min-h-screen bg-background text-foreground font-body ${currentTheme === 'dark' ? 'dark-theme-bg' : 'light-theme-bg'}`}>
+    <div className="flex flex-col min-h-screen bg-background text-foreground font-body dark-theme-bg">
        <style jsx global>{`
         .dark-theme-bg {
             background-color: #09090b;
-            background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
-            background-size: 2rem 2rem;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 3rem 3rem;
         }
         .light-theme-bg {
             background-color: #ffffff;
-            background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
-            background-size: 2rem 2rem;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 3rem 3rem;
         }
       `}</style>
-      <header className="px-4 lg:px-6 h-14 flex items-center sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
+      <header className="px-4 lg:px-6 h-14 flex items-center sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
         <Link href="#" className="flex items-center justify-center">
           <Bot className="h-6 w-6 text-primary" />
           <span className="ml-2 text-lg font-semibold font-headline">QuizlyAI</span>
