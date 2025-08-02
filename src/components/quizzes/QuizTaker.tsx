@@ -59,8 +59,13 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
         isCorrect: selectedAnswers[i] === q.answer,
     }));
 
-    const subjectMatch = quiz.topics[0]?.match(/Physics|Chemistry|Biology/);
-    const subject = subjectMatch ? subjectMatch[0] as 'Physics' | 'Chemistry' | 'Biology' : 'Mixed';
+    // Correctly determine the subject.
+    // A more robust implementation might check all topics.
+    const firstTopic = quiz.topics[0]?.toLowerCase() || '';
+    let subject: 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' = 'Mixed';
+    if (firstTopic.includes('physics')) subject = 'Physics';
+    else if (firstTopic.includes('chemistry')) subject = 'Chemistry';
+    else if (firstTopic.includes('biology')) subject = 'Biology';
 
     logQuiz({
         topics: quiz.topics,
