@@ -17,6 +17,7 @@ const prompt = ai.definePrompt({
   name: 'generateQuizPrompt',
   input: { schema: GenerateQuizInputSchema },
   output: { schema: QuizSchema },
+  model: 'googleai/gemini-1.5-flash',
   prompt: `You are an expert in creating educational content for NEET/JEE entrance exams.
 
   Generate a multiple-choice quiz with {{numberOfQuestions}} questions.
@@ -37,7 +38,6 @@ const prompt = ai.definePrompt({
   Return the quiz in the specified JSON format.
   `,
   config: {
-    model: 'googleai/gemini-1.5-flash',
     safetySettings: [
         {
             category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
