@@ -32,6 +32,7 @@ import { createQuiz } from '@/app/actions';
 import type { Quiz, GenerateQuizInput } from '@/ai/schemas/quiz';
 import { QuizTaker } from '@/components/quizzes/QuizTaker';
 import { useToast } from '@/hooks/use-toast';
+import { useAnalyticsStore } from '@/stores/analytics-store';
 
 const quizFormSchema = z.object({
   topics: z.array(z.object({ value: z.string().min(1, 'Topic is required.') })).min(1, 'At least one topic is required.'),
@@ -41,11 +42,21 @@ const quizFormSchema = z.object({
 
 type QuizFormValues = z.infer<typeof quizFormSchema>;
 
+// A helper to guess the subject from topics
+const getSubjectFromTopics = (topics: string[]): 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' => {
+    const lowerCaseTopics = topics.join(' ').toLowerCase();
+    if (lowerCaseTopics.includes('physics')) return 'Physics';
+    if (lowerCaseTopics.includes('chemistry')) return 'Chemistry';
+    if (lowerCaseTopics.includes('biology')) return 'Biology';
+    return 'Mixed';
+};
+
 export default function QuizzesPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [generatedQuiz, setGeneratedQuiz] = useState<Quiz | null>(null);
   const { toast } = useToast();
+  const { logQuizGeneration } = useAnalyticsStore();
 
   const form = useForm<QuizFormValues>({
     resolver: zodResolver(quizFormSchema),
@@ -93,6 +104,14 @@ export default function QuizzesPage() {
     try {
       const quiz = await createQuiz(input);
       setGeneratedQuiz(quiz);
+
+      // Log the generation event to update dashboard stats immediately
+      logQuizGeneration({
+        subject: getSubjectFromTopics(input.topics),
+        questionsGenerated: input.numberOfQuestions,
+        topics: input.topics,
+      });
+
       toast({
         title: "Quiz Generated!",
         description: "Your quiz is ready. Good luck!",

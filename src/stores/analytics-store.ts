@@ -11,7 +11,7 @@ export interface Activity {
   date: string;
   subject: Subject | string;
   title: string;
-  type: 'quiz' | 'pomodoro';
+  type: 'quiz' | 'pomodoro' | 'quiz_generated';
 }
 
 interface AnalyticsState {
@@ -23,6 +23,7 @@ interface AnalyticsState {
   weakConcepts: Record<string, number>; // { topic: incorrectCount }
   activities: Activity[];
   logQuiz: (quiz: { topics: string[], questions: { topic: string, isCorrect: boolean }[], subject: Subject | string }) => void;
+  logQuizGeneration: (data: { subject: Subject; questionsGenerated: number, topics: string[] }) => void;
   logPomodoro: (task: string) => void;
   getTopWeakConcepts: (count: number) => { topic: string; count: number }[];
   getWeeklyChartData: () => { day: string, questions: number }[];
@@ -51,6 +52,30 @@ export const useAnalyticsStore = create<AnalyticsState>()(
       weeklyProgress: {},
       weakConcepts: {},
       activities: [],
+      
+      logQuizGeneration: (data) => {
+        set((state) => {
+           const newStats = JSON.parse(JSON.stringify(state.stats));
+           const { subject, questionsGenerated, topics } = data;
+
+            if (!newStats.subjects[subject]) {
+              newStats.subjects[subject] = { ...initialSubjectStats };
+            }
+            newStats.subjects[subject].attempted += questionsGenerated;
+
+            const newActivity: Activity = {
+                date: new Date().toISOString(),
+                subject: subject,
+                title: `Quiz Generated: ${topics.join(', ')}`,
+                type: 'quiz_generated',
+            };
+
+            return {
+                stats: newStats,
+                activities: [newActivity, ...state.activities].slice(0, 50),
+            };
+        });
+      },
 
       logQuiz: (quiz) => {
         const today = format(new Date(), 'yyyy-MM-dd');
@@ -65,8 +90,6 @@ export const useAnalyticsStore = create<AnalyticsState>()(
               newStats.subjects[subject as Subject] = { ...initialSubjectStats };
           }
           
-          newStats.subjects[subject as Subject].attempted += quiz.questions.length;
-
           quiz.questions.forEach(q => {
               if (q.isCorrect) {
                 newStats.subjects[subject as Subject].correct += 1;
