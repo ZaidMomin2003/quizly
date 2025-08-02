@@ -24,6 +24,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Separator } from '../ui/separator';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
@@ -58,10 +59,10 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter className="p-2 border-t mt-auto">
         <PomodoroTimer />
-        <div className="p-2 flex flex-col items-center gap-2 group-data-[collapsible=icon]:hidden">
+        <div className="flex items-center justify-between p-2 group-data-[collapsible=icon]:hidden">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="w-full justify-start gap-3">
+                    <Button variant="ghost" className="justify-start gap-3 px-2 w-full">
                          <Avatar className="h-8 w-8">
                             <AvatarImage
                             src="https://placehold.co/100x100"
@@ -85,6 +86,7 @@ export function SidebarNav() {
                     <DropdownMenuItem>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+            <ThemeToggle />
         </div>
 
       </SidebarFooter>
