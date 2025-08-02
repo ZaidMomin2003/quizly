@@ -25,6 +25,8 @@ import { Badge } from '@/components/ui/badge';
 import { History, Search } from 'lucide-react';
 import { useAnalyticsStore, Activity, QuizResult } from '@/stores/analytics-store';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 export function ActivityLog() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,6 +34,7 @@ export function ActivityLog() {
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const { activities } = useAnalyticsStore();
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     setIsClient(true);
@@ -39,8 +42,8 @@ export function ActivityLog() {
 
   const handleRetake = (activity: Activity) => {
     sessionStorage.setItem('quickQuizData', JSON.stringify({
-        topics: activity.title.replace('Quiz: ', ''),
-        numberOfQuestions: activity.results?.length || 5, // Use original number of questions
+        topics: activity.quiz?.topics.join(', ') || activity.title.replace('Quiz: ', ''),
+        numberOfQuestions: activity.quiz?.questions.length || 5, // Use original number of questions
         difficulty: activity.quiz?.difficulty || 'medium',
     }));
     router.push('/quizzes');
@@ -54,6 +57,12 @@ export function ActivityLog() {
             results: activity.results,
         }));
         router.push('/quizzes/results');
+    } else {
+        toast({
+            title: "Results not available",
+            description: "Detailed results for this quiz could not be found.",
+            variant: 'destructive',
+        });
     }
     setSelectedActivity(null);
   }
@@ -104,8 +113,8 @@ export function ActivityLog() {
           </div>
           
           <div className='max-h-96 overflow-y-auto'>
-              {Object.keys(groupedActivities).length > 0 ? Object.entries(groupedActivities).map(([date, activities]) => {
-                  let displayDate = date;
+              {Object.keys(groupedActivities).length > 0 ? Object.entries(groupedActivities).sort((a,b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()).map(([date, activities]) => {
+                  let displayDate = new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'});
                   if (date === today) displayDate = 'Today';
                   if (date === yesterday) displayDate = 'Yesterday';
 
