@@ -40,6 +40,11 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
     },
   };
 
+  const getCorrectAnswerText = (questionIndex: number) => {
+      const question = quiz.questions[questionIndex];
+      return question.options.find(opt => opt.startsWith(question.answer)) || 'N/A';
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
@@ -112,7 +117,7 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
                                     <AccordionContent className="space-y-4 pt-4">
                                         <div className="text-muted-foreground">
                                             <p><span className="font-semibold text-foreground">Your Answer:</span> {result.answer || 'Not answered'}</p>
-                                            {!result.isCorrect && <p><span className="font-semibold text-foreground">Correct Answer:</span> {question.answer}</p>}
+                                            {!result.isCorrect && <p><span className="font-semibold text-foreground">Correct Answer:</span> {getCorrectAnswerText(index)}</p>}
                                         </div>
                                         <div className="p-4 bg-accent/50 rounded-lg">
                                             <h4 className="font-semibold mb-2">Explanation</h4>

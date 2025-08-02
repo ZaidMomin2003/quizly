@@ -9,8 +9,8 @@ export type GenerateQuizInput = z.infer<typeof GenerateQuizInputSchema>;
 
 export const QuizQuestionSchema = z.object({
   question: z.string().describe('The quiz question.'),
-  options: z.array(z.string()).length(4).describe('An array of 4 possible answers.'),
-  answer: z.string().describe('The correct answer from the options array.'),
+  options: z.array(z.string()).length(4).describe('An array of 4 possible answers, each starting with "A.", "B.", "C.", or "D.".'),
+  answer: z.enum(['A', 'B', 'C', 'D']).describe('The letter (A, B, C, or D) corresponding to the correct answer from the options array.'),
   explanation: z.string().describe('A detailed explanation of why the answer is correct.'),
 });
 

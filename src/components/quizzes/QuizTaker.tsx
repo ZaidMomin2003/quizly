@@ -53,14 +53,20 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
     });
   };
 
+  const isCorrect = (questionIndex: number) => {
+    const selected = selectedAnswers[questionIndex];
+    const correct = quiz.questions[questionIndex].answer;
+    if (!selected) return false;
+    // Compare the letter from the option with the correct letter
+    return selected.split('.')[0] === correct;
+  };
+
   const handleSubmit = () => {
     const results = quiz.questions.map((q, i) => ({
-        topic: quiz.topics[0] || 'General', // simplistic mapping
-        isCorrect: selectedAnswers[i] === q.answer,
+      topic: quiz.topics[0] || 'General',
+      isCorrect: isCorrect(i),
     }));
 
-    // Correctly determine the subject.
-    // A more robust implementation might check all topics.
     const firstTopic = quiz.topics[0]?.toLowerCase() || '';
     let subject: 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' = 'Mixed';
     if (firstTopic.includes('physics')) subject = 'Physics';
@@ -68,99 +74,99 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
     else if (firstTopic.includes('biology')) subject = 'Biology';
 
     logQuiz({
-        topics: quiz.topics,
-        questions: results,
-        subject: subject,
+      topics: quiz.topics,
+      questions: results,
+      subject: subject,
     });
     setIsFinished(true);
   };
 
   const calculateScore = () => {
-    let correctAnswers = 0;
-    quiz.questions.forEach((q, index) => {
-      if (selectedAnswers[index] === q.answer) {
-        correctAnswers++;
+    let correctCount = 0;
+    quiz.questions.forEach((_, index) => {
+      if (isCorrect(index)) {
+        correctCount++;
       }
     });
-    return Math.round((correctAnswers / quiz.questions.length) * 100);
+    return Math.round((correctCount / quiz.questions.length) * 100);
   };
 
   if (isFinished) {
     const results: Answer[] = quiz.questions.map((q, i) => ({
       questionIndex: i,
       answer: selectedAnswers[i],
-      isCorrect: selectedAnswers[i] === q.answer,
+      isCorrect: isCorrect(i),
     }));
     return <QuizResults quiz={quiz} results={results} onRetake={onRetake} score={calculateScore()} />;
   }
 
   return (
     <div className="flex flex-col h-screen bg-background">
-        <Header />
-        <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-            <div className="w-full max-w-3xl space-y-6">
-                <div>
-                    <div className='flex justify-between items-center mb-2'>
-                        <h2 className="text-lg font-semibold text-muted-foreground">
-                            Question {currentQuestionIndex + 1} of {quiz.questions.length}
-                        </h2>
-                        <div className="text-lg font-semibold text-muted-foreground">
-                            {quiz.topics.join(', ')} - <span className='capitalize'>{quiz.difficulty}</span>
-                        </div>
-                    </div>
-                    <Progress value={progress} className="w-full" />
-                </div>
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-2xl leading-relaxed">
-                            {currentQuestion.question}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <RadioGroup
-                            onValueChange={handleAnswerSelect}
-                            value={selectedAnswers[currentQuestionIndex]}
-                            className="space-y-4"
-                        >
-                            {currentQuestion.options.map((option, index) => (
-                                <Label key={index}
-                                    className={cn(
-                                        "flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors",
-                                        "hover:bg-accent",
-                                        selectedAnswers[currentQuestionIndex] === option && "bg-primary/10 border-primary"
-                                    )}
-                                >
-                                    <RadioGroupItem value={option} id={`option-${index}`} />
-                                    <span className="text-base font-medium">{option}</span>
-                                </Label>
-                            ))}
-                        </RadioGroup>
-                    </CardContent>
-                </Card>
-
-                <div className="flex justify-between items-center">
-                    <Button variant="outline" onClick={handlePrev} disabled={currentQuestionIndex === 0}>
-                        <ChevronsLeft className="mr-2" />
-                        Previous
-                    </Button>
-
-                    {currentQuestionIndex === quiz.questions.length - 1 ? (
-                        <Button
-                            size="lg"
-                            onClick={handleSubmit}
-                            disabled={!selectedAnswers[currentQuestionIndex]}
-                        >
-                            Finish & See Results
-                        </Button>
-                    ) : (
-                        <Button onClick={handleNext} disabled={!selectedAnswers[currentQuestionIndex]}>
-                            Next
-                            <ChevronsRight className="ml-2" />
-                        </Button>
-                    )}
-                </div>
+      <Header />
+      <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-3xl space-y-6">
+          <div>
+            <div className='flex justify-between items-center mb-2'>
+              <h2 className="text-lg font-semibold text-muted-foreground">
+                Question {currentQuestionIndex + 1} of {quiz.questions.length}
+              </h2>
+              <div className="text-lg font-semibold text-muted-foreground">
+                {quiz.topics.join(', ')} - <span className='capitalize'>{quiz.difficulty}</span>
+              </div>
             </div>
-        </main>
+            <Progress value={progress} className="w-full" />
+          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl leading-relaxed">
+                {currentQuestion.question}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RadioGroup
+                onValueChange={handleAnswerSelect}
+                value={selectedAnswers[currentQuestionIndex]}
+                className="space-y-4"
+              >
+                {currentQuestion.options.map((option, index) => (
+                  <Label key={index}
+                    className={cn(
+                      "flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors",
+                      "hover:bg-accent",
+                      selectedAnswers[currentQuestionIndex] === option && "bg-primary/10 border-primary"
+                    )}
+                  >
+                    <RadioGroupItem value={option} id={`option-${index}`} />
+                    <span className="text-base font-medium">{option}</span>
+                  </Label>
+                ))}
+              </RadioGroup>
+            </CardContent>
+          </Card>
+
+          <div className="flex justify-between items-center">
+            <Button variant="outline" onClick={handlePrev} disabled={currentQuestionIndex === 0}>
+              <ChevronsLeft className="mr-2" />
+              Previous
+            </Button>
+
+            {currentQuestionIndex === quiz.questions.length - 1 ? (
+              <Button
+                size="lg"
+                onClick={handleSubmit}
+                disabled={!selectedAnswers[currentQuestionIndex]}
+              >
+                Finish & See Results
+              </Button>
+            ) : (
+              <Button onClick={handleNext} disabled={!selectedAnswers[currentQuestionIndex]}>
+                Next
+                <ChevronsRight className="ml-2" />
+              </Button>
+            )}
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

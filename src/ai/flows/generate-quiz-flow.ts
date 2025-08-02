@@ -31,8 +31,8 @@ const prompt = ai.definePrompt({
 
   For each question:
   1. Provide a clear and concise question.
-  2. Provide exactly 4 multiple-choice options: one correct answer and three plausible but incorrect distractors.
-  3. Indicate the correct answer from the provided options.
+  2. Provide exactly 4 multiple-choice options, each prefixed with "A.", "B.", "C.", or "D.".
+  3. Indicate the correct answer by providing only the corresponding letter (A, B, C, or D).
   4. Provide a detailed explanation for why the answer is correct, explaining the underlying concepts.
 
   Return the quiz in the specified JSON format.
