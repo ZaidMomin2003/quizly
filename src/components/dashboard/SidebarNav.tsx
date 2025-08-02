@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, BarChart2, FileText, Home, Settings, UserCircle, Trophy, ListChecks, Timer } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -14,11 +14,10 @@ import {
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
-  { href: '/quizzes', label: 'Quizzes', icon: FileText },
+  { href: '/quizzes', label: 'Quizzes', icon: ListChecks },
   { href: '#', label: 'Test Series', icon: ListChecks },
   { href: '#', label: 'Pomodoro', icon: Timer },
   { href: '#', label: 'Leaderboard', icon: Trophy },
-  { href: '#', label: 'Analytics', icon: BarChart2 },
 ];
 
 const bottomMenuItems = [
