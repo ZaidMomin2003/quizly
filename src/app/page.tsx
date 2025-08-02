@@ -1,6 +1,8 @@
 import { Header } from '@/components/dashboard/Header';
 import { QuickQuiz } from '@/components/dashboard/QuickQuiz';
 import { SubjectStatsCard } from '@/components/dashboard/SubjectStatsCard';
+import { WeeklyProgressChart } from '@/components/dashboard/WeeklyProgressChart';
+import { WeakConcepts } from '@/components/dashboard/WeakConcepts';
 
 export default function HomePage() {
   // Mock data - in a real app, this would come from a database
@@ -48,7 +50,18 @@ export default function HomePage() {
             />
           ))}
         </div>
-        <QuickQuiz />
+        <div className="mb-8">
+            <QuickQuiz />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-8">
+            <div className="lg:col-span-7">
+                <WeeklyProgressChart />
+            </div>
+            <div className="lg:col-span-3">
+                <WeakConcepts />
+            </div>
+        </div>
       </main>
     </div>
   );
