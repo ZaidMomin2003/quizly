@@ -70,6 +70,7 @@ export function TestimonialCard({
           src={img || ''}
           alt={name}
           className="size-10 rounded-full ring-1 ring-primary/20 ring-offset-2"
+          data-ai-hint="avatar"
         />
 
         <div>
@@ -198,17 +199,17 @@ export function Testimonials() {
       <div className="relative mt-6 flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-lg">
         <Marquee pauseOnHover className="[--duration:20s]">
           {firstRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} />
+            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
           ))}
         </Marquee>
         <Marquee pauseOnHover reverse className="[--duration:20s]">
           {secondRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} />
+            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
           ))}
         </Marquee>
          <Marquee pauseOnHover className="[--duration:30s] hidden md:flex">
           {firstRow.map((testimonial) => (
-            <TestimonialCard key={testimonial.name} {...testimonial} />
+            <TestimonialCard key={testimonial.name} {...testimonial} className="max-w-sm flex-shrink-0" />
           ))}
         </Marquee>
         <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r"></div>
