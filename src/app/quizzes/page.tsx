@@ -29,7 +29,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Header } from '@/components/dashboard/Header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { createQuiz } from '@/app/actions';
-import type { Quiz, GenerateQuizInput } from '@/ai/flows/generate-quiz-flow';
+import type { Quiz, GenerateQuizInput } from '@/ai/schemas/quiz';
 import { QuizTaker } from '@/components/quizzes/QuizTaker';
 import { useToast } from '@/hooks/use-toast';
 

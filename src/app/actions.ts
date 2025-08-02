@@ -6,9 +6,8 @@ import {
 } from '@/ai/flows/recommend-practice-quiz';
 import {
   generateQuiz,
-  type GenerateQuizInput,
-  type Quiz,
 } from '@/ai/flows/generate-quiz-flow';
+import type { GenerateQuizInput, Quiz } from '@/ai/schemas/quiz';
 
 export async function getRecommendation(): Promise<RecommendPracticeQuizOutput> {
   // In a real app, this data would be fetched from a database.
