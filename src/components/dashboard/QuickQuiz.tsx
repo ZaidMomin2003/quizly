@@ -64,27 +64,25 @@ export function QuickQuiz() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-1 gap-4">
-              <FormField
-                control={form.control}
-                name="topics"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="sr-only">Topics</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Enter topics separated by commas, e.g., Thermodynamics, Optics" />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+            <FormField
+              control={form.control}
+              name="topics"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="sr-only">Topics</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Enter topics separated by commas, e.g., Thermodynamics, Optics" />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 items-end">
               <FormField
                 control={form.control}
                 name="subject"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="sr-only">Subject</FormLabel>
+                    <FormLabel>Subject</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -105,14 +103,14 @@ export function QuickQuiz() {
                 name="numberOfQuestions"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="sr-only">Number of Questions</FormLabel>
+                    <FormLabel>Questions</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full sm:w-auto" disabled={isLoading}>
+              <Button type="submit" className="w-full col-span-2 sm:col-span-1" disabled={isLoading}>
                 {isLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
