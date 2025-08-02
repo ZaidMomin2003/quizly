@@ -12,10 +12,11 @@ import {
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { PomodoroTimer } from '../pomodoro/PomodoroTimer';
+import { ThemeToggle } from './ThemeToggle';
+import { ActivityLog } from './ActivityLog';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
-  { href: '/quizzes', label: 'Quizzes', icon: ListChecks },
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '#', label: 'Leaderboard', icon: Trophy },
 ];
@@ -52,6 +53,10 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter className="p-2 border-t mt-auto">
         <PomodoroTimer />
+         <div className="flex items-center justify-center gap-2 group-data-[collapsible=icon]:hidden">
+            <ThemeToggle />
+            <ActivityLog />
+        </div>
         <SidebarMenu>
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.label}>
