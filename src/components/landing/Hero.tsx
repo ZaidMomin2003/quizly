@@ -8,7 +8,7 @@ import { ChevronDown } from 'lucide-react';
 export function Hero() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-background pt-32 pb-10 font-light antialiased md:pt-20 md:pb-16"
+      className="relative w-full overflow-hidden bg-background pt-32 pb-10 font-light text-foreground antialiased md:pt-20 md:pb-16"
     >
       <div
         className="absolute top-0 right-0 h-1/2 w-1/2"
@@ -45,9 +45,7 @@ export function Hero() {
 
           <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:mb-0 sm:flex-row">
             <Button size="lg" asChild>
-              <Link
-                href="/signup"
-              >
+              <Link href="/signup">
                 Get Started For Free
               </Link>
             </Button>
@@ -70,9 +68,8 @@ export function Hero() {
         >
           <div className="relative flex h-40 w-full overflow-hidden md:h-64">
             <img
-              src="https://placehold.co/1024x300.png"
-              alt="Background element"
-              data-ai-hint="abstract background"
+              src="https://blocks.mvp-subha.me/assets/earth.png"
+              alt="Globe background"
               className="absolute top-0 left-1/2 -z-10 mx-auto -translate-x-1/2 px-4 opacity-30"
             />
           </div>
