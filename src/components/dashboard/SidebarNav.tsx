@@ -1,4 +1,4 @@
-import { Bot, BarChart2, FileText, Home, Settings, UserCircle } from 'lucide-react';
+import { Bot, BarChart2, FileText, Home, Settings, UserCircle, Trophy, ListChecks, Timer } from 'lucide-react';
 import {
   SidebarContent,
   SidebarFooter,
@@ -29,6 +29,24 @@ export function SidebarNav() {
             <SidebarMenuButton>
               <FileText />
               Quizzes
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <ListChecks />
+              Test Series
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <Timer />
+              Pomodoro
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <Trophy />
+              Leaderboard
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
