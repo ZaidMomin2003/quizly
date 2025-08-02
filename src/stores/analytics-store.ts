@@ -65,8 +65,9 @@ export const useAnalyticsStore = create<AnalyticsState>()(
               newStats.subjects[subject as Subject] = { ...initialSubjectStats };
           }
           
+          newStats.subjects[subject as Subject].attempted += quiz.questions.length;
+
           quiz.questions.forEach(q => {
-              newStats.subjects[subject as Subject].attempted += 1;
               if (q.isCorrect) {
                 newStats.subjects[subject as Subject].correct += 1;
               } else {
