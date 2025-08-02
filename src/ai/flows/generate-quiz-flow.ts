@@ -38,6 +38,16 @@ const prompt = ai.definePrompt({
   `,
   config: {
     model: 'googleai/gemini-1.5-flash',
+    safetySettings: [
+        {
+            category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+            threshold: 'BLOCK_NONE',
+        },
+        {
+            category: 'HARM_CATEGORY_HARASSMENT',
+            threshold: 'BLOCK_NONE',
+        },
+    ]
   }
 });
 
@@ -48,7 +58,16 @@ const generateQuizFlow = ai.defineFlow(
     outputSchema: QuizSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
+    try {
+      const { output } = await prompt(input);
+      if (!output) {
+        throw new Error('The AI model did not return a quiz. Please try again.');
+      }
+      return output;
+    } catch(e: any) {
+        console.error("Error in generateQuizFlow:", e.message);
+        console.error("Input to flow:", JSON.stringify(input, null, 2));
+        throw new Error(`Failed to generate quiz: ${e.message}`);
+    }
   }
 );
