@@ -78,7 +78,7 @@ export function QuickQuiz() {
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-4 items-end">
               <FormField
                 control={form.control}
                 name="subject"
