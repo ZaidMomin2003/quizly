@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -61,15 +61,34 @@ export default function QuizzesPage() {
     control: form.control,
   });
 
-  async function onSubmit(data: QuizFormValues) {
+  // Effect to check for quick quiz data from dashboard
+  useEffect(() => {
+    const quickQuizDataString = sessionStorage.getItem('quickQuizData');
+    if (quickQuizDataString) {
+      try {
+        const quickQuizData = JSON.parse(quickQuizDataString);
+        sessionStorage.removeItem('quickQuizData'); // Clean up
+
+        const topics = quickQuizData.topics.split(',').map((t: string) => t.trim()).filter(Boolean);
+        if (topics.length > 0) {
+            const quizInput: GenerateQuizInput = {
+                topics: topics,
+                difficulty: 'medium', // default difficulty
+                numberOfQuestions: quickQuizData.numberOfQuestions,
+            };
+            // Automatically submit form with data from dashboard
+            triggerQuizGeneration(quizInput);
+        }
+      } catch (e) {
+        console.error("Failed to parse quick quiz data", e);
+      }
+    }
+  }, []);
+
+  async function triggerQuizGeneration(input: GenerateQuizInput) {
     setIsLoading(true);
     setError(null);
     setGeneratedQuiz(null);
-
-    const input: GenerateQuizInput = {
-      ...data,
-      topics: data.topics.map(t => t.value),
-    };
 
     try {
       const quiz = await createQuiz(input);
@@ -91,6 +110,15 @@ export default function QuizzesPage() {
     }
   }
 
+
+  async function onSubmit(data: QuizFormValues) {
+    const input: GenerateQuizInput = {
+      ...data,
+      topics: data.topics.map(t => t.value),
+    };
+    triggerQuizGeneration(input);
+  }
+
   const handleRetake = () => {
     setGeneratedQuiz(null);
     setError(null);
@@ -99,6 +127,19 @@ export default function QuizzesPage() {
 
   if (generatedQuiz) {
     return <QuizTaker quiz={generatedQuiz} onRetake={handleRetake} />;
+  }
+
+  if (isLoading && !generatedQuiz) {
+    return (
+        <div className="flex flex-col h-screen bg-background">
+            <Header />
+            <main className="flex-1 flex flex-col items-center justify-center gap-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                <h2 className="text-xl font-semibold">Generating Your Quiz...</h2>
+                <p className="text-muted-foreground">Please wait while our AI crafts the questions.</p>
+            </main>
+        </div>
+    )
   }
 
   return (
