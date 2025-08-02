@@ -25,6 +25,15 @@ type Answer = {
   isCorrect: boolean;
 };
 
+// A helper to guess the subject from topics
+const getSubjectFromTopics = (topics: string[]): 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' => {
+    const lowerCaseTopics = topics.join(' ').toLowerCase();
+    if (lowerCaseTopics.includes('physic')) return 'Physics'; // Allow for "physics" or "physic"
+    if (lowerCaseTopics.includes('chem')) return 'Chemistry';
+    if (lowerCaseTopics.includes('bio')) return 'Biology';
+    return 'Mixed';
+};
+
 export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
@@ -55,28 +64,23 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
 
   const isCorrect = (questionIndex: number) => {
     const selected = selectedAnswers[questionIndex];
-    const correct = quiz.questions[questionIndex].answer;
     if (!selected) return false;
-    // Compare the letter from the option with the correct letter
-    return selected.split('.')[0] === correct;
+    
+    const correctLetter = quiz.questions[questionIndex].answer;
+    const selectedLetter = selected.split('.')[0];
+    return selectedLetter === correctLetter;
   };
 
   const handleSubmit = () => {
     const results = quiz.questions.map((q, i) => ({
-      topic: quiz.topics[0] || 'General',
+      topic: quiz.topics.find(t => q.question.toLowerCase().includes(t.toLowerCase())) || quiz.topics[0] || 'General',
       isCorrect: isCorrect(i),
     }));
-
-    const firstTopic = quiz.topics[0]?.toLowerCase() || '';
-    let subject: 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' = 'Mixed';
-    if (firstTopic.includes('physics')) subject = 'Physics';
-    else if (firstTopic.includes('chemistry')) subject = 'Chemistry';
-    else if (firstTopic.includes('biology')) subject = 'Biology';
 
     logQuiz({
       topics: quiz.topics,
       questions: results,
-      subject: subject,
+      subject: getSubjectFromTopics(quiz.topics),
     });
     setIsFinished(true);
   };

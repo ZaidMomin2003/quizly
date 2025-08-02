@@ -45,9 +45,9 @@ type QuizFormValues = z.infer<typeof quizFormSchema>;
 // A helper to guess the subject from topics
 const getSubjectFromTopics = (topics: string[]): 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' => {
     const lowerCaseTopics = topics.join(' ').toLowerCase();
-    if (lowerCaseTopics.includes('physics')) return 'Physics';
-    if (lowerCaseTopics.includes('chemistry')) return 'Chemistry';
-    if (lowerCaseTopics.includes('biology')) return 'Biology';
+    if (lowerCaseTopics.includes('physic')) return 'Physics'; // Allow for "physics" or "physic"
+    if (lowerCaseTopics.includes('chem')) return 'Chemistry';
+    if (lowerCaseTopics.includes('bio')) return 'Biology';
     return 'Mixed';
 };
 
@@ -81,6 +81,12 @@ export default function QuizzesPage() {
         sessionStorage.removeItem('quickQuizData'); // Clean up
 
         const topics = quickQuizData.topics.split(',').map((t: string) => t.trim()).filter(Boolean);
+        
+        // Also add the subject to the topics array to help with subject detection
+        if (quickQuizData.subject && !topics.join(' ').toLowerCase().includes(quickQuizData.subject.toLowerCase())) {
+            topics.push(quickQuizData.subject);
+        }
+
         if (topics.length > 0) {
             const quizInput: GenerateQuizInput = {
                 topics: topics,
