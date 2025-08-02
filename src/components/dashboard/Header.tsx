@@ -8,9 +8,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Bell } from 'lucide-react';
 import { SidebarTrigger } from '../ui/sidebar';
 import { ThemeToggle } from './ThemeToggle';
+import { ActivityLog } from './ActivityLog';
 
 export function Header() {
   return (
@@ -18,10 +18,7 @@ export function Header() {
        <SidebarTrigger className="md:hidden" />
       <div className="flex items-center gap-4 ml-auto">
         <ThemeToggle />
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Bell className="h-5 w-5" />
-          <span className="sr-only">Notifications</span>
-        </Button>
+        <ActivityLog />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
