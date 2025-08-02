@@ -8,7 +8,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Check, Loader2, Mail } from 'lucide-react';
-import { Badge } from '../ui/badge';
 
 export function Contact() {
   const [name, setName] = useState('');
@@ -44,12 +43,10 @@ export function Contact() {
 
   return (
     <section className="bg-background relative w-full overflow-hidden py-16 md:py-24">
-       <div
-        className="absolute top-0 left-0 h-[500px] w-full"
-        style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.1), transparent)',
-        }}
-      />
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="bg-primary/30 absolute top-[-6rem] -z-10 right-[-8rem] h-[18rem] w-[18rem] rounded-full blur-[10rem] sm:w-[30rem] sm:h-[30rem]"></div>
+        <div className="bg-primary/20 absolute top-[-1rem] -z-10 left-[-35rem] h-[18rem] w-[22rem] rounded-full blur-[10rem] sm:w-[30rem] sm:h-[30rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem]"></div>
+      </div>
 
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
@@ -66,7 +63,7 @@ export function Contact() {
                 </p>
             </motion.div>
         </div>
-        <div className="border-border/40 bg-secondary/20 mx-auto mt-12 max-w-2xl overflow-hidden rounded-2xl border shadow-xl backdrop-blur-sm" ref={formRef}>
+        <div className="border-border/40 bg-card/50 mx-auto mt-12 max-w-2xl overflow-hidden rounded-2xl border shadow-xl backdrop-blur-sm" ref={formRef}>
             <div className="p-6 md:p-10">
               <motion.form
                 initial={{ opacity: 0, y: 20 }}
