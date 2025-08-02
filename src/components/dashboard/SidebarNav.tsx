@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -27,6 +27,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: Home },
+  { href: '/quizzes', label: 'Quizzes', icon: FileQuestion },
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
