@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Card,
   CardContent,
@@ -13,11 +15,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '../ui/button';
 import { ArrowUpRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const recentQuizzes = [
+const initialQuizzes = [
   {
     id: 1,
     name: 'Organic Chemistry Basics',
@@ -44,7 +46,37 @@ const recentQuizzes = [
   },
 ];
 
+type Quiz = {
+    id: number;
+    name: string;
+    subject: string;
+    score: number;
+}
+
 export function RecentActivityCard() {
+    const [recentQuizzes, setRecentQuizzes] = useState<Quiz[]>(initialQuizzes);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedQuizzes = localStorage.getItem('recentQuizzes');
+            if(storedQuizzes) {
+                setRecentQuizzes(JSON.parse(storedQuizzes));
+            }
+
+            const handleStorageChange = () => {
+                const updatedQuizzes = localStorage.getItem('recentQuizzes');
+                if (updatedQuizzes) {
+                    setRecentQuizzes(JSON.parse(updatedQuizzes));
+                }
+            };
+            window.addEventListener('storage', handleStorageChange);
+            return () => {
+                window.removeEventListener('storage', handleStorageChange);
+            };
+        }
+    }, [])
+
+
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center">

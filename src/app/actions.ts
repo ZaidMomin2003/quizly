@@ -4,6 +4,11 @@ import {
   recommendPracticeQuiz,
   type RecommendPracticeQuizOutput,
 } from '@/ai/flows/recommend-practice-quiz';
+import {
+  generateQuiz,
+  type GenerateQuizInput,
+  type Quiz,
+} from '@/ai/flows/generate-quiz-flow';
 
 export async function getRecommendation(): Promise<RecommendPracticeQuizOutput> {
   // In a real app, this data would be fetched from a database.
@@ -24,4 +29,14 @@ export async function getRecommendation(): Promise<RecommendPracticeQuizOutput> 
     console.error('Error getting recommendation:', error);
     throw new Error('Failed to get AI recommendation.');
   }
+}
+
+export async function createQuiz(input: GenerateQuizInput): Promise<Quiz> {
+    try {
+        const quiz = await generateQuiz(input);
+        return quiz;
+    } catch (error) {
+        console.error('Error creating quiz:', error);
+        throw new Error('Failed to generate the quiz.');
+    }
 }
