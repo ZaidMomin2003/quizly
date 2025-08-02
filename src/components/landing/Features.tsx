@@ -141,17 +141,20 @@ export function Features() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
             {features.map((feature, index) => (
-                <GlassCard key={index} className="p-8">
-                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-full">
-                           {feature.icon}
-                        </div>
-                        <div>
+                <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center even:lg:flex-row-reverse">
+                    <div className="lg:col-span-1 even:lg:order-2">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-primary/10 rounded-full">
+                               {feature.icon}
+                            </div>
                             <h3 className="text-xl font-bold font-headline">{feature.title}</h3>
                         </div>
+                        <p className="mt-4 text-muted-foreground">{feature.description}</p>
                     </div>
-                     <p className="mt-4 text-muted-foreground">{feature.description}</p>
-                </GlassCard>
+                    <div className="lg:col-span-1 even:lg:order-1">
+                        {feature.demo}
+                    </div>
+                </div>
             ))}
         </div>
       </div>
