@@ -70,8 +70,8 @@ export default function BookmarksPage() {
       <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                <Bookmark className='h-8 w-8' />
+            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+                <Bookmark className='h-7 w-7' />
                 Bookmarked Questions
             </h1>
             <p className="text-muted-foreground">Review your saved questions here.</p>
