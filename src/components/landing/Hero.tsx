@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section id="hero" className="w-full py-20 lg:py-24">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid gap-10 items-center">
+        <div className="grid gap-10 lg:grid-cols-1 items-center justify-items-center">
           <div className="space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
               AI-Powered Learning
