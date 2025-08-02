@@ -8,6 +8,7 @@ import { Features } from '@/components/landing/Features';
 import { Testimonials } from '@/components/landing/Testimonials';
 import { Pricing } from '@/components/landing/Pricing';
 import { FAQ } from '@/components/landing/FAQ';
+import { Contact } from '@/components/landing/Contact';
 
 export default function LandingPage() {
   return (
@@ -44,6 +45,7 @@ export default function LandingPage() {
         <Testimonials />
         <Pricing />
         <FAQ />
+        <Contact />
       </main>
     </div>
   );
