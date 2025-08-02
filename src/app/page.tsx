@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Hero } from '@/components/landing/Hero';
 import { Features } from '@/components/landing/Features';
 import { Testimonials } from '@/components/landing/Testimonials';
+import { Pricing } from '@/components/landing/Pricing';
 
 export default function LandingPage() {
   return (
@@ -40,6 +41,7 @@ export default function LandingPage() {
         <Hero />
         <Features />
         <Testimonials />
+        <Pricing />
       </main>
     </div>
   );
