@@ -20,21 +20,21 @@ export default function HomePage() {
   const displayStats = [
     {
       subject: 'Physics',
-      solved: isClient ? stats.subjects.Physics.solved : 0,
+      solved: isClient ? stats.subjects.Physics.attempted : 0,
       iconName: 'atom' as const,
       color: 'text-blue-400',
       bgColor: 'bg-blue-400/10',
     },
     {
       subject: 'Chemistry',
-      solved: isClient ? stats.subjects.Chemistry.solved : 0,
+      solved: isClient ? stats.subjects.Chemistry.attempted : 0,
       iconName: 'flask-conical' as const,
       color: 'text-green-400',
       bgColor: 'bg-green-400/10',
     },
     {
       subject: 'Biology',
-      solved: isClient ? stats.subjects.Biology.solved : 0,
+      solved: isClient ? stats.subjects.Biology.attempted : 0,
       iconName: 'dna' as const,
       color: 'text-purple-400',
       bgColor: 'bg-purple-400/10',
@@ -65,6 +65,7 @@ export default function HomePage() {
               iconName={stat.iconName}
               color={stat.color}
               bgColor={stat.bgColor}
+              label={stat.subject === 'Pomodoro Sessions' ? 'Completed' : 'Attempted'}
             />
           ))}
         </div>

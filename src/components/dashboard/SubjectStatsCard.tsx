@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,9 +21,10 @@ interface SubjectStatsCardProps {
   iconName: IconName;
   color: string;
   bgColor: string;
+  label?: string;
 }
 
-export function SubjectStatsCard({ subject, solved, iconName, color, bgColor }: SubjectStatsCardProps) {
+export function SubjectStatsCard({ subject, solved, iconName, color, bgColor, label = "Attempted" }: SubjectStatsCardProps) {
   const Icon = icons[iconName];
 
   return (
@@ -35,7 +37,7 @@ export function SubjectStatsCard({ subject, solved, iconName, color, bgColor }: 
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{solved}</div>
-        <p className="text-xs text-muted-foreground">Completed</p>
+        <p className="text-xs text-muted-foreground">{label}</p>
       </CardContent>
     </Card>
   );
