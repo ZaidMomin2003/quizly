@@ -2,24 +2,26 @@
 'use client';
 
 import { useState } from 'react';
-import type { Quiz } from '@/ai/schemas/quiz';
+import type { Quiz, QuizQuestion } from '@/ai/schemas/quiz';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { ChevronsLeft, ChevronsRight, Check, X, Repeat } from 'lucide-react';
+import { ChevronsLeft, ChevronsRight, Bookmark } from 'lucide-react';
 import { QuizResults } from './QuizResults';
 import { cn } from '@/lib/utils';
 import { Header } from '../dashboard/Header';
 import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useBookmarkStore } from '@/stores/bookmark-store';
+import { useToast } from '@/hooks/use-toast';
 
 interface QuizTakerProps {
   quiz: Quiz;
   onRetake: () => void;
 }
 
-type Answer = {
+export type QuizResult = {
   questionIndex: number;
   answer: string;
   isCorrect: boolean;
@@ -39,6 +41,8 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [isFinished, setIsFinished] = useState(false);
   const { logQuiz } = useAnalyticsStore();
+  const { bookmarks, addBookmark, removeBookmark } = useBookmarkStore();
+  const { toast } = useToast();
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
@@ -72,18 +76,43 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   };
 
   const handleSubmit = () => {
-    const results = quiz.questions.map((q, i) => ({
+    const results: QuizResult[] = quiz.questions.map((q, i) => ({
+      questionIndex: i,
+      answer: selectedAnswers[i] || 'Not Answered',
+      isCorrect: isCorrect(i),
+    }));
+
+    const questionDetails = quiz.questions.map((q, i) => ({
       topic: quiz.topics.find(t => q.question.toLowerCase().includes(t.toLowerCase())) || quiz.topics[0] || 'General',
       isCorrect: isCorrect(i),
     }));
 
     logQuiz({
-      topics: quiz.topics,
-      questions: results,
-      subject: getSubjectFromTopics(quiz.topics),
+      quiz,
+      results,
+      analytics: {
+        topics: quiz.topics,
+        questions: questionDetails,
+        subject: getSubjectFromTopics(quiz.topics),
+      }
     });
     setIsFinished(true);
   };
+  
+  const isBookmarked = (question: QuizQuestion) => {
+    return bookmarks.some(b => b.question === question.question);
+  }
+
+  const handleBookmarkToggle = (question: QuizQuestion) => {
+    const subject = getSubjectFromTopics(quiz.topics);
+    if (isBookmarked(question)) {
+      removeBookmark(question.question);
+      toast({ title: "Bookmark Removed", description: "The question has been removed from your bookmarks." });
+    } else {
+      addBookmark({ ...question, subject: subject, date: new Date().toISOString(), id: question.question });
+      toast({ title: "Bookmark Added", description: "The question has been saved to your bookmarks." });
+    }
+  }
 
   const calculateScore = () => {
     let correctCount = 0;
@@ -96,12 +125,12 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   };
 
   if (isFinished) {
-    const results: Answer[] = quiz.questions.map((q, i) => ({
+    const finalResults: QuizResult[] = quiz.questions.map((q, i) => ({
       questionIndex: i,
       answer: selectedAnswers[i],
       isCorrect: isCorrect(i),
     }));
-    return <QuizResults quiz={quiz} results={results} onRetake={onRetake} score={calculateScore()} />;
+    return <QuizResults quiz={quiz} results={finalResults} onRetake={onRetake} score={calculateScore()} />;
   }
 
   return (
@@ -122,9 +151,14 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
           </div>
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl leading-relaxed">
-                {currentQuestion.question}
-              </CardTitle>
+              <div className='flex justify-between items-start gap-4'>
+                <CardTitle className="text-2xl leading-relaxed">
+                  {currentQuestion.question}
+                </CardTitle>
+                 <Button variant="ghost" size="icon" onClick={() => handleBookmarkToggle(currentQuestion)}>
+                    <Bookmark className={cn(isBookmarked(currentQuestion) ? 'fill-primary text-primary' : 'text-muted-foreground')} />
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <RadioGroup

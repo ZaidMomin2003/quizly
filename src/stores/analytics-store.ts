@@ -4,14 +4,20 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { format } from 'date-fns';
+import type { Quiz } from '@/ai/schemas/quiz';
+import type { QuizResult } from '@/components/quizzes/QuizTaker';
 
 type Subject = 'Physics' | 'Chemistry' | 'Biology' | 'Mixed';
+
+export type { QuizResult };
 
 export interface Activity {
   date: string;
   subject: Subject | string;
   title: string;
   type: 'quiz' | 'pomodoro' | 'quiz_generated';
+  quiz?: Quiz;
+  results?: QuizResult[];
 }
 
 interface AnalyticsState {
@@ -22,7 +28,7 @@ interface AnalyticsState {
   weeklyProgress: Record<string, number>; // { 'YYYY-MM-DD': count }
   weakConcepts: Record<string, number>; // { topic: incorrectCount }
   activities: Activity[];
-  logQuiz: (quiz: { topics: string[], questions: { topic: string, isCorrect: boolean }[], subject: Subject | string }) => void;
+  logQuiz: (data: { quiz: Quiz, results: QuizResult[], analytics: { topics: string[], questions: { topic: string, isCorrect: boolean }[], subject: Subject | string } }) => void;
   logQuizGeneration: (data: { subject: Subject; questionsGenerated: number, topics: string[] }) => void;
   logPomodoro: (task: string) => void;
   getTopWeakConcepts: (count: number) => { topic: string; count: number }[];
@@ -77,20 +83,21 @@ export const useAnalyticsStore = create<AnalyticsState>()(
         });
       },
 
-      logQuiz: (quiz) => {
+      logQuiz: ({ quiz, results, analytics }) => {
         const today = format(new Date(), 'yyyy-MM-dd');
-        const questionsSolvedCount = quiz.questions.length;
+        const questionsSolvedCount = analytics.questions.length;
 
         set((state) => {
           const newStats = JSON.parse(JSON.stringify(state.stats));
           const newWeakConcepts = { ...state.weakConcepts };
           
-          let subject: Subject | string = quiz.subject;
+          let subject: Subject | string = analytics.subject;
           if (!newStats.subjects[subject as Subject]) {
               newStats.subjects[subject as Subject] = { ...initialSubjectStats };
           }
+          newStats.subjects[subject as Subject].solved += 1;
           
-          quiz.questions.forEach(q => {
+          analytics.questions.forEach(q => {
               if (q.isCorrect) {
                 newStats.subjects[subject as Subject].correct += 1;
               } else {
@@ -100,10 +107,12 @@ export const useAnalyticsStore = create<AnalyticsState>()(
           });
 
           const newActivity: Activity = {
-            date: today,
+            date: new Date().toISOString(),
             subject: subject,
-            title: `Quiz: ${quiz.topics.join(', ')}`,
+            title: `Quiz: ${analytics.topics.join(', ')}`,
             type: 'quiz',
+            quiz: quiz,
+            results: results,
           };
           
           return {
@@ -125,7 +134,7 @@ export const useAnalyticsStore = create<AnalyticsState>()(
             newStats.pomodoroSessions += 1;
 
             const newActivity: Activity = {
-                date: today,
+                date: new Date().toISOString(),
                 subject: 'Focus',
                 title: `Pomodoro: ${task}`,
                 type: 'pomodoro',

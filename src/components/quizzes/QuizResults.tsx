@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Quiz } from '@/ai/schemas/quiz';
@@ -10,10 +11,11 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import Link from 'next/link';
 import { ChartContainer, ChartTooltipContent } from '../ui/chart';
+import type { QuizResult } from './QuizTaker';
 
 interface QuizResultsProps {
   quiz: Quiz;
-  results: { questionIndex: number; answer: string; isCorrect: boolean }[];
+  results: QuizResult[];
   score: number;
   onRetake: () => void;
 }
@@ -52,23 +54,23 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
         <div className="max-w-4xl mx-auto space-y-8">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-3xl">Quiz Results</CardTitle>
+                    <CardTitle className="text-2xl sm:text-3xl">Quiz Results</CardTitle>
                     <CardDescription>
                         You completed the quiz on: {quiz.topics.join(', ')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-2 gap-6 items-center">
-                    <div className='flex flex-col items-center justify-center'>
-                        <div className="text-6xl font-bold text-primary">{score}%</div>
+                    <div className='flex flex-col items-center justify-center text-center'>
+                        <div className="text-5xl sm:text-6xl font-bold text-primary">{score}%</div>
                         <div className="text-muted-foreground mt-2">
                             You answered {correctCount} out of {results.length} questions correctly.
                         </div>
-                         <div className="flex gap-4 mt-6">
-                            <Button onClick={onRetake}>
+                         <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
+                            <Button onClick={onRetake} className="w-full sm:w-auto">
                                 <Repeat className="mr-2" />
                                 Take Another Quiz
                             </Button>
-                             <Button variant="outline" asChild>
+                             <Button variant="outline" asChild className="w-full sm:w-auto">
                                 <Link href="/">Back to Dashboard</Link>
                             </Button>
                         </div>
@@ -108,20 +110,20 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
                             const result = results[index];
                             return (
                                 <AccordionItem value={`item-${index}`} key={index}>
-                                    <AccordionTrigger className={cn("text-left hover:no-underline", result.isCorrect ? 'text-green-500' : 'text-red-500')}>
-                                        <div className='flex items-center gap-4'>
-                                            {result.isCorrect ? <CheckCircle2 /> : <XCircle />}
+                                    <AccordionTrigger className={cn("text-left hover:no-underline text-base", result.isCorrect ? 'text-green-500' : 'text-red-500')}>
+                                        <div className='flex items-start sm:items-center gap-4'>
+                                            {result.isCorrect ? <CheckCircle2 className="mt-1 sm:mt-0" /> : <XCircle className="mt-1 sm:mt-0" />}
                                             <span className="flex-1 font-semibold">{question.question}</span>
                                         </div>
                                     </AccordionTrigger>
                                     <AccordionContent className="space-y-4 pt-4">
-                                        <div className="text-muted-foreground">
+                                        <div className="text-muted-foreground text-sm sm:text-base">
                                             <p><span className="font-semibold text-foreground">Your Answer:</span> {result.answer || 'Not answered'}</p>
                                             {!result.isCorrect && <p><span className="font-semibold text-foreground">Correct Answer:</span> {getCorrectAnswerText(index)}</p>}
                                         </div>
                                         <div className="p-4 bg-accent/50 rounded-lg">
                                             <h4 className="font-semibold mb-2">Explanation</h4>
-                                            <p className="text-muted-foreground">{question.explanation}</p>
+                                            <p className="text-muted-foreground text-sm sm:text-base">{question.explanation}</p>
                                         </div>
                                     </AccordionContent>
                                 </AccordionItem>

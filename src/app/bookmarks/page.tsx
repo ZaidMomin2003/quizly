@@ -1,68 +1,59 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Header } from '@/components/dashboard/Header';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Bookmark } from 'lucide-react';
+import { Search, Bookmark, Trash2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-
-// Mock data, in a real app this would come from an API/DB
-const mockBookmarks = [
-  {
-    id: 1,
-    question: 'What is the powerhouse of the cell?',
-    subject: 'Biology',
-    date: '2024-07-30',
-  },
-  {
-    id: 2,
-    question: 'What is the law of conservation of energy?',
-    subject: 'Physics',
-    date: '2024-07-30',
-  },
-  {
-    id: 3,
-    question: 'What is the chemical formula for water?',
-    subject: 'Chemistry',
-    date: '2024-07-29',
-  },
-  {
-    id: 4,
-    question: 'Explain the process of photosynthesis.',
-    subject: 'Biology',
-    date: '2024-07-29',
-  },
-  {
-    id: 5,
-    question: 'Define Newton\'s first law of motion.',
-    subject: 'Physics',
-    date: '2024-07-28',
-  },
-];
+import { useBookmarkStore, Bookmark as BookmarkType } from '@/stores/bookmark-store';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function BookmarksPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isClient, setIsClient] = useState(false);
+  const { bookmarks, removeBookmark } = useBookmarkStore();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const handleRemove = (e: React.MouseEvent, questionId: string) => {
+    e.stopPropagation(); // Prevent accordion from opening/closing
+    removeBookmark(questionId);
+    toast({
+      title: "Bookmark Removed",
+      description: "The question has been removed from your bookmarks."
+    });
+  }
 
   const filteredBookmarks = useMemo(() => {
-    return mockBookmarks.filter(bookmark =>
+    if (!isClient) return [];
+    return bookmarks.filter(bookmark =>
       bookmark.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
       bookmark.subject.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [searchTerm]);
+  }, [searchTerm, bookmarks, isClient]);
 
   const groupedBookmarks = useMemo(() => {
     return filteredBookmarks.reduce((acc, bookmark) => {
-      const { date } = bookmark;
+      const date = new Date(bookmark.date).toDateString();
       if (!acc[date]) {
         acc[date] = [];
       }
       acc[date].push(bookmark);
       return acc;
-    }, {} as Record<string, typeof filteredBookmarks>);
+    }, {} as Record<string, BookmarkType[]>);
   }, [filteredBookmarks]);
+  
+  const getCorrectAnswerText = (bookmark: BookmarkType) => {
+      return bookmark.options.find(opt => opt.startsWith(bookmark.answer)) || 'N/A';
+  }
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -74,7 +65,7 @@ export default function BookmarksPage() {
                 <Bookmark className='h-7 w-7' />
                 Bookmarked Questions
             </h1>
-            <p className="text-muted-foreground">Review your saved questions here.</p>
+            <p className="text-muted-foreground">Review your saved questions and their explanations here.</p>
           </div>
           
           <div className="relative mb-8">
@@ -88,8 +79,8 @@ export default function BookmarksPage() {
           </div>
 
           <div className="space-y-8">
-            {Object.keys(groupedBookmarks).length > 0 ? (
-                Object.entries(groupedBookmarks).map(([date, bookmarks]) => (
+            {isClient && Object.keys(groupedBookmarks).length > 0 ? (
+                Object.entries(groupedBookmarks).sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()).map(([date, bookmarks]) => (
                 <div key={date}>
                     <div className="flex items-center gap-4 mb-4">
                         <Separator className='flex-1' />
@@ -98,23 +89,45 @@ export default function BookmarksPage() {
                         </h2>
                         <Separator className='flex-1' />
                     </div>
-                    <div className="space-y-4">
-                    {bookmarks.map(bookmark => (
-                        <Card key={bookmark.id}>
-                        <CardContent className="p-4">
-                            <div className="flex justify-between items-start">
-                                <p className="font-medium mr-4">{bookmark.question}</p>
-                                <Badge variant="outline">{bookmark.subject}</Badge>
-                            </div>
-                        </CardContent>
-                        </Card>
-                    ))}
-                    </div>
+                    <Accordion type="single" collapsible className="w-full space-y-4">
+                      {bookmarks.map(bookmark => (
+                          <AccordionItem value={bookmark.id} key={bookmark.id} className="border-b-0">
+                             <Card>
+                               <AccordionTrigger className="p-4 hover:no-underline">
+                                    <div className="flex justify-between items-start w-full">
+                                        <p className="font-medium mr-4 text-left">{bookmark.question}</p>
+                                        <div className='flex items-center gap-2'>
+                                            <Badge variant="outline">{bookmark.subject}</Badge>
+                                             <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => handleRemove(e, bookmark.id)}>
+                                                <Trash2 className="h-4 w-4 text-red-500" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                               </AccordionTrigger>
+                               <AccordionContent className="p-4 pt-0">
+                                   <div className="space-y-4 pt-4 border-t">
+                                        <div className="text-muted-foreground">
+                                            <p><span className="font-semibold text-foreground">Options:</span></p>
+                                            <ul className='list-disc pl-5 mt-2'>
+                                                {bookmark.options.map(opt => <li key={opt}>{opt}</li>)}
+                                            </ul>
+                                            <p className='mt-2'><span className="font-semibold text-foreground">Correct Answer:</span> {getCorrectAnswerText(bookmark)}</p>
+                                        </div>
+                                        <div className="p-4 bg-accent/50 rounded-lg">
+                                            <h4 className="font-semibold mb-2">Explanation</h4>
+                                            <p className="text-muted-foreground">{bookmark.explanation}</p>
+                                        </div>
+                                    </div>
+                               </AccordionContent>
+                             </Card>
+                          </AccordionItem>
+                      ))}
+                    </Accordion>
                 </div>
                 ))
             ) : (
                 <div className="text-center py-16">
-                    <p className="text-muted-foreground">No bookmarked questions found.</p>
+                    <p className="text-muted-foreground">You haven't bookmarked any questions yet.</p>
                 </div>
             )}
           </div>
