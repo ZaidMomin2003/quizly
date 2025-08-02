@@ -1,6 +1,7 @@
+
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Tags } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -30,6 +31,7 @@ const menuItems = [
   { href: '/pomodoro', label: 'Pomodoro', icon: Timer },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+  { href: '/pricing', label: 'Pricing', icon: Tags },
 ];
 
 export function SidebarNav() {
