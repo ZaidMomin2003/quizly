@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Bot, Menu, X, ChevronDown, ArrowRight, Lightbulb, TrendingUp, Timer } from 'lucide-react';
+import { Bot, Menu, X, ChevronDown, ArrowRight, Lightbulb, TrendingUp, Timer, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Hero } from '@/components/landing/Hero';
 import { Features } from '@/components/landing/Features';
@@ -14,6 +14,56 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
+
+function PromotionPopup({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+                    onClick={onClose}
+                >
+                    <motion.div
+                        initial={{ scale: 0.9, y: 20 }}
+                        animate={{ scale: 1, y: 0 }}
+                        exit={{ scale: 0.9, y: 20 }}
+                        transition={{ duration: 0.3 }}
+                        className="relative m-4 w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-8 text-center">
+                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                <Zap className="h-8 w-8 text-primary" />
+                            </div>
+                            <h2 className="mb-2 text-2xl font-bold font-headline">
+                                Unlock Your Potential
+                            </h2>
+                            <p className="mb-6 text-muted-foreground">
+                                Create unlimited questions on unlimited topics and sub-topics for just <span className="font-bold text-primary">₹399 per month</span>.
+                            </p>
+                            <Button size="lg" className="w-full" asChild>
+                                <Link href="/#pricing">
+                                    Get Started Now
+                                    <ArrowRight className="ml-2 h-4 w-4" />
+                                </Link>
+                            </Button>
+                        </div>
+                        <button
+                            onClick={onClose}
+                            className="absolute top-4 right-4 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted"
+                        >
+                            <X className="h-5 w-5" />
+                            <span className="sr-only">Close</span>
+                        </button>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+}
 
 function AppHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -250,8 +300,20 @@ function Footer() {
 
 
 export default function LandingPage() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  useEffect(() => {
+    // Show popup after a short delay to not be too intrusive
+    const timer = setTimeout(() => {
+      setIsPopupOpen(true);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground font-body">
+       <PromotionPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
        <AppHeader />
       <main className="flex-1">
         <Hero />
