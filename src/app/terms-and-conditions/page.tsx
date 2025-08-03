@@ -61,7 +61,7 @@ export default function TermsAndConditionsPage() {
                     Terms and Conditions
                 </h1>
                 <p className="mt-4 text-lg text-muted-foreground">
-                    Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    Last updated: July 26, 2024
                 </p>
             </div>
 
