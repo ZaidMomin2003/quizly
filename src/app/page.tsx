@@ -288,7 +288,7 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
+                     <a href="mailto:hii@support.wisdomis.fun" className="text-sm text-muted-foreground hover:text-primary">hii@support.wisdomis.fun</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">

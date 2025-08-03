@@ -34,7 +34,7 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
+                     <a href="mailto:hii@support.wisdomis.fun" className="text-sm text-muted-foreground hover:text-primary">hii@support.wisdomis.fun</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
@@ -84,12 +84,12 @@ export default function ServiceDeliveryPolicyPage() {
 
                  <h2 className="mt-8">Accessing the Service</h2>
                  <p>
-                    You can access the service by logging into your account on our website, <a href="https://wisdomisfun.com" className="text-primary hover:underline">wisdomisfun.com</a>, from any supported device with an internet connection.
+                    You can access the service by logging into your account on our website, <a href="https://wisdomis.fun" className="text-primary hover:underline">wisdomis.fun</a>, from any supported device with an internet connection.
                 </p>
 
                 <h2 className="mt-8">Contact Us</h2>
                 <p>
-                    If you experience any issues with accessing the service after your payment, please contact our support team immediately at <a href="mailto:support@wisdomisfun.com" className="text-primary hover:underline">support@wisdomisfun.com</a>.
+                    If you experience any issues with accessing the service after your payment, please contact our support team immediately at <a href="mailto:hii@support.wisdomis.fun" className="text-primary hover:underline">hii@support.wisdomis.fun</a>.
                 </p>
             </div>
         </div>

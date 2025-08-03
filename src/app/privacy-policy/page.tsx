@@ -34,7 +34,7 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
+                     <a href="mailto:hii@support.wisdomis.fun" className="text-sm text-muted-foreground hover:text-primary">hii@support.wisdomis.fun</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
 
                 <h2 className="mt-8">7. Contact Us</h2>
                 <p>
-                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@wisdomisfun.com" className="text-primary hover:underline">support@wisdomisfun.com</a>.
+                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:hii@support.wisdomis.fun" className="text-primary hover:underline">hii@support.wisdomis.fun</a>.
                 </p>
             </div>
         </div>
