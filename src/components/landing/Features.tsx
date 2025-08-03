@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -14,9 +15,7 @@ const features = [
     content:
       'Select your topics, difficulty, and number of questions. Our AI crafts a unique quiz tailored to your needs in seconds.',
     icon: <Lightbulb className="h-6 w-6" />,
-    image:
-      'https://placehold.co/1000x500.png',
-      hint: 'AI generation'
+    image: '/1.png',
   },
   {
     step: 'Step 2',
@@ -24,9 +23,7 @@ const features = [
     content:
       'Complete the quiz and get instant results with detailed explanations for every question to understand the core concepts.',
     icon: <ClipboardCheck className="h-6 w-6" />,
-    image:
-      'https://placehold.co/1000x500.png',
-      hint: 'quiz results'
+    image: '/2.png',
   },
   {
     step: 'Step 3',
@@ -34,9 +31,7 @@ const features = [
     content:
       'Our platform tracks your performance, identifying weak spots. Use these insights to focus your study and conquer your exams.',
     icon: <TrendingUp className="h-6 w-6" />,
-    image:
-      'https://placehold.co/1000x500.png',
-      hint: 'analytics chart'
+    image: '/3.png',
   },
 ];
 
@@ -126,7 +121,6 @@ export function Features() {
                         className="h-full w-full object-cover object-center"
                         width={1000}
                         height={500}
-                        data-ai-hint={feature.hint}
                       />
                       <div className="from-background/80 via-background/70 absolute inset-0 bg-gradient-to-t to-transparent" />
 
