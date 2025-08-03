@@ -92,6 +92,7 @@ function AppHeader() {
     },
     { name: 'Pricing', href: '#pricing' },
     { name: 'FAQ', href: '#faq' },
+    { name: 'Contact Us', href: '#contact' },
   ];
 
   const headerStyle = {
@@ -322,7 +323,9 @@ export default function LandingPage() {
         <Testimonials />
         <Pricing />
         <FAQ />
-        <Contact />
+        <div id="contact">
+            <Contact />
+        </div>
       </main>
       <Footer />
     </div>
