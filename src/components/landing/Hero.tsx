@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Hero() {
@@ -35,9 +35,18 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <span className="mb-6 inline-block rounded-full border border-primary/30 px-3 py-1 text-xs text-primary">
-            v0.4 LAUNCHED. UNLIMITED QUESTIONS
-          </span>
+          <a
+            href="#"
+            className="mb-6 inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/10 p-1 pr-4 text-sm text-primary transition-all hover:bg-primary/20"
+          >
+            <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary-foreground">
+              v0.4 Launched
+            </span>
+            <span className="flex items-center gap-1">
+                Unlimited Questions
+                <ArrowRight className="h-4 w-4" />
+            </span>
+          </a>
           <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-light md:text-5xl lg:text-7xl font-headline">
             Study Smarter with{' '}
             <span className="text-primary">AI-Powered</span> Practice Quizzes
