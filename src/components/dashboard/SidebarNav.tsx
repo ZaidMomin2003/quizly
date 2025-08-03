@@ -2,7 +2,7 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2 } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2, Camera } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -31,11 +31,14 @@ import { useAuth } from '@/hooks/use-auth';
 import { useAnalyticsStore } from '@/stores/analytics-store';
 import { useBookmarkStore } from '@/stores/bookmark-store';
 import { usePomodoroStore } from '@/stores/pomodoro-store';
+import { Skeleton } from '../ui/skeleton';
 
 
 const menuItems = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/dashboard/pomodoro', label: 'Pomodoro', icon: Timer },
+  { href: '/dashboard/quizzes', label: 'Quizzes', icon: FileQuestion },
+  { href: '/dashboard/capture', label: 'Capture', icon: Camera },
   { href: '/dashboard/bookmarks', label: 'Bookmarks', icon: Bookmark },
   { href: '/dashboard/leaderboard', label: 'Leaderboard', icon: Trophy },
 ];
@@ -78,21 +81,13 @@ export function SidebarNav() {
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.label}>
                 <Link href={item.href} className="w-full">
-                    <SidebarMenuButton isActive={pathname === item.href} tooltip={item.label}>
+                    <SidebarMenuButton isActive={pathname.startsWith(item.href)} tooltip={item.label}>
                         <item.icon />
                         <span>{item.label}</span>
                     </SidebarMenuButton>
                 </Link>
             </SidebarMenuItem>
           ))}
-            <SidebarMenuItem>
-                <Link href="/dashboard/quizzes" className="w-full">
-                    <SidebarMenuButton isActive={pathname.startsWith('/dashboard/quizzes')} tooltip="Quizzes">
-                        <FileQuestion />
-                        <span>Quizzes</span>
-                    </SidebarMenuButton>
-                </Link>
-            </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-2 border-t mt-auto">
@@ -160,8 +155,4 @@ export function SidebarNav() {
       </SidebarFooter>
     </>
   );
-}
-
-function Skeleton({ className }: { className: string }) {
-    return <div className={cn("animate-pulse rounded-md bg-muted", className)} />;
 }
