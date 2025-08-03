@@ -321,8 +321,12 @@ export default function LandingPage() {
         <Hero />
         <Features />
         <Testimonials />
-        <Pricing />
-        <FAQ />
+        <div id="pricing">
+            <Pricing />
+        </div>
+        <div id="faq">
+            <FAQ />
+        </div>
         <div id="contact">
             <Contact />
         </div>
