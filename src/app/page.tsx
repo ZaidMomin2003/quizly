@@ -1,7 +1,8 @@
+
 'use client';
 
 import Link from 'next/link';
-import { Bot, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { Bot, Menu, X, ChevronDown, ArrowRight, Lightbulb, TrendingUp, Timer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Hero } from '@/components/landing/Hero';
 import { Features } from '@/components/landing/Features';
@@ -17,6 +18,7 @@ import { useTheme } from 'next-themes';
 function AppHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -28,7 +30,16 @@ function AppHeader() {
   }, []);
 
   const navItems = [
-    { name: 'Features', href: '#features' },
+    {
+        name: 'Features',
+        href: '#features',
+        hasDropdown: true,
+        dropdownItems: [
+            { name: 'AI Quiz Generation', href: '#features', description: 'Personalized quizzes on any topic.', icon: <Lightbulb className="h-5 w-5 text-primary" /> },
+            { name: 'Performance Analytics', href: '#features', description: 'Track progress and weak spots.', icon: <TrendingUp className="h-5 w-5 text-primary" /> },
+            { name: 'Pomodoro Timer', href: '#features', description: 'Stay focused during study sessions.', icon: <Timer className="h-5 w-5 text-primary" /> },
+        ]
+    },
     { name: 'Pricing', href: '#pricing' },
     { name: 'FAQ', href: '#faq' },
   ];
@@ -42,6 +53,11 @@ function AppHeader() {
   const mobileMenuVariants = {
     closed: { opacity: 0, height: 0 },
     open: { opacity: 1, height: 'auto' },
+  };
+
+    const dropdownVariants = {
+    hidden: { opacity: 0, y: -10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   };
 
   return (
@@ -60,13 +76,62 @@ function AppHeader() {
           </Link>
           <nav className="hidden items-center space-x-8 lg:flex">
             {navItems.map((item) => (
-               <a
-                  key={item.name}
+               <div
+                key={item.name}
+                className="relative"
+                onMouseEnter={() =>
+                  item.hasDropdown && setActiveDropdown(item.name)
+                }
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                 <a
                   href={item.href}
                   className="text-foreground flex items-center space-x-1 font-medium transition-colors duration-200 hover:text-primary"
                 >
                   <span>{item.name}</span>
+                   {item.hasDropdown && (
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                  )}
                 </a>
+                 {item.hasDropdown && (
+                  <AnimatePresence>
+                    {activeDropdown === item.name && (
+                      <motion.div
+                        className="border-border bg-background/95 absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max max-w-md overflow-hidden rounded-xl border shadow-xl backdrop-blur-lg"
+                        variants={dropdownVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        transition={{ duration: 0.2 }}
+                      >
+                       <div className="p-4 grid grid-cols-1 gap-4">
+                        {item.dropdownItems?.map((dropdownItem) => (
+                          <Link
+                            key={dropdownItem.name}
+                            href={dropdownItem.href}
+                            className="hover:bg-muted flex items-start gap-4 rounded-lg p-3 transition-colors duration-200"
+                          >
+                           <div className="p-2 bg-primary/10 rounded-md mt-1">
+                                {dropdownItem.icon}
+                            </div>
+                            <div>
+                                <div className="text-foreground font-semibold">
+                                {dropdownItem.name}
+                                </div>
+                                {dropdownItem.description && (
+                                <div className="text-muted-foreground text-sm">
+                                    {dropdownItem.description}
+                                </div>
+                                )}
+                            </div>
+                          </Link>
+                        ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
             ))}
           </nav>
           <div className="hidden items-center space-x-4 lg:flex">
