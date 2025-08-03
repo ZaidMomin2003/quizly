@@ -68,6 +68,16 @@ const initialState: AnalyticsData = {
 
 const getAnalyticsDocRef = (userId: string) => doc(db, 'analytics', userId);
 
+// Helper function to extract only the serializable data from the state
+const extractSerializableData = (state: AnalyticsState): AnalyticsData => {
+  return {
+    stats: state.stats,
+    weeklyProgress: state.weeklyProgress,
+    weakConcepts: state.weakConcepts,
+    activities: state.activities,
+  };
+};
+
 export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   ...initialState,
   isLoaded: false,
@@ -124,10 +134,14 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
     };
 
     set(newState);
-    setDoc(getAnalyticsDocRef(currentState.userId), {
-        ...currentState,
+    
+    // Create the final data object to be saved, ensuring no functions are included.
+    const dataToSave = {
+        ...extractSerializableData(currentState),
         ...newState,
-    }, { merge: true });
+    };
+    
+    setDoc(getAnalyticsDocRef(currentState.userId), dataToSave, { merge: true });
   },
 
   logQuiz: ({ quiz, results, analytics }) => {
@@ -145,6 +159,7 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
         newStats.subjects[subject as Subject] = { ...initialSubjectStats };
     }
     newStats.subjects[subject as Subject].solved += 1;
+    newStats.subjects[subject as Subject].attempted += questionsSolvedCount;
     
     analytics.questions.forEach(q => {
         if (q.isCorrect) {
@@ -175,10 +190,13 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
     };
 
     set(newState);
-    setDoc(getAnalyticsDocRef(currentState.userId), {
-        ...currentState,
+
+    const dataToSave = {
+        ...extractSerializableData(currentState),
         ...newState
-    }, { merge: true });
+    };
+
+    setDoc(getAnalyticsDocRef(currentState.userId), dataToSave, { merge: true });
   },
 
   logPomodoro: (task) => {
@@ -201,10 +219,13 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
     };
 
     set(newState);
-    setDoc(getAnalyticsDocRef(currentState.userId), {
-      ...currentState,
+
+    const dataToSave = {
+      ...extractSerializableData(currentState),
       ...newState,
-    }, { merge: true });
+    };
+
+    setDoc(getAnalyticsDocRef(currentState.userId), dataToSave, { merge: true });
   },
 
   getTopWeakConcepts: (count: number) => {
