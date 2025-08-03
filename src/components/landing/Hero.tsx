@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 export function Hero() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-background pt-36 pb-10 font-light text-foreground antialiased md:pt-48 md:pb-16"
+      className="relative w-full overflow-hidden bg-background pt-40 pb-10 font-light text-foreground antialiased md:pt-52 md:pb-16"
       style={{
         background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%)',
       }}
