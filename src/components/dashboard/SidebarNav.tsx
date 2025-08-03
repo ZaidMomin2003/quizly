@@ -2,7 +2,7 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2, Camera, User } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2, Camera, User, LifeBuoy } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -142,6 +142,12 @@ export function SidebarNav() {
                        <Link href="/dashboard/profile">
                          <UserCircle className='mr-2' />
                          Profile
+                       </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                       <Link href="/dashboard/support">
+                         <LifeBuoy className='mr-2' />
+                         Support
                        </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
