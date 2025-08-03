@@ -13,6 +13,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import Link from 'next/link';
 import { ChartContainer, ChartTooltipContent } from '../ui/chart';
 import type { QuizResult } from './QuizTaker';
+import { useRouter } from 'next/navigation';
 
 interface QuizResultsProps {
   quiz: Quiz;
@@ -26,6 +27,7 @@ const COLORS = ['hsl(var(--chart-2))', 'hsl(var(--destructive))'];
 export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps) {
   const correctCount = results.filter(r => r.isCorrect).length;
   const incorrectCount = results.length - correctCount;
+  const router = useRouter();
 
   const chartData = [
     { name: 'Correct', value: correctCount, fill: 'var(--color-correct)' },
@@ -46,6 +48,10 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
   const getCorrectAnswerText = (questionIndex: number) => {
       const question = quiz.questions[questionIndex];
       return question.options.find(opt => opt.startsWith(question.answer)) || 'N/A';
+  }
+  
+  const handleStartNewQuiz = () => {
+    router.push('/dashboard/quizzes');
   }
 
   return (
@@ -69,10 +75,10 @@ export function QuizResults({ quiz, results, score, onRetake }: QuizResultsProps
                          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
                             <Button onClick={onRetake} className="w-full sm:w-auto">
                                 <Repeat className="mr-2" />
-                                Take Another Quiz
+                                Retake This Quiz
                             </Button>
-                             <Button variant="outline" asChild className="w-full sm:w-auto">
-                                <Link href="/dashboard">Back to Dashboard</Link>
+                             <Button variant="outline" onClick={handleStartNewQuiz} className="w-full sm:w-auto">
+                                Start a New Quiz
                             </Button>
                         </div>
                     </div>

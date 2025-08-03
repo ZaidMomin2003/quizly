@@ -16,24 +16,40 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { signInWithEmail, signInWithGoogle } from '@/lib/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Login successful with:', { email, password });
-      setLoading(false);
+    setError(null);
+    try {
+      await signInWithEmail(email, password);
       router.push('/dashboard');
-    }, 1500);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleGoogleSignIn = async () => {
+    try {
+        await signInWithGoogle();
+        router.push('/dashboard');
+    } catch (err: any) {
+        setError(err.message);
+    }
+  }
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-secondary p-4">
@@ -116,6 +132,14 @@ export default function LoginPage() {
                   </p>
                 </div>
 
+                {error && (
+                    <Alert variant="destructive" className="mb-4">
+                        <AlertTitle>Login Failed</AlertTitle>
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                )}
+
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label
@@ -190,9 +214,9 @@ export default function LoginPage() {
                     </a>
                   </div>
 
-                  <button
+                  <Button
                     type="submit"
-                    className="relative flex w-full items-center justify-center rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90 disabled:opacity-70"
+                    className="w-full"
                     disabled={loading}
                   >
                     {loading ? (
@@ -203,7 +227,7 @@ export default function LoginPage() {
                     ) : (
                       'Sign in to your account'
                     )}
-                  </button>
+                  </Button>
 
                   <div className="relative text-center text-sm text-muted-foreground">
                     <div className="absolute inset-0 flex items-center">
@@ -215,6 +239,7 @@ export default function LoginPage() {
                   <div>
                      <button
                       type="button"
+                      onClick={handleGoogleSignIn}
                       className="flex w-full items-center justify-center rounded-lg border border-input bg-secondary px-4 py-2.5 text-sm text-secondary-foreground shadow-sm hover:bg-accent"
                     >
                       <svg className="h-5 w-5" viewBox="0 0 48 48" aria-hidden="true">

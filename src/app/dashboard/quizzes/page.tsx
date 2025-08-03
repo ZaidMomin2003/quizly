@@ -34,6 +34,7 @@ import type { Quiz, GenerateQuizInput } from '@/ai/schemas/quiz';
 import { QuizTaker } from '@/components/quizzes/QuizTaker';
 import { useToast } from '@/hooks/use-toast';
 import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useRouter } from 'next/navigation';
 
 const quizFormSchema = z.object({
   topics: z.array(z.object({ value: z.string().min(1, 'Topic is required.') })).min(1, 'At least one topic is required.'),
@@ -63,11 +64,13 @@ export default function QuizzesPage() {
   const [generatedQuiz, setGeneratedQuiz] = useState<Quiz | null>(null);
   const { toast } = useToast();
   const { logQuizGeneration } = useAnalyticsStore();
+  const router = useRouter();
+
 
   const form = useForm<QuizFormValues>({
     resolver: zodResolver(quizFormSchema),
     defaultValues: {
-      topics: [{ value: 'Kinematics' }],
+      topics: [{ value: '' }],
       difficulty: 'medium',
       numberOfQuestions: 5,
     },
@@ -96,12 +99,19 @@ export default function QuizzesPage() {
             };
             // Automatically submit form with data from dashboard
             triggerQuizGeneration(quizInput, quickQuizData.subject);
+        } else {
+             // if no topics, set the form values
+            form.reset({
+                topics: [{ value: '' }],
+                difficulty: quickQuizData.difficulty || 'medium',
+                numberOfQuestions: quickQuizData.numberOfQuestions || 5,
+            });
         }
       } catch (e) {
         console.error("Failed to parse quick quiz data", e);
       }
     }
-  }, []);
+  }, [form]);
 
   async function triggerQuizGeneration(input: GenerateQuizInput, subject?: string) {
     setIsLoading(true);
@@ -148,7 +158,13 @@ export default function QuizzesPage() {
   const handleRetake = () => {
     setGeneratedQuiz(null);
     setError(null);
-    form.reset();
+    // Reset form to its default state or a clean state
+    form.reset({
+        topics: [{ value: '' }],
+        difficulty: 'medium',
+        numberOfQuestions: 5,
+    });
+    router.push('/dashboard/quizzes'); // Navigate to the page to re-trigger form
   }
 
   if (generatedQuiz) {

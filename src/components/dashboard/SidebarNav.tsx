@@ -26,6 +26,7 @@ import {
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { cn } from '@/lib/utils';
+import { signOut } from '@/lib/auth';
 
 
 const menuItems = [
@@ -39,8 +40,8 @@ export function SidebarNav() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    // In a real app, you would clear the user's session here.
+  const handleLogout = async () => {
+    await signOut();
     router.push('/login');
   };
 
@@ -64,6 +65,14 @@ export function SidebarNav() {
                 </Link>
             </SidebarMenuItem>
           ))}
+            <SidebarMenuItem>
+                <Link href="/dashboard/quizzes" className="w-full">
+                    <SidebarMenuButton isActive={pathname.startsWith('/dashboard/quizzes')} tooltip="Quizzes">
+                        <FileQuestion />
+                        <span>Quizzes</span>
+                    </SidebarMenuButton>
+                </Link>
+            </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-2 border-t mt-auto">

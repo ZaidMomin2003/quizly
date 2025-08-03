@@ -1,7 +1,8 @@
 
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Quiz, QuizQuestion } from '@/ai/schemas/quiz';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,6 +16,7 @@ import { Header } from '../dashboard/Header';
 import { useAnalyticsStore } from '@/stores/analytics-store';
 import { useBookmarkStore } from '@/stores/bookmark-store';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 interface QuizTakerProps {
   quiz: Quiz;
@@ -40,9 +42,24 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [isFinished, setIsFinished] = useState(false);
+  const [finalResults, setFinalResults] = useState<QuizResult[]>([]);
   const { logQuiz } = useAnalyticsStore();
   const { bookmarks, addBookmark, removeBookmark } = useBookmarkStore();
   const { toast } = useToast();
+  const router = useRouter();
+
+
+  useEffect(() => {
+    if (isFinished) {
+        // Store results in session storage to persist across reloads on the results page
+        sessionStorage.setItem('quizResultsToShow', JSON.stringify({
+            quiz,
+            results: finalResults,
+        }));
+        router.push('/dashboard/quizzes/results');
+    }
+  }, [isFinished, finalResults, quiz, router]);
+
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
@@ -66,12 +83,10 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
     });
   };
 
-  const isCorrect = (questionIndex: number) => {
-    const selected = selectedAnswers[questionIndex];
-    if (!selected) return false;
-    
+  const isCorrect = (questionIndex: number, answer: string) => {
+    if (!answer) return false;
     const correctLetter = quiz.questions[questionIndex].answer;
-    const selectedLetter = selected.split('.')[0];
+    const selectedLetter = answer.split('.')[0];
     return selectedLetter === correctLetter;
   };
 
@@ -79,12 +94,12 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
     const results: QuizResult[] = quiz.questions.map((q, i) => ({
       questionIndex: i,
       answer: selectedAnswers[i] || 'Not Answered',
-      isCorrect: isCorrect(i),
+      isCorrect: isCorrect(i, selectedAnswers[i]),
     }));
 
     const questionDetails = quiz.questions.map((q, i) => ({
       topic: quiz.topics.find(t => q.question.toLowerCase().includes(t.toLowerCase())) || quiz.topics[0] || 'General',
-      isCorrect: isCorrect(i),
+      isCorrect: isCorrect(i, selectedAnswers[i]),
     }));
 
     logQuiz({
@@ -96,6 +111,8 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
         subject: getSubjectFromTopics(quiz.topics),
       }
     });
+    
+    setFinalResults(results);
     setIsFinished(true);
   };
   
@@ -113,25 +130,14 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
       toast({ title: "Bookmark Added", description: "The question has been saved to your bookmarks." });
     }
   }
-
-  const calculateScore = () => {
-    let correctCount = 0;
-    quiz.questions.forEach((_, index) => {
-      if (isCorrect(index)) {
-        correctCount++;
-      }
-    });
-    return Math.round((correctCount / quiz.questions.length) * 100);
-  };
-
+  
+  // QuizTaker UI is rendered here. When finished, isFinished becomes true,
+  // and the useEffect will trigger the redirect to the results page.
+  // We return null here while redirecting.
   if (isFinished) {
-    const finalResults: QuizResult[] = quiz.questions.map((q, i) => ({
-      questionIndex: i,
-      answer: selectedAnswers[i],
-      isCorrect: isCorrect(i),
-    }));
-    return <QuizResults quiz={quiz} results={finalResults} onRetake={onRetake} score={calculateScore()} />;
+    return null; 
   }
+
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -192,7 +198,7 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
               <Button
                 size="lg"
                 onClick={handleSubmit}
-                disabled={!selectedAnswers[currentQuestionIndex]}
+                disabled={Object.keys(selectedAnswers).length !== quiz.questions.length}
               >
                 Finish & See Results
               </Button>
