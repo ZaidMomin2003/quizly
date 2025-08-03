@@ -7,7 +7,7 @@ import { Header } from '@/components/dashboard/Header';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Bookmark, Trash2 } from 'lucide-react';
+import { Search, Bookmark, Trash2, Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useBookmarkStore, Bookmark as BookmarkType } from '@/stores/bookmark-store';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -16,17 +16,12 @@ import { useToast } from '@/hooks/use-toast';
 
 export default function BookmarksPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isClient, setIsClient] = useState(false);
-  const { bookmarks, removeBookmark } = useBookmarkStore();
+  const { bookmarks, removeBookmark, isLoaded } = useBookmarkStore();
   const { toast } = useToast();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const handleRemove = (e: React.MouseEvent, questionId: string) => {
+  const handleRemove = (e: React.MouseEvent, bookmark: BookmarkType) => {
     e.stopPropagation(); // Prevent accordion from opening/closing
-    removeBookmark(questionId);
+    removeBookmark(bookmark);
     toast({
       title: "Bookmark Removed",
       description: "The question has been removed from your bookmarks."
@@ -34,12 +29,11 @@ export default function BookmarksPage() {
   }
 
   const filteredBookmarks = useMemo(() => {
-    if (!isClient) return [];
     return bookmarks.filter(bookmark =>
       bookmark.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
       bookmark.subject.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [searchTerm, bookmarks, isClient]);
+  }, [searchTerm, bookmarks]);
 
   const groupedBookmarks = useMemo(() => {
     return filteredBookmarks.reduce((acc, bookmark) => {
@@ -54,6 +48,18 @@ export default function BookmarksPage() {
   
   const getCorrectAnswerText = (bookmark: BookmarkType) => {
       return bookmark.options.find(opt => opt.startsWith(bookmark.answer)) || 'N/A';
+  }
+
+  if (!isLoaded) {
+    return (
+        <div className="flex flex-col h-screen bg-background">
+            <Header />
+            <main className="flex-1 flex flex-col items-center justify-center gap-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                <h2 className="text-xl font-semibold">Loading Bookmarks...</h2>
+            </main>
+        </div>
+    )
   }
 
   return (
@@ -80,8 +86,8 @@ export default function BookmarksPage() {
           </div>
 
           <div className="space-y-8">
-            {isClient && Object.keys(groupedBookmarks).length > 0 ? (
-                Object.entries(groupedBookmarks).sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()).map(([date, bookmarks]) => (
+            {Object.keys(groupedBookmarks).length > 0 ? (
+                Object.entries(groupedBookmarks).sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()).map(([date, bookmarksInDate]) => (
                 <div key={date}>
                     <div className="flex items-center gap-4 mb-4">
                         <Separator className='flex-1' />
@@ -91,7 +97,7 @@ export default function BookmarksPage() {
                         <Separator className='flex-1' />
                     </div>
                     <Accordion type="single" collapsible className="w-full space-y-4">
-                      {bookmarks.map(bookmark => (
+                      {bookmarksInDate.map(bookmark => (
                           <AccordionItem value={bookmark.id} key={bookmark.id} className="border-b-0">
                              <Card>
                                 <div className="flex items-start justify-between p-4">
@@ -100,7 +106,7 @@ export default function BookmarksPage() {
                                     </AccordionTrigger>
                                     <div className='flex items-center gap-2 ml-4'>
                                         <Badge variant="outline">{bookmark.subject}</Badge>
-                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => handleRemove(e, bookmark.id)}>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => handleRemove(e, bookmark)}>
                                             <Trash2 className="h-4 w-4 text-red-500" />
                                         </Button>
                                     </div>

@@ -5,7 +5,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Timer, Play, Pause, RotateCcw, Lightbulb } from 'lucide-react';
+import { Timer, Play, Pause, RotateCcw, Lightbulb, Loader2 } from 'lucide-react';
 import { usePomodoroStore } from '@/stores/pomodoro-store';
 
 import { Button } from '@/components/ui/button';
@@ -45,6 +45,7 @@ export default function PomodoroPage() {
     mode,
     timeLeft,
     isActive,
+    isLoaded,
     setTask,
     setSessions,
     startTimer,
@@ -61,7 +62,7 @@ export default function PomodoroPage() {
     },
   });
 
-  const isTimerRunningOrPaused = isActive || timeLeft < (mode === 'work' ? 25 * 60 : 5 * 60);
+  const isTimerRunningOrPaused = !!task;
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -86,6 +87,19 @@ export default function PomodoroPage() {
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
+
+  if (!isLoaded) {
+    return (
+        <div className="flex flex-col h-screen bg-background">
+            <Header />
+            <main className="flex-1 flex flex-col items-center justify-center gap-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                <h2 className="text-xl font-semibold">Loading Pomodoro Timer...</h2>
+            </main>
+        </div>
+    )
+  }
+
 
   return (
     <div className="flex flex-col h-screen bg-background">

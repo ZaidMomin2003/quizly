@@ -29,6 +29,8 @@ import { cn } from '@/lib/utils';
 import { signOut } from '@/lib/auth';
 import { useAuth } from '@/hooks/use-auth';
 import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useBookmarkStore } from '@/stores/bookmark-store';
+import { usePomodoroStore } from '@/stores/pomodoro-store';
 
 
 const menuItems = [
@@ -43,10 +45,14 @@ export function SidebarNav() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const { clearAnalytics } = useAnalyticsStore();
+  const { clearBookmarks } = useBookmarkStore();
+  const { clearPomodoro } = usePomodoroStore();
 
   const handleLogout = async () => {
     await signOut();
     clearAnalytics();
+    clearBookmarks();
+    clearPomodoro();
     router.push('/login');
   };
 
