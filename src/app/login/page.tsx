@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { AuthLayout } from '@/components/auth/AuthLayout';
+import { useRouter } from 'next/navigation';
 
 const loginFormSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
@@ -25,6 +26,7 @@ const loginFormSchema = z.object({
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export default function LoginPage() {
+  const router = useRouter();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -35,8 +37,9 @@ export default function LoginPage() {
 
   const onSubmit = (data: LoginFormValues) => {
     // This is where you would handle form submission, e.g., call Firebase auth.
-    // For now, we'll just log the data.
+    // For now, we'll just log the data and redirect to dashboard.
     console.log(data);
+    router.push('/dashboard');
   };
 
   return (

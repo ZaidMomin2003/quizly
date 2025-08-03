@@ -61,22 +61,22 @@ export default function LandingPage() {
         </Link>
         <div className="hidden lg:flex items-center gap-4 ml-auto">
             <Button variant="ghost" asChild>
-              <Link href="/dashboard">
+              <Link href="/login">
                 Login
               </Link>
             </Button>
             <Button asChild>
-              <Link href="/dashboard">Get Started</Link>
+              <Link href="/signup">Get Started</Link>
             </Button>
         </div>
          <nav className="ml-auto flex lg:hidden gap-4 sm:gap-6 items-center">
            <Button variant="ghost" asChild>
-            <Link href="/dashboard">
+            <Link href="/login">
               Login
             </Link>
           </Button>
           <Button asChild>
-            <Link href="/dashboard">Get Started</Link>
+            <Link href="/signup">Get Started</Link>
           </Button>
         </nav>
       </header>
