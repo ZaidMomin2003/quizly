@@ -52,7 +52,7 @@ export function Hero() {
             <span className="text-primary">AI-Powered</span> Practice Quizzes
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-foreground/60 md:text-xl">
-            QuizlyAI combines artificial intelligence with cutting-edge learning
+            Create hundreds of questions on any topic or subtopic and master it. QuizlyAI combines artificial intelligence with cutting-edge learning
             strategies to help you conquer NEET/JEE with precision and ease.
           </p>
 
