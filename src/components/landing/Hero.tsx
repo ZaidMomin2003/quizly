@@ -36,7 +36,7 @@ export function Hero() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <span className="mb-6 inline-block rounded-full border border-primary/30 px-3 py-1 text-xs text-primary">
-            THE FUTURE OF EXAM PREPARATION
+            v0.4 LAUNCHED. UNLIMITED QUESTIONS
           </span>
           <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-light md:text-5xl lg:text-7xl font-headline">
             Study Smarter with{' '}
@@ -49,7 +49,7 @@ export function Hero() {
 
           <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:mb-0 sm:flex-row">
             <Button size="lg" asChild>
-              <Link href="/signup">
+              <Link href="/dashboard">
                 Get Started For Free
               </Link>
             </Button>
