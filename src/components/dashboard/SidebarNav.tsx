@@ -28,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { cn } from '@/lib/utils';
 import { signOut } from '@/lib/auth';
 import { useAuth } from '@/hooks/use-auth';
+import { useAnalyticsStore } from '@/stores/analytics-store';
 
 
 const menuItems = [
@@ -41,9 +42,11 @@ export function SidebarNav() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, loading } = useAuth();
+  const { clearAnalytics } = useAnalyticsStore();
 
   const handleLogout = async () => {
     await signOut();
+    clearAnalytics();
     router.push('/login');
   };
 
