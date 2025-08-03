@@ -2,7 +2,7 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2, Camera } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2, Camera, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -32,6 +32,7 @@ import { useAnalyticsStore } from '@/stores/analytics-store';
 import { useBookmarkStore } from '@/stores/bookmark-store';
 import { usePomodoroStore } from '@/stores/pomodoro-store';
 import { Skeleton } from '../ui/skeleton';
+import { useOnboardingStore } from '@/stores/onboarding-store';
 
 
 const menuItems = [
@@ -50,12 +51,14 @@ export function SidebarNav() {
   const { clearAnalytics } = useAnalyticsStore();
   const { clearBookmarks } = useBookmarkStore();
   const { clearPomodoro } = usePomodoroStore();
+  const { clearOnboarding } = useOnboardingStore();
 
   const handleLogout = async () => {
     await signOut();
     clearAnalytics();
     clearBookmarks();
     clearPomodoro();
+    clearOnboarding();
     router.push('/login');
   };
 
@@ -130,14 +133,16 @@ export function SidebarNav() {
                 <DropdownMenuContent align="end" className='w-56 mb-2'>
                     <DropdownMenuLabel className='font-normal'>
                         <div className='flex flex-col space-y-1'>
-                            <p className='text-sm font-medium leading-none'>My Account</p>
+                            <p className='text-sm font-medium leading-none'>{user?.displayName || 'User'}</p>
                             <p className='text-xs leading-none text-muted-foreground'>{user?.email}</p>
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                        <UserCircle className='mr-2' />
-                        Profile
+                     <DropdownMenuItem asChild>
+                       <Link href="/dashboard/profile">
+                         <UserCircle className='mr-2' />
+                         Profile
+                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Settings className='mr-2' />

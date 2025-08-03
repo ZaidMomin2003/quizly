@@ -33,8 +33,12 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
     try {
-      await signInWithEmail(email, password);
-      router.push('/dashboard');
+      const { isNew } = await signInWithEmail(email, password);
+      if (isNew) {
+        router.push('/onboarding');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -44,8 +48,12 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = async () => {
     try {
-        await signInWithGoogle();
-        router.push('/dashboard');
+        const { isNew } = await signInWithGoogle();
+        if (isNew) {
+            router.push('/onboarding');
+        } else {
+            router.push('/dashboard');
+        }
     } catch (err: any) {
         setError(err.message);
     }
