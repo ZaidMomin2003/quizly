@@ -2,7 +2,7 @@
 
 "use client";
 
-import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut } from 'lucide-react';
+import { Bot, Home, Settings, UserCircle, Trophy, ListChecks, Timer, Bookmark, FileQuestion, Crown, LogOut, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -27,6 +27,7 @@ import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { cn } from '@/lib/utils';
 import { signOut } from '@/lib/auth';
+import { useAuth } from '@/hooks/use-auth';
 
 
 const menuItems = [
@@ -39,11 +40,21 @@ const menuItems = [
 export function SidebarNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, loading } = useAuth();
 
   const handleLogout = async () => {
     await signOut();
     router.push('/login');
   };
+
+  const getAvatarFallback = (name: string | null | undefined) => {
+    if (!name) return 'U';
+    const parts = name.split(' ');
+    if (parts.length > 1) {
+        return parts[0][0] + parts[1][0];
+    }
+    return name[0];
+  }
 
   return (
     <>
@@ -88,19 +99,32 @@ export function SidebarNav() {
         <div className="flex items-center justify-between p-2 group-data-[collapsible=icon]:hidden">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="justify-start gap-3 px-2 w-full">
-                         <Avatar className="h-8 w-8">
-                            <AvatarImage
-                            src="https://placehold.co/100x100"
-                            alt="@student"
-                            data-ai-hint="profile avatar"
-                            />
-                            <AvatarFallback>S</AvatarFallback>
-                        </Avatar>
-                        <div className='flex flex-col items-start'>
-                            <span className='font-semibold'>Student</span>
-                            <span className='text-xs text-muted-foreground'>student@example.com</span>
-                        </div>
+                    <Button variant="ghost" className="justify-start gap-3 px-2 w-full" disabled={loading}>
+                        {loading ? (
+                             <div className="flex items-center gap-3">
+                                <Skeleton className="h-8 w-8 rounded-full" />
+                                <div className="flex flex-col items-start gap-1">
+                                    <Skeleton className="h-4 w-20" />
+                                    <Skeleton className="h-3 w-28" />
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage
+                                    src={user?.photoURL || ''}
+                                    alt={user?.displayName || 'User'}
+                                    data-ai-hint="profile avatar"
+                                    />
+                                    <AvatarFallback>{getAvatarFallback(user?.displayName)}</AvatarFallback>
+                                </Avatar>
+                                <div className='flex flex-col items-start'>
+                                    <span className='font-semibold'>{user?.displayName || 'User'}</span>
+                                    <span className='text-xs text-muted-foreground'>{user?.email || 'No email'}</span>
+                                </div>
+                            </>
+                        )}
+                         
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className='w-56 mb-2'>
@@ -127,4 +151,8 @@ export function SidebarNav() {
       </SidebarFooter>
     </>
   );
+}
+
+function Skeleton({ className }: { className: string }) {
+    return <div className={cn("animate-pulse rounded-md bg-muted", className)} />;
 }
