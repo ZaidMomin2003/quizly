@@ -8,7 +8,7 @@ import type { QuizResult } from '@/components/quizzes/QuizTaker';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-type Subject = 'Physics' | 'Chemistry' | 'Biology' | 'Mixed';
+type Subject = 'Physics' | 'Chemistry' | 'Biology' | 'Mathematics' | 'Mixed';
 
 export type { QuizResult };
 
@@ -54,6 +54,7 @@ const initialStats = {
     Physics: { ...initialSubjectStats },
     Chemistry: { ...initialSubjectStats },
     Biology: { ...initialSubjectStats },
+    Mathematics: { ...initialSubjectStats },
     Mixed: { ...initialSubjectStats },
   },
   pomodoroSessions: 0,
@@ -93,7 +94,16 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
 
       if (docSnap.exists()) {
         const data = docSnap.data() as AnalyticsData;
-        set({ ...data, isLoaded: true });
+        // Ensure all subjects are present in the loaded data
+        const mergedStats = {
+          ...initialStats,
+          ...data.stats,
+          subjects: {
+            ...initialStats.subjects,
+            ...(data.stats?.subjects || {}),
+          },
+        };
+        set({ ...data, stats: mergedStats, isLoaded: true });
       } else {
         // No existing data, set initial state and create document
         await setDoc(docRef, initialState);

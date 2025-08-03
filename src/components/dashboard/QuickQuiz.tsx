@@ -14,12 +14,11 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { createQuiz } from '@/app/actions';
-import { GenerateQuizInput } from '@/ai/schemas/quiz';
+import { useOnboardingStore } from '@/stores/onboarding-store';
 
 const quickQuizFormSchema = z.object({
   topics: z.string().min(1, 'Please enter at least one topic.'),
-  subject: z.enum(['Physics', 'Chemistry', 'Biology']),
+  subject: z.enum(['Physics', 'Chemistry', 'Biology', 'Mathematics']),
   numberOfQuestions: z.coerce.number().int().min(1, 'At least 1 question.').max(20, 'Max 20 questions.'),
 });
 
@@ -29,6 +28,8 @@ export function QuickQuiz() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const { formData } = useOnboardingStore();
+  const isJeeStudent = formData.exam?.toLowerCase().includes('jee');
 
   const form = useForm<QuickQuizFormValues>({
     resolver: zodResolver(quickQuizFormSchema),
@@ -41,14 +42,7 @@ export function QuickQuiz() {
 
   const onSubmit = async (data: QuickQuizFormValues) => {
     setIsLoading(true);
-
-    // This is a workaround to redirect to the quizzes page and pass data.
-    // In a real app, you might use query params or a more robust state management solution.
     sessionStorage.setItem('quickQuizData', JSON.stringify(data));
-    
-    // We are just navigating. The actual quiz generation will be triggered
-    // on the quizzes page. This is a simple way to reuse the quiz taking UI.
-    // A better implementation could involve a global state manager.
     router.push('/dashboard/quizzes');
   };
 
@@ -92,7 +86,11 @@ export function QuickQuiz() {
                       <SelectContent>
                         <SelectItem value="Physics">Physics</SelectItem>
                         <SelectItem value="Chemistry">Chemistry</SelectItem>
-                        <SelectItem value="Biology">Biology</SelectItem>
+                        {isJeeStudent ? (
+                            <SelectItem value="Mathematics">Mathematics</SelectItem>
+                        ) : (
+                            <SelectItem value="Biology">Biology</SelectItem>
+                        )}
                       </SelectContent>
                     </Select>
                   </FormItem>

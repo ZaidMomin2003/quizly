@@ -35,6 +35,7 @@ import { QuizTaker } from '@/components/quizzes/QuizTaker';
 import { useToast } from '@/hooks/use-toast';
 import { useAnalyticsStore } from '@/stores/analytics-store';
 import { useRouter } from 'next/navigation';
+import { useOnboardingStore } from '@/stores/onboarding-store';
 
 const quizFormSchema = z.object({
   topics: z.array(z.object({ value: z.string().min(1, 'Topic is required.') })).min(1, 'At least one topic is required.'),
@@ -45,16 +46,18 @@ const quizFormSchema = z.object({
 type QuizFormValues = z.infer<typeof quizFormSchema>;
 
 // A helper to guess the subject from topics
-const getSubjectFromTopics = (topics: string[], subject?: string): 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' => {
+const getSubjectFromTopics = (topics: string[], subject?: string): 'Physics' | 'Chemistry' | 'Biology' | 'Mathematics' | 'Mixed' => {
     if (subject) {
         if (subject.toLowerCase().includes('physic')) return 'Physics';
         if (subject.toLowerCase().includes('chem')) return 'Chemistry';
         if (subject.toLowerCase().includes('bio')) return 'Biology';
+        if (subject.toLowerCase().includes('math')) return 'Mathematics';
     }
     const lowerCaseTopics = topics.join(' ').toLowerCase();
     if (lowerCaseTopics.includes('physic')) return 'Physics'; // Allow for "physics" or "physic"
     if (lowerCaseTopics.includes('chem')) return 'Chemistry';
     if (lowerCaseTopics.includes('bio')) return 'Biology';
+    if (lowerCaseTopics.includes('math')) return 'Mathematics';
     return 'Mixed';
 };
 

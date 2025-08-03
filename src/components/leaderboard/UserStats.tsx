@@ -6,19 +6,25 @@ import { Progress } from '@/components/ui/progress';
 import { Activity } from 'lucide-react';
 import { useAnalyticsStore } from '@/stores/analytics-store';
 import { useEffect, useState } from 'react';
+import { useOnboardingStore } from '@/stores/onboarding-store';
 
 export function UserStats() {
     const { stats } = useAnalyticsStore();
+    const { formData } = useOnboardingStore();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
+    const isJeeStudent = isClient && formData.exam?.toLowerCase().includes('jee');
+
     const displayStats = isClient ? [
         { subject: 'Physics', attempted: stats.subjects.Physics.attempted, correct: stats.subjects.Physics.correct },
         { subject: 'Chemistry', attempted: stats.subjects.Chemistry.attempted, correct: stats.subjects.Chemistry.correct },
-        { subject: 'Biology', attempted: stats.subjects.Biology.attempted, correct: stats.subjects.Biology.correct },
+        isJeeStudent
+            ? { subject: 'Mathematics', attempted: stats.subjects.Mathematics.attempted, correct: stats.subjects.Mathematics.correct }
+            : { subject: 'Biology', attempted: stats.subjects.Biology.attempted, correct: stats.subjects.Biology.correct },
     ] : [];
 
     return (
@@ -33,6 +39,7 @@ export function UserStats() {
                 {isClient && displayStats.length > 0 ? (
                     <ul className="space-y-6">
                         {displayStats.map(stat => {
+                            if (!stat) return null;
                             const accuracy = stat.attempted > 0 ? (stat.correct / stat.attempted) * 100 : 0;
                             return (
                                 <li key={stat.subject}>

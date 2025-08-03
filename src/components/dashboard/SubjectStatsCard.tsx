@@ -2,7 +2,7 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Atom, Dna, FlaskConical, Timer, type LucideIcon, type LucideProps } from 'lucide-react';
+import { Atom, Dna, FlaskConical, Timer, Calculator, type LucideIcon, type LucideProps } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
@@ -11,6 +11,7 @@ const icons = {
   'flask-conical': FlaskConical,
   dna: Dna,
   timer: Timer,
+  calculator: Calculator,
 };
 
 type IconName = keyof typeof icons;

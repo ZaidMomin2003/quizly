@@ -7,15 +7,19 @@ import { SubjectStatsCard } from '@/components/dashboard/SubjectStatsCard';
 import { WeeklyProgressChart } from '@/components/dashboard/WeeklyProgressChart';
 import { WeakConcepts } from '@/components/dashboard/WeakConcepts';
 import { useAnalyticsStore } from '@/stores/analytics-store';
+import { useOnboardingStore } from '@/stores/onboarding-store';
 import { useEffect, useState } from 'react';
 
 export default function HomePage() {
   const { stats } = useAnalyticsStore();
+  const { formData } = useOnboardingStore();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
+  const isJeeStudent = formData.exam?.toLowerCase().includes('jee');
 
   const displayStats = [
     {
@@ -32,7 +36,13 @@ export default function HomePage() {
       color: 'text-green-400',
       bgColor: 'bg-green-400/10',
     },
-    {
+    isJeeStudent ? {
+      subject: 'Mathematics',
+      solved: isClient ? stats.subjects.Mathematics.attempted : 0,
+      iconName: 'calculator' as const, // Assuming you add a 'calculator' icon
+      color: 'text-red-400',
+      bgColor: 'bg-red-400/10',
+    } : {
       subject: 'Biology',
       solved: isClient ? stats.subjects.Biology.attempted : 0,
       iconName: 'dna' as const,

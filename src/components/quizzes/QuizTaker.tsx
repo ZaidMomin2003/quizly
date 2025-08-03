@@ -30,11 +30,12 @@ export type QuizResult = {
 };
 
 // A helper to guess the subject from topics
-const getSubjectFromTopics = (topics: string[]): 'Physics' | 'Chemistry' | 'Biology' | 'Mixed' => {
+const getSubjectFromTopics = (topics: string[]): 'Physics' | 'Chemistry' | 'Biology' | 'Mathematics' | 'Mixed' => {
     const lowerCaseTopics = topics.join(' ').toLowerCase();
-    if (lowerCaseTopics.includes('physic')) return 'Physics'; // Allow for "physics" or "physic"
+    if (lowerCaseTopics.includes('physic')) return 'Physics';
     if (lowerCaseTopics.includes('chem')) return 'Chemistry';
     if (lowerCaseTopics.includes('bio')) return 'Biology';
+    if (lowerCaseTopics.includes('math')) return 'Mathematics';
     return 'Mixed';
 };
 
@@ -123,7 +124,7 @@ export function QuizTaker({ quiz, onRetake }: QuizTakerProps) {
   const handleBookmarkToggle = (question: QuizQuestion) => {
     const subject = getSubjectFromTopics(quiz.topics);
     if (isBookmarked(question)) {
-      removeBookmark(question.question);
+      removeBookmark(question);
       toast({ title: "Bookmark Removed", description: "The question has been removed from your bookmarks." });
     } else {
       addBookmark({ ...question, subject: subject, date: new Date().toISOString(), id: question.question });
