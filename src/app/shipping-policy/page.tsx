@@ -11,7 +11,7 @@ function Footer() {
                 <div className="space-y-4">
                      <Link href="/" className="flex items-center space-x-2">
                         <Bot className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                        <span className="text-2xl font-bold font-headline">WisdomIsFun</span>
                     </Link>
                     <p className="text-sm text-muted-foreground">AI-Powered NEET/JEE Practice Quizzes.</p>
                 </div>
@@ -34,11 +34,11 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@quizlyy.online" className="text-sm text-muted-foreground hover:text-primary">support@quizlyy.online</a>
+                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-                © {new Date().getFullYear()} QuizlyAI. All rights reserved.
+                © {new Date().getFullYear()} WisdomIsFun. All rights reserved.
             </div>
         </footer>
     );
@@ -50,7 +50,7 @@ export default function ServiceDeliveryPolicyPage() {
       <header className="sticky top-0 z-50 w-full px-4 lg:px-6 h-16 flex items-center border-b border-border/40 bg-background/95 backdrop-blur-sm">
         <Link href="/" className="flex items-center justify-center">
           <Bot className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold font-headline">QuizlyAI</span>
+          <span className="ml-2 text-lg font-semibold font-headline">WisdomIsFun</span>
         </Link>
       </header>
       <main className="flex-1 py-12 px-4 md:px-6">
@@ -71,7 +71,7 @@ export default function ServiceDeliveryPolicyPage() {
                     <div>
                         <h2 className="mt-0 text-2xl">Instant Digital Access</h2>
                         <p>
-                            Quizly is a fully digital Software-as-a-Service (SaaS) platform. We do not ship any physical products.
+                            WisdomIsFun is a fully digital Software-as-a-Service (SaaS) platform. We do not ship any physical products.
                         </p>
                         <p>
                            Upon successful completion of your subscription payment, your account will be instantly upgraded, and you will receive immediate access to all the premium features included in your chosen plan. You can start generating quizzes, using the Pomodoro timer, and tracking your analytics right away.
@@ -84,12 +84,12 @@ export default function ServiceDeliveryPolicyPage() {
 
                  <h2 className="mt-8">Accessing the Service</h2>
                  <p>
-                    You can access the service by logging into your account on our website, <a href="https://quizlyy.online" className="text-primary hover:underline">quizlyy.online</a>, from any supported device with an internet connection.
+                    You can access the service by logging into your account on our website, <a href="https://wisdomisfun.com" className="text-primary hover:underline">wisdomisfun.com</a>, from any supported device with an internet connection.
                 </p>
 
                 <h2 className="mt-8">Contact Us</h2>
                 <p>
-                    If you experience any issues with accessing the service after your payment, please contact our support team immediately at <a href="mailto:support@quizlyy.online" className="text-primary hover:underline">support@quizlyy.online</a>.
+                    If you experience any issues with accessing the service after your payment, please contact our support team immediately at <a href="mailto:support@wisdomisfun.com" className="text-primary hover:underline">support@wisdomisfun.com</a>.
                 </p>
             </div>
         </div>

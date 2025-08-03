@@ -59,7 +59,7 @@ export function Features() {
               How It Works
             </h2>
             <p className="font-body text-foreground/60 mt-3">
-              QuizlyAI helps you create, customize, and conquer your exams faster than ever before.
+              WisdomIsFun helps you create, customize, and conquer your exams faster than ever before.
             </p>
         </div>
 

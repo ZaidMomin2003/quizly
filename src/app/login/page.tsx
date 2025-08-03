@@ -74,13 +74,13 @@ export default function LoginPage() {
               <div className="relative z-10 flex flex-col justify-between h-full">
                 <div>
                     <div className="mb-12 text-2xl font-bold uppercase">
-                    QuizlyAI
+                    WisdomIsFun
                     </div>
                     <h1 className="mb-4 text-5xl font-light leading-tight">
                     Master Your Exams, One Quiz at a Time.
                     </h1>
                     <p className="mb-12 text-lg opacity-80">
-                    Join thousands of aspirants who trust QuizlyAI to sharpen their knowledge and ace their exams.
+                    Join thousands of aspirants who trust WisdomIsFun to sharpen their knowledge and ace their exams.
                     </p>
                 </div>
 
@@ -129,7 +129,7 @@ export default function LoginPage() {
               <div className="mx-auto w-full max-w-md">
                 <div className="flex justify-center items-center gap-2 mb-8">
                     <Bot className="h-8 w-8 text-primary" />
-                    <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                    <span className="text-2xl font-bold font-headline">WisdomIsFun</span>
                 </div>
                 <div className="mb-8 text-center">
                   <h2 className="text-3xl font-light uppercase text-foreground">

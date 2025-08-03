@@ -18,9 +18,9 @@ interface FaqItem {
 const faqItems: FaqItem[] = [
   {
     id: '1',
-    question: 'What is QuizlyAI?',
+    question: 'What is WisdomIsFun?',
     answer:
-      'QuizlyAI is an AI-powered platform designed to help students prepare for NEET/JEE exams. It uses artificial intelligence to generate personalized practice quizzes, track performance, and provide insights to help you study smarter.',
+      'WisdomIsFun is an AI-powered platform designed to help students prepare for NEET/JEE exams. It uses artificial intelligence to generate personalized practice quizzes, track performance, and provide insights to help you study smarter.',
     category: 'general',
   },
   {
@@ -48,7 +48,7 @@ const faqItems: FaqItem[] = [
     id: '5',
     question: 'What subjects are covered?',
     answer:
-      'QuizlyAI is designed for NEET and JEE aspirants, covering the core subjects: Physics, Chemistry, and Biology. You can generate quizzes on a wide range of topics within these subjects.',
+      'WisdomIsFun is designed for NEET and JEE aspirants, covering the core subjects: Physics, Chemistry, and Biology. You can generate quizzes on a wide range of topics within these subjects.',
     category: 'quizzes',
   },
   {
@@ -88,7 +88,7 @@ export function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="font-body text-foreground/60 mt-3 max-w-2xl">
-            Find answers to common questions about QuizlyAI and how to use our
+            Find answers to common questions about WisdomIsFun and how to use our
             platform to ace your exams.
           </p>
         </div>

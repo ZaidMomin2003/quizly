@@ -52,7 +52,7 @@ export function Hero() {
             <span className="text-primary">AI-Powered</span> Practice Quizzes
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-foreground/60 md:text-xl">
-            Create hundreds of questions on any topic or subtopic and master it. QuizlyAI combines artificial intelligence with cutting-edge learning
+            Create hundreds of questions on any topic or subtopic and master it. WisdomIsFun combines artificial intelligence with cutting-edge learning
             strategies to help you conquer NEET/JEE with precision and ease.
           </p>
 
@@ -89,7 +89,7 @@ export function Hero() {
           <div className="relative z-10 mx-auto max-w-5xl overflow-hidden rounded-lg shadow-[0_0_50px_hsl(var(--primary)/0.2)]">
             <img
               src="/dashboard.jpg"
-              alt="QuizlyAI Dashboard"
+              alt="WisdomIsFun Dashboard"
               width={1920}
               height={1080}
               className="h-auto w-full rounded-lg border border-white/10"

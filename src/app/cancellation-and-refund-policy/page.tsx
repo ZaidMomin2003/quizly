@@ -11,7 +11,7 @@ function Footer() {
                 <div className="space-y-4">
                      <Link href="/" className="flex items-center space-x-2">
                         <Bot className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                        <span className="text-2xl font-bold font-headline">WisdomIsFun</span>
                     </Link>
                     <p className="text-sm text-muted-foreground">AI-Powered NEET/JEE Practice Quizzes.</p>
                 </div>
@@ -34,11 +34,11 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@quizlyy.online" className="text-sm text-muted-foreground hover:text-primary">support@quizlyy.online</a>
+                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-                © {new Date().getFullYear()} QuizlyAI. All rights reserved.
+                © {new Date().getFullYear()} WisdomIsFun. All rights reserved.
             </div>
         </footer>
     );
@@ -50,7 +50,7 @@ export default function CancellationAndRefundPolicyPage() {
       <header className="sticky top-0 z-50 w-full px-4 lg:px-6 h-16 flex items-center border-b border-border/40 bg-background/95 backdrop-blur-sm">
         <Link href="/" className="flex items-center justify-center">
           <Bot className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold font-headline">QuizlyAI</span>
+          <span className="ml-2 text-lg font-semibold font-headline">WisdomIsFun</span>
         </Link>
       </header>
       <main className="flex-1 py-12 px-4 md:px-6">
@@ -67,7 +67,7 @@ export default function CancellationAndRefundPolicyPage() {
 
             <div className="prose prose-lg dark:prose-invert prose-headings:font-headline prose-headings:tracking-tight max-w-none text-foreground/90">
                 <p>
-                    At Quizly, we aim for clarity and fairness in all our policies. This document outlines our policy on subscription cancellations and refunds.
+                    At WisdomIsFun, we aim for clarity and fairness in all our policies. This document outlines our policy on subscription cancellations and refunds.
                 </p>
 
                 <div className="mt-8 flex items-start gap-4 p-4 border rounded-lg bg-card">
@@ -78,7 +78,7 @@ export default function CancellationAndRefundPolicyPage() {
                             You have the flexibility to cancel your subscription at any time. You can manage your subscription and initiate a cancellation from your account settings page.
                         </p>
                         <p>
-                           Upon cancellation, you will continue to have full access to all premium features of Quizly until the end of your current, pre-paid subscription period. Your subscription will not be renewed, and you will not be charged again unless you choose to purchase a new plan.
+                           Upon cancellation, you will continue to have full access to all premium features of WisdomIsFun until the end of your current, pre-paid subscription period. Your subscription will not be renewed, and you will not be charged again unless you choose to purchase a new plan.
                         </p>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export default function CancellationAndRefundPolicyPage() {
                             Due to the digital nature of our service and the immediate access provided to our AI-powered content and features upon subscription, **we do not offer refunds**. All sales are final.
                         </p>
                         <p>
-                            We encourage you to explore the features of Quizly to ensure it meets your needs before subscribing. If you have any issues or concerns with the service, please do not hesitate to reach out to our support team.
+                            We encourage you to explore the features of WisdomIsFun to ensure it meets your needs before subscribing. If you have any issues or concerns with the service, please do not hesitate to reach out to our support team.
                         </p>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ export default function CancellationAndRefundPolicyPage() {
 
                 <h2 className="mt-8">Contact Us</h2>
                 <p>
-                    If you have any questions about our Cancellation and Refund Policy, please contact us at <a href="mailto:support@quizlyy.online" className="text-primary hover:underline">support@quizlyy.online</a>. We are here to help.
+                    If you have any questions about our Cancellation and Refund Policy, please contact us at <a href="mailto:support@wisdomisfun.com" className="text-primary hover:underline">support@wisdomisfun.com</a>. We are here to help.
                 </p>
             </div>
         </div>

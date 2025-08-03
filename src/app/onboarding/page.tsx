@@ -96,7 +96,7 @@ export default function OnboardingPage() {
             <div className="w-full max-w-lg">
                 <div className="flex justify-center items-center gap-2 mb-8">
                     <Bot className="h-8 w-8 text-primary" />
-                    <span className="text-2xl font-bold font-headline text-foreground">QuizlyAI</span>
+                    <span className="text-2xl font-bold font-headline text-foreground">WisdomIsFun</span>
                 </div>
                 <Card className="shadow-2xl">
                     <AnimatePresence mode="wait">
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
                                 transition={{ duration: 0.3 }}
                             >
                                 <CardHeader>
-                                    <CardTitle className="text-center text-2xl font-semibold">Welcome to QuizlyAI!</CardTitle>
+                                    <CardTitle className="text-center text-2xl font-semibold">Welcome to WisdomIsFun!</CardTitle>
                                     <CardDescription className="text-center">Let's get you set up. Which exam are you preparing for?</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">

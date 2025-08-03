@@ -76,7 +76,7 @@ export function SidebarNav() {
       <SidebarHeader className="border-b">
         <div className="flex items-center gap-2 p-2">
           <Bot className="h-8 w-8 text-primary" />
-          <span className="text-xl font-semibold">QuizlyAI</span>
+          <span className="text-xl font-semibold">WisdomIsFun</span>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">

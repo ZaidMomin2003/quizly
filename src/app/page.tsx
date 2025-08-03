@@ -122,7 +122,7 @@ function AppHeader() {
         <div className="flex h-16 items-center justify-between lg:h-20">
           <Link href="/" className="flex items-center space-x-2">
             <Bot className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold font-headline">QuizlyAI</span>
+            <span className="text-xl font-bold font-headline">WisdomIsFun</span>
           </Link>
           <nav className="hidden items-center space-x-8 lg:flex">
             {navItems.map((item) => (
@@ -265,7 +265,7 @@ function Footer() {
                 <div className="space-y-4">
                      <Link href="/" className="flex items-center space-x-2">
                         <Bot className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                        <span className="text-2xl font-bold font-headline">WisdomIsFun</span>
                     </Link>
                     <p className="text-sm text-muted-foreground">AI-Powered NEET/JEE Practice Quizzes.</p>
                 </div>
@@ -288,11 +288,11 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@quizlyy.online" className="text-sm text-muted-foreground hover:text-primary">support@quizlyy.online</a>
+                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-                © {new Date().getFullYear()} QuizlyAI. All rights reserved.
+                © {new Date().getFullYear()} WisdomIsFun. All rights reserved.
             </div>
         </footer>
     );

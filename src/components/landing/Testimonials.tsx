@@ -77,7 +77,7 @@ const testimonials = [
     role: 'NEET Aspirant',
     description: (
       <p>
-        QuizlyAI has completely transformed my NEET preparation.
+        WisdomIsFun has completely transformed my NEET preparation.
         <Highlight>
           The AI-generated quizzes target my weak spots perfectly.
         </Highlight>{' '}
@@ -176,7 +176,7 @@ export function Testimonials() {
             real aspirants
           </span>{' '}
           are saying about{' '}
-          <span className="font-semibold text-primary">QuizlyAI</span>
+          <span className="font-semibold text-primary">WisdomIsFun</span>
         </h3>
       </motion.div>
 

@@ -11,7 +11,7 @@ function Footer() {
                 <div className="space-y-4">
                      <Link href="/" className="flex items-center space-x-2">
                         <Bot className="h-8 w-8 text-primary" />
-                        <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                        <span className="text-2xl font-bold font-headline">WisdomIsFun</span>
                     </Link>
                     <p className="text-sm text-muted-foreground">AI-Powered NEET/JEE Practice Quizzes.</p>
                 </div>
@@ -34,11 +34,11 @@ function Footer() {
                 </div>
                 <div className="space-y-2">
                     <h4 className="font-semibold">Contact</h4>
-                     <a href="mailto:support@quizlyy.online" className="text-sm text-muted-foreground hover:text-primary">support@quizlyy.online</a>
+                     <a href="mailto:support@wisdomisfun.com" className="text-sm text-muted-foreground hover:text-primary">support@wisdomisfun.com</a>
                 </div>
             </div>
             <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-                © {new Date().getFullYear()} QuizlyAI. All rights reserved.
+                © {new Date().getFullYear()} WisdomIsFun. All rights reserved.
             </div>
         </footer>
     );
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
       <header className="sticky top-0 z-50 w-full px-4 lg:px-6 h-16 flex items-center border-b border-border/40 bg-background/95 backdrop-blur-sm">
         <Link href="/" className="flex items-center justify-center">
           <Bot className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold font-headline">QuizlyAI</span>
+          <span className="ml-2 text-lg font-semibold font-headline">WisdomIsFun</span>
         </Link>
       </header>
       <main className="flex-1 py-12 px-4 md:px-6">
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
 
             <div className="prose prose-lg dark:prose-invert prose-headings:font-headline prose-headings:tracking-tight max-w-none text-foreground/90">
                 <p>
-                    This Privacy Policy describes how Quizly ("we", "us", or "our") collects, uses, and discloses your information when you use our website and services (collectively, the "Service").
+                    This Privacy Policy describes how WisdomIsFun ("we", "us", or "our") collects, uses, and discloses your information when you use our website and services (collectively, the "Service").
                 </p>
 
                 <h2 className="mt-8">1. Information We Collect</h2>
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
                     <li>Provide, operate, and maintain our Service.</li>
                     <li>Personalize your learning experience.</li>
                     <li>Process transactions and send you related information, including confirmations and invoices.</li>
-                    <li>Communicate with you about products, services, offers, and events offered by Quizly.</li>
+                    <li>Communicate with you about products, services, offers, and events offered by WisdomIsFun.</li>
                     <li>Monitor and analyze trends, usage, and activities in connection with our Service.</li>
                 </ul>
 
@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
 
                 <h2 className="mt-8">7. Contact Us</h2>
                 <p>
-                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@quizlyy.online" className="text-primary hover:underline">support@quizlyy.online</a>.
+                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@wisdomisfun.com" className="text-primary hover:underline">support@wisdomisfun.com</a>.
                 </p>
             </div>
         </div>

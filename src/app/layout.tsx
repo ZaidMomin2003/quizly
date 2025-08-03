@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 
 
 export const metadata: Metadata = {
-  title: 'QuizlyAI',
+  title: 'WisdomIsFun',
   description: 'AI SaaS for NEET/JEE MCQ practice',
 };
 
