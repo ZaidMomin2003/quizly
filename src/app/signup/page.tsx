@@ -47,8 +47,8 @@ export default function SignupPage() {
         <div className="bg-card/60 overflow-hidden rounded-2xl shadow-2xl backdrop-blur-lg border border-border/20">
           <div className="grid min-h-[700px] lg:grid-cols-2">
             {/* Left Side */}
-            <div className="brand-side relative hidden lg:block m-4 rounded-xl bg-cover p-12 text-white" style={{backgroundImage: "url('https://placehold.co/800x1200.png')", backgroundPosition: 'center'}} data-ai-hint="education library">
-              <div className="absolute inset-0 bg-primary/80 rounded-xl"></div>
+            <div className="brand-side relative hidden lg:block m-4 rounded-xl bg-cover p-12 text-white" style={{backgroundImage: "url('/popup.png')", backgroundPosition: 'center'}}>
+              <div className="absolute inset-0 bg-primary/70 rounded-xl"></div>
               <div className="relative z-10 flex flex-col justify-between h-full">
                 <div>
                     <div className="mb-12 text-2xl font-bold uppercase">
