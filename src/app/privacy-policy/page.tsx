@@ -74,7 +74,7 @@ export default function PrivacyPolicyPage() {
 
                 <h2 className="mt-8">7. Contact Us</h2>
                 <p>
-                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@quizly.ai" className="text-primary hover:underline">support@quizly.ai</a>.
+                    If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@quizlyy.online" className="text-primary hover:underline">support@quizlyy.online</a>.
                 </p>
             </div>
         </div>
