@@ -12,6 +12,7 @@ import {
   TrendingUp,
   Timer,
   BookOpenCheck,
+  Bot,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -102,6 +103,10 @@ export default function LoginPage() {
             {/* Right Side */}
             <div className="flex flex-col justify-center p-8 sm:p-12">
               <div className="mx-auto w-full max-w-md">
+                <div className="flex justify-center items-center gap-2 mb-8">
+                    <Bot className="h-8 w-8 text-primary" />
+                    <span className="text-2xl font-bold font-headline">QuizlyAI</span>
+                </div>
                 <div className="mb-8 text-center">
                   <h2 className="text-3xl font-light uppercase text-foreground">
                     Welcome Back
@@ -237,4 +242,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
