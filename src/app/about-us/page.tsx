@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Bot, FileText, Zap } from 'lucide-react';
+import { Bot, FileText, Target, Lightbulb, Heart } from 'lucide-react';
 
 function Footer() {
     return (
@@ -27,8 +27,8 @@ function Footer() {
                  <div className="space-y-2">
                     <h4 className="font-semibold">Company</h4>
                     <ul className="space-y-2 text-sm">
-                         <li><Link href="/about-us" className="text-muted-foreground hover:text-primary">About Us</Link></li>
-                         <li><Link href="/#features" className="text-muted-foreground hover:text-primary">Features</Link></li>
+                        <li><Link href="/about-us" className="text-muted-foreground hover:text-primary">About Us</Link></li>
+                        <li><Link href="/#features" className="text-muted-foreground hover:text-primary">Features</Link></li>
                         <li><Link href="/#pricing" className="text-muted-foreground hover:text-primary">Pricing</Link></li>
                         <li><Link href="/#faq" className="text-muted-foreground hover:text-primary">FAQ</Link></li>
                     </ul>
@@ -45,7 +45,7 @@ function Footer() {
     );
 }
 
-export default function ServiceDeliveryPolicyPage() {
+export default function AboutUsPage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full px-4 lg:px-6 h-16 flex items-center border-b border-border/40 bg-background/95 backdrop-blur-sm">
@@ -55,43 +55,46 @@ export default function ServiceDeliveryPolicyPage() {
         </Link>
       </header>
       <main className="flex-1 py-12 px-4 md:px-6">
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center">
-                <FileText className="mx-auto h-12 w-12 text-primary" />
-                <h1 className="mt-4 text-4xl font-extrabold tracking-tight lg:text-5xl font-headline">
-                    Service Delivery Policy
+                <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl font-headline">
+                    Our Story: The Quest for Smarter Learning
                 </h1>
-                <p className="mt-4 text-lg text-muted-foreground">
-                    Last updated: July 26, 2024
+                <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+                    WisdomIsFun was born from a simple yet powerful idea: competitive exam preparation shouldn't be a one-size-fits-all experience. It should be personal, adaptive, and empowering.
                 </p>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+                <div className="p-6 border rounded-lg bg-card">
+                    <Target className="mx-auto h-12 w-12 text-primary" />
+                    <h2 className="mt-4 text-2xl font-bold font-headline">Our Vision</h2>
+                    <p className="mt-2 text-muted-foreground">
+                        To make high-quality, personalized education accessible to every student, everywhere, breaking down barriers to success.
+                    </p>
+                </div>
+                <div className="p-6 border rounded-lg bg-card">
+                    <Lightbulb className="mx-auto h-12 w-12 text-primary" />
+                    <h2 className="mt-4 text-2xl font-bold font-headline">Our Mission</h2>
+                    <p className="mt-2 text-muted-foreground">
+                        To empower NEET and JEE aspirants by providing intelligent, adaptive, and engaging learning tools that build confidence and drive success.
+                    </p>
+                </div>
+            </div>
+
             <div className="prose prose-lg dark:prose-invert prose-headings:font-headline prose-headings:tracking-tight max-w-none text-foreground/90">
-                <div className="mt-8 flex items-start gap-4 p-4 border rounded-lg bg-card">
-                    <Zap className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
+                <div className="mt-8 flex items-start gap-4 p-6 border rounded-lg bg-card">
+                     <Heart className="h-10 w-10 text-primary flex-shrink-0 mt-1" />
                     <div>
-                        <h2 className="mt-0 text-2xl">Instant Digital Access</h2>
+                        <h2 className="mt-0 text-3xl">Why We Built WisdomIsFun</h2>
                         <p>
-                            WisdomIsFun is a fully digital Software-as-a-Service (SaaS) platform. We do not ship any physical products.
+                            Having navigated the intense pressure of NEET and JEE preparations ourselves, we know the challenges students face: endless syllabi, generic question banks, and the struggle to identify and overcome personal weak spots. We dreamed of a smarter way to study.
                         </p>
                         <p>
-                           Upon successful completion of your subscription payment, your account will be instantly upgraded, and you will receive immediate access to all the premium features included in your chosen plan. You can start generating quizzes, using the Pomodoro timer, and tracking your analytics right away.
-                        </p>
-                         <p>
-                           An email confirmation and invoice for your purchase will be sent to your registered email address.
+                           We envisioned a platform that acts like a personal tutor—one that understands your unique learning pace, pinpoints your areas for improvement, and provides limitless, targeted practice. By harnessing the power of AI, we built WisdomIsFun to turn that vision into a reality. It's more than just a quiz app; it's a dedicated study partner designed to help you learn more effectively and achieve your academic dreams with confidence.
                         </p>
                     </div>
                 </div>
-
-                 <h2 className="mt-8">Accessing the Service</h2>
-                 <p>
-                    You can access the service by logging into your account on our website, <a href="https://wisdomis.fun" className="text-primary hover:underline">wisdomis.fun</a>, from any supported device with an internet connection.
-                </p>
-
-                <h2 className="mt-8">Contact Us</h2>
-                <p>
-                    If you experience any issues with accessing the service after your payment, please contact our support team immediately at <a href="mailto:hii@support.wisdomis.fun" className="text-primary hover:underline">hii@support.wisdomis.fun</a>.
-                </p>
             </div>
         </div>
       </main>

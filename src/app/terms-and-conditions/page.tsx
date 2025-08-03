@@ -27,6 +27,7 @@ function Footer() {
                  <div className="space-y-2">
                     <h4 className="font-semibold">Company</h4>
                     <ul className="space-y-2 text-sm">
+                         <li><Link href="/about-us" className="text-muted-foreground hover:text-primary">About Us</Link></li>
                          <li><Link href="/#features" className="text-muted-foreground hover:text-primary">Features</Link></li>
                         <li><Link href="/#pricing" className="text-muted-foreground hover:text-primary">Pricing</Link></li>
                         <li><Link href="/#faq" className="text-muted-foreground hover:text-primary">FAQ</Link></li>
