@@ -94,17 +94,17 @@ export default function BookmarksPage() {
                       {bookmarks.map(bookmark => (
                           <AccordionItem value={bookmark.id} key={bookmark.id} className="border-b-0">
                              <Card>
-                               <AccordionTrigger className="p-4 hover:no-underline">
-                                    <div className="flex justify-between items-start w-full">
+                                <div className="flex items-start justify-between p-4">
+                                    <AccordionTrigger className="p-0 flex-1 hover:no-underline">
                                         <p className="font-medium mr-4 text-left">{bookmark.question}</p>
-                                        <div className='flex items-center gap-2'>
-                                            <Badge variant="outline">{bookmark.subject}</Badge>
-                                             <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => handleRemove(e, bookmark.id)}>
-                                                <Trash2 className="h-4 w-4 text-red-500" />
-                                            </Button>
-                                        </div>
+                                    </AccordionTrigger>
+                                    <div className='flex items-center gap-2 ml-4'>
+                                        <Badge variant="outline">{bookmark.subject}</Badge>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={(e) => handleRemove(e, bookmark.id)}>
+                                            <Trash2 className="h-4 w-4 text-red-500" />
+                                        </Button>
                                     </div>
-                               </AccordionTrigger>
+                                </div>
                                <AccordionContent className="p-4 pt-0">
                                    <div className="space-y-4 pt-4 border-t">
                                         <div className="text-muted-foreground">
