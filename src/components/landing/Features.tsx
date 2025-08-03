@@ -118,7 +118,7 @@ export function Features() {
                       <Image
                         src={feature.image}
                         alt={feature.title}
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-contain object-center"
                         width={1000}
                         height={500}
                       />
